@@ -4,9 +4,9 @@
   const assetBase = "./assets/figma-exported/named/";
 
   function loadHomeMissionStyles() {
-    const href = "./css/home-mission.css?v=mission-flow-action-20260616e";
+    const href = "./css/home-mission.css?v=oven-font-20260616a";
     if (!document.querySelector || !document.createElement || !document.head) return;
-    if (document.querySelector(`link[href="${href}"]`)) return;
+    if (document.querySelector('link[href^="./css/home-mission.css"]')) return;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -79,7 +79,7 @@
 
   function homeBanner() {
     return `
-      <section class="hm-home-banner" data-route="mission" aria-label="오늘의 미션 배너">
+      <section class="hm-home-banner" aria-label="오늘의 미션 배너">
         <span class="hm-home-banner__page" aria-hidden="true">1/3</span>
         <div class="hm-home-banner__copy">
           <h1>매일 퀴즈 풀고<br /><mark>쿠키</mark> 받아가세요</h1>
@@ -217,19 +217,46 @@
     `;
   }
 
-  function missionExpModal() {
+  function consumeQueuedMissionExp() {
+    if (window.__storitShowMissionExp) {
+      window.__storitShowMissionExp = false;
+      try {
+        window.sessionStorage.removeItem("storit.showMissionExp");
+      } catch (error) {
+        // The popup state is a visual-only cue.
+      }
+      return true;
+    }
+
+    try {
+      if (window.sessionStorage.getItem("storit.showMissionExp") === "true") {
+        window.sessionStorage.removeItem("storit.showMissionExp");
+        return true;
+      }
+    } catch (error) {
+      // The popup state is a visual-only cue.
+    }
+
+    return false;
+  }
+
+  function missionExpModal(open = false) {
     return `
-      <div class="hm-mission-exp-modal" data-exp-modal data-mission-exp-modal hidden>
+      <div class="hm-mission-exp-modal" data-exp-modal data-mission-exp-modal ${open ? "" : "hidden"}>
         <div class="hm-mission-exp-modal__dim" data-action="close-mission-exp"></div>
         <section class="hm-mission-exp-modal__sheet" role="dialog" aria-modal="true" aria-label="경험치 획득">
           <div class="hm-mission-exp-modal__scallop" aria-hidden="true">
             ${namedAsset("mission-purple-scallop.svg", "hm-mission-exp-modal__scallop-image")}
           </div>
-          <button class="hm-mission-exp-modal__close" type="button" data-action="close-mission-exp" aria-label="닫기">×</button>
+          <button class="hm-mission-exp-modal__close" type="button" data-action="close-mission-exp" aria-label="닫기">
+            <img src="${assetBase}icon-exp-modal-close.svg" alt="" loading="lazy" />
+          </button>
           <div class="hm-mission-exp-modal__confetti" aria-hidden="true"></div>
           <img class="hm-mission-exp-modal__cookie" src="${assetBase}mission-exp-cookie.svg" alt="" loading="lazy" />
-          <h2>경험치를 획득하셨습니다!!!</h2>
-          <p>+ 30 EXP</p>
+          <div class="hm-mission-exp-modal__message">
+            <h2>경험치를 획득하셨습니다!</h2>
+            <p data-exp-amount>+ 30 EXP</p>
+          </div>
         </section>
       </div>
     `;
@@ -307,6 +334,7 @@
   }
 
   function home() {
+    const showMissionExp = consumeQueuedMissionExp();
     return `
       <section class="screen home-screen hm-screen hm-home-screen nav-safe">
         ${profileBar()}
@@ -320,7 +348,7 @@
         </div>
         ${C.bottomNav("home")}
         ${heartChargeModal()}
-        ${missionExpModal()}
+        ${missionExpModal(showMissionExp)}
       </section>
     `;
   }
@@ -379,6 +407,7 @@
 
   function missionItem(item, allDone = false) {
     const done = allDone || item.done;
+    const current = done ? 1 : 0;
     return `
       <article class="hm-mission-item ${done ? "is-done" : ""}">
         ${iconBubble(item.icon)}
@@ -386,8 +415,8 @@
           <strong>${C.escape(item.name)}</strong>
           <p>${C.escape(item.task)}</p>
           <div class="hm-mission-progress-row">
-            <div class="hm-mission-meter" aria-hidden="true"><span style="--value:${done ? 100 : 25}%"></span></div>
-            <span>1 / 1</span>
+            <div class="hm-mission-meter" aria-hidden="true"><span style="--value:${current * 100}%"></span></div>
+            <span>${current} / 1</span>
           </div>
         </div>
         <button class="hm-mission-item__action" type="button" data-route="${done ? "missionDone" : "missionAllDone"}">
@@ -499,7 +528,7 @@
           </div>
         </section>
         <div class="hm-flow-action">
-          <button class="btn" type="button" data-route="home" data-mission-exp="true" data-action="open-mission-exp-home">홈으로 가기</button>
+          <button class="btn" type="button" data-action="open-mission-exp-home">홈으로 가기</button>
         </div>
       `,
     });
@@ -510,7 +539,7 @@
       <section class="hm-attendance-hero">
         <div>
           <p class="hm-kicker">2025년 9월</p>
-          <h2>00일째 연속 출석체크 중</h2>
+          <h2><span>00일째</span> 연속 출석체크 중</h2>
         </div>
         <div class="hm-attendance-hero__character">
           <img src="./assets/figma-exported/named/mission-reward-cookie.svg" alt="" />
@@ -519,7 +548,7 @@
     `;
   }
 
-  function attendanceCalendar() {
+  function attendanceCalendar(isComplete = false) {
     const days = Array.from({ length: 31 }, (_, index) => index + 1);
     const leadingBlanks = Array.from({ length: 4 });
     return `
@@ -534,12 +563,15 @@
           ${leadingBlanks.map(() => `<div class="hm-calendar__blank" aria-hidden="true"></div>`).join("")}
           ${days
             .map(
-              (day) => `
-                <div class="hm-calendar__day ${day <= 10 ? "is-stamped" : ""} ${day === 12 ? "is-today" : ""}">
+              (day) => {
+                const stamped = day <= 10 || (isComplete && day === 11);
+                return `
+                <div class="hm-calendar__day ${stamped ? "is-stamped" : ""}" data-attendance-day="${day}">
                   <span>${day}</span>
-                  <em aria-hidden="true">${day <= 10 ? `<img class="hm-calendar-stamp" src="${assetBase}attendance-cookie-stamp.svg" alt="" loading="lazy" />` : ""}</em>
+                  <em aria-hidden="true">${stamped ? `<img class="hm-calendar-stamp" src="${assetBase}attendance-cookie-stamp.svg" alt="" loading="lazy" />` : ""}</em>
                 </div>
-              `,
+              `;
+              },
             )
             .join("")}
         </div>
@@ -547,9 +579,10 @@
     `;
   }
 
-  function attendanceSuccessNotice() {
+  function attendanceSuccessNotice(isComplete = false) {
     return `
-      <aside class="hm-attendance-notice" aria-live="polite">
+      <aside class="hm-attendance-notice" aria-live="polite" data-attendance-notice ${isComplete ? "" : "hidden"}>
+        <img class="hm-attendance-notice__icon" src="${assetBase}ingredient-flour.svg" alt="" loading="lazy" />
         <span>
           <strong>오늘의 미션 출석체크 달성!!</strong>
           <small>쿠키의 재료 밀가루 획득</small>
@@ -567,11 +600,12 @@
       content: `
         ${missionTimer("오늘의 출석체크 종료까지")}
         ${attendanceHero()}
-        ${attendanceCalendar()}
+        ${attendanceCalendar(extra)}
         <div class="fixed-bottom-action hm-attendance-action">
-          ${C.button("출석하기", { route: extra ? "mission" : "attendanceReward", variant: extra ? "outline" : "" })}
+          ${C.button("출석하기", { action: "complete-attendance", variant: extra ? "outline" : "", disabled: extra })}
         </div>
-        ${extra ? attendanceSuccessNotice() : ""}
+        ${attendanceSuccessNotice(extra)}
+        ${missionExpModal()}
       `,
     });
   }

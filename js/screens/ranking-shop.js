@@ -7,11 +7,11 @@
     if (typeof document === "undefined") return;
     const doc = document;
     if (!doc.querySelector || !doc.createElement || !doc.head) return;
-    if (doc.querySelector('link[data-storit-css="ranking-shop"]')) return;
+    if (doc.querySelector('link[href^="./css/ranking-shop.css"], link[data-storit-css="ranking-shop"]')) return;
 
     const link = doc.createElement("link");
     link.rel = "stylesheet";
-    link.href = "./css/ranking-shop.css";
+    link.href = "./css/ranking-shop.css?v=scallop-layout-20260616a";
     if (link.setAttribute) {
       link.setAttribute("data-storit-css", "ranking-shop");
     }

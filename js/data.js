@@ -1,6 +1,6 @@
 (function () {
   const ingredients = [
-    { name: "버터", icon: "butter", task: "출석체크 하기", done: true },
+    { name: "버터", icon: "butter", task: "출석체크 하기", done: false },
     { name: "밀가루", icon: "flour", task: "웹툰 2개 풀기", done: true },
     { name: "우유", icon: "milk", task: "친구 초대하기", done: true },
     { name: "설탕", icon: "sugar", task: "웹툰 5개 풀기", done: false },
@@ -51,6 +51,9 @@
       missionCookie: assetPath + "icon-mission-chef-cookie.png",
       missionTimer: assetPath + "icon-mission-timer.png",
       quizWriting: assetPath + "icon-quiz-writing-cookie.png",
+      quizGuideChef: assetPath + "quiz-create-guide-cookie.svg",
+      question: assetPath + "icon-quiz-question.svg",
+      quizQuestion: assetPath + "icon-quiz-question.svg",
       settingsCookie: assetPath + "icon-settings-gear-cookie.png",
       cookieExp: assetPath + "icon-cookie-exp.png",
       resultCorrect: assetPath + "icon-quiz-result-correct.svg",
@@ -104,6 +107,7 @@
       megaphone: assetPath + "icon-notice-megaphone.svg",
       clipboard: assetPath + "icon-notice-clipboard-ok.svg",
       reject: assetPath + "icon-notice-clipboard-reject.svg",
+      rejectReason: assetPath + "icon-notice-clipboard-reject.svg",
     },
     products: {
       "N pay": assetPath + "product-npay.png",
@@ -119,6 +123,7 @@
       darkMage: assetPath + "thumb-dark-mage.png",
       romance: assetPath + "thumb-romance.png",
       aiDoctor: assetPath + "thumb-ai-doctor.png",
+      aiDoctorDark: assetPath + "thumb-ai-doctor-dark.png",
       supporter: assetPath + "thumb-supporter.png",
       retireLife: assetPath + "thumb-retire-life.png",
     },

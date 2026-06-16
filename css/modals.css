@@ -120,6 +120,7 @@
 }
 
 .invite-modal--underlay {
+  filter: brightness(0.54);
   pointer-events: none;
 }
 
@@ -135,12 +136,14 @@
 }
 
 .invite-modal__close {
-  top: 15px;
-  right: 18px;
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  right: 22px;
   color: #888880;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 28px;
+  line-height: 20px;
 }
 
 .invite-modal h2 {
@@ -246,12 +249,14 @@
 }
 
 .invite-reward-modal__close {
-  top: 16px;
-  right: 15px;
+  width: 20px;
+  height: 20px;
+  top: 22px;
+  right: 21px;
   color: #3d2000;
-  font-size: 39px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 26px;
+  line-height: 20px;
 }
 
 .invite-reward-modal h2 {
@@ -327,34 +332,16 @@
 }
 
 .invite-copy-toast__icon {
-  width: 41px;
-  height: 41px;
+  width: 36px;
+  height: 44px;
   position: relative;
   display: block;
+  object-fit: contain;
 }
 
 .invite-copy-toast__icon::before,
 .invite-copy-toast__icon::after {
-  content: "";
-  position: absolute;
-  border-radius: 5px;
-  background: #ffd95e;
-}
-
-.invite-copy-toast__icon::before {
-  width: 25px;
-  height: 32px;
-  top: 2px;
-  right: 4px;
-  opacity: 0.92;
-}
-
-.invite-copy-toast__icon::after {
-  width: 25px;
-  height: 32px;
-  left: 6px;
-  bottom: 1px;
-  background: #f5a31c;
+  content: none;
 }
 
 .invite-copy-toast h2 {
@@ -444,6 +431,87 @@
 }
 
 .modal-quitQuiz .btn.soft {
+  background: #fff4cf;
+  color: #ef9f27;
+}
+
+.modal-quitSolvingQuiz {
+  width: min(330px, calc(100vw - 42px));
+  min-height: 288px;
+  max-height: 288px;
+  gap: 0;
+  align-self: center;
+  margin-top: -16px;
+  padding: 16px 26px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.modal-quitSolvingQuiz .modal-close {
+  top: 15px;
+  right: 15px;
+  color: #999990;
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.modal-quitSolvingQuiz .modal-asset {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 19px;
+  border-radius: 50%;
+  background: #fff4cf;
+}
+
+.modal-quitSolvingQuiz .modal-asset img {
+  width: 42px;
+  height: 42px;
+  display: block;
+}
+
+.modal-quitSolvingQuiz h2 {
+  max-width: 245px;
+  justify-self: center;
+  margin: 0 0 16px;
+  color: #191f28;
+  font-family: var(--font-base);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.modal-quitSolvingQuiz p {
+  margin: 0 0 22px;
+  color: #3d2000;
+  font-family: var(--font-base);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.modal-quitSolvingQuiz .btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-quitSolvingQuiz .btn {
+  min-height: 46px;
+  border-radius: 9px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.modal-quitSolvingQuiz .btn.orange {
+  background: #f5a11d;
+  color: #fff;
+}
+
+.modal-quitSolvingQuiz .btn.soft {
   background: #fff4cf;
   color: #ef9f27;
 }

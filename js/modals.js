@@ -51,7 +51,7 @@
     },
     quitQuiz: {
       icon: "question",
-      title: "작성중인 내용이 있습니다. 정말 나가시겠습니까?",
+      title: "작성중인 내용이 있습니다.\n정말 나가시겠습니까?",
       text: "등록하지 않고 페이지를 벗어날 경우, 지금까지 작성한 내용이 사라집니다.",
       buttons: [
         ["머무르기", "orange", "close"],
@@ -148,7 +148,7 @@
       <div class="modal-layer invite-modal-layer invite-modal-layer--stacked invite-reward-layer" role="presentation">
         ${renderInviteSheet({ underlay: true })}
         <section class="modal invite-reward-modal" role="dialog" aria-modal="true" aria-label="친구 초대 별도 보상">
-          <button class="modal-close invite-reward-modal__close" data-close-modal aria-label="닫기">×</button>
+          <button class="modal-close invite-reward-modal__close" data-action="close-invite-overlay" aria-label="닫기">×</button>
           <h2>친구 초대 별도 보상</h2>
           <div class="invite-reward-modal__table">
             <div class="invite-reward-modal__row invite-reward-modal__row--head">
@@ -168,8 +168,27 @@
       <div class="modal-layer invite-modal-layer invite-modal-layer--stacked invite-copy-layer" role="presentation">
         ${renderInviteSheet({ underlay: true })}
         <section class="modal invite-copy-toast" role="status" aria-live="polite">
-          <span class="invite-copy-toast__icon" aria-hidden="true"></span>
+          <img class="invite-copy-toast__icon" src="${assetBase}invite-copy-toast-icon.svg" alt="" loading="lazy" />
           <h2>${C.escape(invite.copyToast)}</h2>
+        </section>
+      </div>
+    `;
+  }
+
+  function renderQuitSolvingQuizModal() {
+    return `
+      <div class="modal-layer" role="presentation">
+        <section class="modal compact modal-quitSolvingQuiz" role="dialog" aria-modal="true" aria-label="퀴즈를 푸는 중입니다. 정말 나가시겠습니까?">
+          <button class="modal-close" data-close-modal aria-label="닫기">×</button>
+          <div class="modal-asset">
+            <img src="${assetBase}quiz-quit-question.svg" alt="" loading="lazy" />
+          </div>
+          <h2>퀴즈를 푸는 중입니다.<br />정말 나가시겠습니까?</h2>
+          <p>완료하지 않고 페이지를 벗어날 경우,<br />이번 퀴즈는 0점 처리됩니다.</p>
+          <div class="btn-row">
+            <button class="btn soft" type="button" data-route="home" data-close-modal>이동하기</button>
+            <button class="btn orange" type="button" data-close-modal>계속풀기</button>
+          </div>
         </section>
       </div>
     `;
@@ -193,6 +212,12 @@
     if (name === "inviteReward") {
       window.clearTimeout(copyToastTimer);
       document.getElementById("modal-root").innerHTML = renderInviteRewardModal();
+      return;
+    }
+
+    if (name === "quitSolvingQuiz") {
+      window.clearTimeout(copyToastTimer);
+      document.getElementById("modal-root").innerHTML = renderQuitSolvingQuizModal();
       return;
     }
 
@@ -227,6 +252,11 @@
     document.getElementById("modal-root").innerHTML = "";
   }
 
+  function closeInviteOverlay() {
+    window.clearTimeout(copyToastTimer);
+    document.getElementById("modal-root").innerHTML = renderInviteModal();
+  }
+
   function copyInviteCode() {
     const invite = inviteData();
     if (navigator.clipboard?.writeText) {
@@ -236,5 +266,13 @@
     restoreInviteAfterCopyToast();
   }
 
-  window.StoritModals = { open, close, copyInviteCode };
+  document.addEventListener("click", (event) => {
+    const overlayClose = event.target.closest('[data-action="close-invite-overlay"]');
+    if (!overlayClose) return;
+    event.preventDefault();
+    event.stopPropagation();
+    closeInviteOverlay();
+  });
+
+  window.StoritModals = { open, close, closeInviteOverlay, copyInviteCode };
 })();

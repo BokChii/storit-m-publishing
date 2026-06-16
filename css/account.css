@@ -22,7 +22,7 @@
 }
 
 .account-screen.has-scallop::after {
-  z-index: 6;
+  z-index: var(--z-scallop);
 }
 
 .account-my-page .app-title,
@@ -2078,19 +2078,19 @@
 }
 
 .account-notification-screen.has-scallop::after {
-  position: fixed;
+  position: absolute;
   width: 100%;
-  max-width: var(--app-width);
-  left: 50%;
+  max-width: none;
+  left: 0;
   right: auto;
   bottom: 0;
-  transform: translateX(-50%);
-  z-index: 6;
+  transform: none;
+  z-index: var(--z-scallop);
 }
 
 .account-notification-screen .screen-content {
   min-height: calc(var(--app-min-height) - 76px);
-  padding-bottom: 58px;
+  padding-bottom: 112px;
 }
 
 .account-notification-screen .account-notice-row__body strong,

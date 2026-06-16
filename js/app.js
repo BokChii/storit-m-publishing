@@ -277,6 +277,7 @@
   }
 
   const expModalTimers = new WeakMap();
+  const EXP_MODAL_AUTO_CLOSE_MS = 1000;
 
   function clearExpModalTimer(modal) {
     const timer = expModalTimers.get(modal);
@@ -291,12 +292,14 @@
     modal.hidden = true;
   }
 
-  function scheduleExpModalAutoClose(modal) {
+  function scheduleExpModalAutoClose(modal, autoCloseMs = EXP_MODAL_AUTO_CLOSE_MS) {
     if (!modal || modal.hidden) return;
+    const configuredAutoCloseMs = Number(modal.dataset.expAutoCloseMs);
+    const duration = Number.isFinite(configuredAutoCloseMs) && configuredAutoCloseMs > 0 ? configuredAutoCloseMs : autoCloseMs;
     clearExpModalTimer(modal);
     const openedAt = Date.now();
     const closeAfterElapsed = () => {
-      const remaining = 1000 - (Date.now() - openedAt);
+      const remaining = duration - (Date.now() - openedAt);
       if (remaining > 0) {
         expModalTimers.set(modal, window.setTimeout(closeAfterElapsed, remaining));
         return;
@@ -304,14 +307,14 @@
       modal.hidden = true;
       expModalTimers.delete(modal);
     };
-    const timer = window.setTimeout(closeAfterElapsed, 1000);
+    const timer = window.setTimeout(closeAfterElapsed, duration);
     expModalTimers.set(modal, timer);
   }
 
-  function openExpModal(modal) {
+  function openExpModal(modal, autoCloseMs) {
     if (!modal) return;
     modal.hidden = false;
-    scheduleExpModalAutoClose(modal);
+    scheduleExpModalAutoClose(modal, autoCloseMs);
   }
 
   function watchExpModals() {
@@ -367,16 +370,59 @@
     openExpModal(modal);
   }
 
+  function openMissionExpHome() {
+    window.__storitShowMissionExp = true;
+    try {
+      window.sessionStorage.setItem("storit.showMissionExp", "true");
+    } catch (error) {
+      // The global fallback above is enough for the visual reward cue.
+    }
+    window.StoritRouter?.navigate("home");
+    [0, 50, 150, 300].forEach((delay) => window.setTimeout(openMissionExp, delay));
+  }
+
   function closeMissionExp(target) {
     closeExpModal(target.closest("[data-exp-modal], [data-mission-exp-modal]"));
   }
 
+  function completeAttendance(target) {
+    const screen = target.closest(".hm-attendance-screen");
+    if (!screen) return;
+
+    const button = screen.querySelector('[data-action="complete-attendance"]');
+    if (button) {
+      button.disabled = true;
+      button.classList.add("outline");
+    }
+
+    const day = screen.querySelector('[data-attendance-day="11"]');
+    const stampSlot = day?.querySelector("em");
+    if (day && stampSlot && !day.classList.contains("is-stamped")) {
+      day.classList.add("is-stamped");
+      stampSlot.innerHTML = '<img class="hm-calendar-stamp" src="./assets/figma-exported/named/attendance-cookie-stamp.svg" alt="" loading="lazy" />';
+    }
+
+    const notice = screen.querySelector("[data-attendance-notice]");
+    if (notice) notice.hidden = false;
+
+    const modal = screen.querySelector("[data-mission-exp-modal]");
+    const amount = modal?.querySelector("[data-exp-amount]");
+    if (amount) amount.textContent = "+ 15 EXP";
+    openExpModal(modal);
+  }
+
   let missionBakingTimer = 0;
-  let missionBakingTickTimer = 0;
   let missionCookieRewardTimer = 0;
-  let missionAudioContext = null;
+  let missionTickAudio = null;
+  let missionDingAudio = null;
+  let missionAudioUnlocked = false;
+  let missionTickPlaying = false;
   let shouldDingOnCookieComplete = false;
   let shouldRewardOnCookieComplete = false;
+  const missionAudioFiles = {
+    tick: "./assets/audio/tiktok.mp3",
+    ding: "./assets/audio/tting.mp3",
+  };
 
   function currentRoute() {
     return window.location.hash.replace(/^#/, "") || "onboarding1";
@@ -387,10 +433,7 @@
       window.clearTimeout(missionBakingTimer);
       missionBakingTimer = 0;
     }
-    if (missionBakingTickTimer) {
-      window.clearInterval(missionBakingTickTimer);
-      missionBakingTickTimer = 0;
-    }
+    stopMissionTick();
   }
 
   function stopMissionCookieRewardTimer() {
@@ -400,116 +443,62 @@
     }
   }
 
-  function getMissionAudioContext() {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) return null;
-    if (!missionAudioContext) missionAudioContext = new AudioContextClass();
-    if (missionAudioContext.state === "suspended") {
-      missionAudioContext.resume().catch(() => {});
-    }
-    return missionAudioContext;
-  }
+  function getMissionAudio(type) {
+    if (typeof window.Audio !== "function") return null;
+    if (type === "tick" && missionTickAudio) return missionTickAudio;
+    if (type === "ding" && missionDingAudio) return missionDingAudio;
 
-  function missionToneDataUrl(frequency, duration, options = {}) {
-    if (typeof window.btoa !== "function") return "";
-    const sampleRate = 8000;
-    const sampleCount = Math.max(1, Math.floor(sampleRate * duration));
-    const bytes = new Uint8Array(44 + sampleCount * 2);
-    const view = new DataView(bytes.buffer);
-    const writeString = (offset, value) => {
-      for (let index = 0; index < value.length; index += 1) {
-        bytes[offset + index] = value.charCodeAt(index);
-      }
-    };
-    writeString(0, "RIFF");
-    view.setUint32(4, 36 + sampleCount * 2, true);
-    writeString(8, "WAVE");
-    writeString(12, "fmt ");
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true);
-    view.setUint16(22, 1, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * 2, true);
-    view.setUint16(32, 2, true);
-    view.setUint16(34, 16, true);
-    writeString(36, "data");
-    view.setUint32(40, sampleCount * 2, true);
+    const audio = new window.Audio(missionAudioFiles[type]);
+    audio.preload = "auto";
+    audio.loop = type === "tick";
+    audio.volume = type === "tick" ? 0.65 : 0.9;
 
-    const volume = options.volume || 0.08;
-    const fadeSamples = Math.max(1, Math.floor(sampleRate * 0.01));
-    for (let index = 0; index < sampleCount; index += 1) {
-      const phase = (2 * Math.PI * frequency * index) / sampleRate;
-      const wave = options.type === "square" ? (Math.sin(phase) >= 0 ? 1 : -1) : Math.sin(phase);
-      const fadeIn = Math.min(1, index / fadeSamples);
-      const fadeOut = Math.min(1, (sampleCount - index) / fadeSamples);
-      const sample = Math.max(-1, Math.min(1, wave * volume * fadeIn * fadeOut));
-      view.setInt16(44 + index * 2, sample * 32767, true);
-    }
-
-    let binary = "";
-    const chunkSize = 4096;
-    for (let index = 0; index < bytes.length; index += chunkSize) {
-      binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
-    }
-    return `data:audio/wav;base64,${window.btoa(binary)}`;
-  }
-
-  function playMissionFallbackTone(frequency, duration, options = {}) {
-    if (typeof window.Audio !== "function") return;
-    const dataUrl = missionToneDataUrl(frequency, duration, options);
-    if (!dataUrl) return;
-    const audio = new window.Audio(dataUrl);
-    const playResult = audio.play();
-    if (playResult?.catch) playResult.catch(() => {});
-  }
-
-  function playMissionTone(frequency, duration = 0.08, options = {}) {
-    const context = getMissionAudioContext();
-    if (!context) {
-      playMissionFallbackTone(frequency, duration, options);
-      return;
-    }
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    const now = context.currentTime;
-    oscillator.type = options.type || "sine";
-    oscillator.frequency.setValueAtTime(frequency, now);
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.exponentialRampToValueAtTime(options.volume || 0.08, now + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-    oscillator.start(now);
-    oscillator.stop(now + duration + 0.02);
+    if (type === "tick") missionTickAudio = audio;
+    if (type === "ding") missionDingAudio = audio;
+    return audio;
   }
 
   function unlockMissionAudio() {
-    const context = getMissionAudioContext();
-    if (!context) return;
-    const oscillator = context.createOscillator();
-    const gain = context.createGain();
-    const now = context.currentTime;
-    oscillator.frequency.setValueAtTime(440, now);
-    gain.gain.setValueAtTime(0.001, now);
-    oscillator.connect(gain);
-    gain.connect(context.destination);
-    oscillator.start(now);
-    oscillator.stop(now + 0.01);
+    if (missionAudioUnlocked) return;
+    missionAudioUnlocked = true;
+    getMissionAudio("tick")?.load();
+    getMissionAudio("ding")?.load();
   }
 
   function playMissionTick() {
-    playMissionTone(1050, 0.055, { type: "square", volume: 0.035 });
+    unlockMissionAudio();
+    const audio = getMissionAudio("tick");
+    if (!audio || missionTickPlaying) return;
+    missionTickPlaying = true;
+    audio.currentTime = 0;
+    const playResult = audio.play();
+    if (playResult?.catch) {
+      playResult.catch(() => {
+        missionTickPlaying = false;
+      });
+    }
+  }
+
+  function stopMissionTick() {
+    const audio = missionTickAudio;
+    missionTickPlaying = false;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
   }
 
   function playMissionDing() {
-    playMissionTone(988, 0.12, { volume: 0.06 });
-    window.setTimeout(() => playMissionTone(1319, 0.18, { volume: 0.075 }), 95);
+    unlockMissionAudio();
+    const audio = getMissionAudio("ding");
+    if (!audio) return;
+    audio.currentTime = 0;
+    const playResult = audio.play();
+    if (playResult?.catch) playResult.catch(() => {});
   }
 
   function startMissionBakingFlow() {
     stopMissionBakingTimers();
     playMissionTick();
-    missionBakingTickTimer = window.setInterval(playMissionTick, 650);
     missionBakingTimer = window.setTimeout(() => {
       stopMissionBakingTimers();
       shouldDingOnCookieComplete = true;
@@ -595,7 +584,8 @@
     if (action === "open-heart-charge") openHeartCharge(actionTarget);
     if (action === "close-heart-charge") closeHeartCharge(actionTarget);
     if (action === "close-mission-exp") closeMissionExp(actionTarget);
-    if (action === "open-mission-exp-home") window.setTimeout(openMissionExp, 0);
+    if (action === "open-mission-exp-home") openMissionExpHome();
+    if (action === "complete-attendance") completeAttendance(actionTarget);
     if (action === "copy-invite-code") {
       event.preventDefault();
       window.StoritModals?.copyInviteCode?.();

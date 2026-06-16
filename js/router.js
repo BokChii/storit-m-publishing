@@ -21,6 +21,7 @@
     const previous = current;
     current = next;
     app.innerHTML = Screens.render(next);
+    app.classList.toggle("has-scallop-frame", app.firstElementChild?.classList.contains("has-scallop") === true);
     app.scrollTop = 0;
     setHash(next);
     document.dispatchEvent(new CustomEvent("storit:render", { detail: { route: next } }));
@@ -71,6 +72,7 @@
   }
 
   function openExpModalAfterRoute() {
+    const autoCloseMs = 1000;
     const open = () => {
       const modal = document.querySelector("[data-exp-modal]");
       if (!modal) return;
@@ -80,7 +82,7 @@
       modal.hidden = false;
       const openedAt = Date.now();
       const closeAfterElapsed = () => {
-        const remaining = 1000 - (Date.now() - openedAt);
+        const remaining = autoCloseMs - (Date.now() - openedAt);
         if (remaining > 0) {
           window.__storitExpModalTimer = window.setTimeout(closeAfterElapsed, remaining);
           return;
@@ -88,10 +90,11 @@
         modal.hidden = true;
         window.__storitExpModalTimer = 0;
       };
-      window.__storitExpModalTimer = window.setTimeout(closeAfterElapsed, 1000);
+      window.__storitExpModalTimer = window.setTimeout(closeAfterElapsed, autoCloseMs);
     };
     open();
     window.setTimeout(open, 0);
+    window.setTimeout(open, 50);
   }
 
   window.addEventListener("hashchange", () => {

@@ -1,7 +1,7 @@
 (function () {
   const D = window.StoritData;
   const C = window.StoritComponents;
-  const quizCssHref = "./css/quiz.css?v=quiz-flow-20260616b";
+  const quizCssHref = "./css/quiz.css?v=quiz-flow-20260616y";
   const namedAssetBase = "./assets/figma-exported/named/";
 
   const quizQuestion = {
@@ -14,6 +14,18 @@
     current: 4,
     total: 5,
     answers: ["김기현", "이민호", "박서준", "최지우"],
+  };
+
+  const quizFifthQuestion = {
+    number: "Q5.",
+    title: "공기주가 마지막으로 선택한 데이트 장소는?",
+    titleLines: ["공기주가 마지막으로", "선택한 데이트", "장소는?"],
+    episode: "연애리뷰 12화",
+    time: "10초",
+    progress: 100,
+    current: 5,
+    total: 5,
+    answers: ["놀이공원", "한강 공원", "영화관", "카페"],
   };
 
   const myQuizStats = [
@@ -30,7 +42,7 @@
       route: "quizApproved",
       thumb: "darkMage",
       title: "66666년 만에 환생한 흑마법사 퀴즈",
-      meta: "정답률 42% · 평균 5.8초",
+      meta: "▶ 255회    정답률 42%    평균 5.8초",
       side: "플레이 1,248회",
     },
     {
@@ -39,7 +51,7 @@
       route: "quizReview",
       thumb: "darkMage",
       title: "나 혼자만 레벨업 퀴즈",
-      meta: "신청일 2026.05.24",
+      meta: "신청일 2024.05.20",
       side: "24시간 이내",
     },
     {
@@ -54,11 +66,11 @@
   ];
 
   const webtoonChoices = [
-    ["aiDoctor", "AI. 닥터"],
-    ["aiDoctor", "AI. 닥터"],
-    ["aiDoctor", "AI. 닥터"],
-    ["aiDoctor", "AI. 닥터"],
-    ["aiDoctor", "AI. 닥터"],
+    ["aiDoctorDark", "AI. 닥터"],
+    ["aiDoctorDark", "AI. 닥터"],
+    ["aiDoctorDark", "AI. 닥터"],
+    ["aiDoctorDark", "AI. 닥터"],
+    ["aiDoctorDark", "AI. 닥터"],
   ];
 
   const answerDrafts = [
@@ -129,14 +141,14 @@
     `;
   }
 
-  function answerList(selected) {
+  function answerList(question, selected, nextRoute) {
     return `
       <div class="quiz-answer-list">
-        ${quizQuestion.answers
+        ${question.answers
           .map((answer, index) => {
             const isSelected = selected && index === 0;
             return `
-              <button class="quiz-answer ${isSelected ? "is-selected" : ""}" data-action="answer" aria-pressed="${isSelected}">
+              <button class="quiz-answer ${isSelected ? "is-selected" : ""}" data-action="answer" data-route="${C.escape(nextRoute)}" aria-pressed="${isSelected}">
                 <span class="quiz-answer__index">${index + 1}</span>
                 <span class="quiz-answer__text">${C.escape(answer)}</span>
               </button>
@@ -147,39 +159,58 @@
     `;
   }
 
-  function playProgressStrip() {
+  function playProgressStrip(question) {
     return `
       <section class="quiz-play-progress-strip" aria-label="퀴즈 진행 상황">
-        ${progressBar(quizQuestion.progress)}
-        <span><strong>${quizQuestion.current}</strong> / ${quizQuestion.total}문항</span>
+        ${progressBar(question.progress)}
+        <span><strong>${question.current}</strong> / ${question.total}문항</span>
       </section>
     `;
   }
 
-  function quiz(selected = false) {
+  function quizQuestionScreen(question, options = {}) {
     ensureQuizStyles();
+    const selected = Boolean(options.selected);
+    const nextRoute = options.nextRoute || "quizFifth";
+    const extraClass = options.className || "";
 
     return C.shell({
       title: "연애리뷰",
-      back: "home",
-      className: "quiz-screen quiz-play-screen",
+      backModal: "quitSolvingQuiz",
+      className: `quiz-screen quiz-play-screen ${extraClass}`,
       content: `
-        ${playProgressStrip()}
+        ${playProgressStrip(question)}
 
         <section class="quiz-card">
-          <span class="quiz-question-number">${quizQuestion.number}</span>
-          <h2 aria-label="${C.escape(quizQuestion.title)}">${quizQuestion.titleLines.map((line) => `<span>${C.escape(line)}</span>`).join("")}</h2>
+          <span class="quiz-question-number">${question.number}</span>
+          <h2 aria-label="${C.escape(question.title)}">${question.titleLines.map((line) => `<span>${C.escape(line)}</span>`).join("")}</h2>
           <div class="quiz-meta-row">
-            <span class="quiz-meta-pill is-timer"><img src="${namedAssetBase}icon-quiz-clock.svg" alt="" loading="lazy" />${quizQuestion.time}</span>
-            <span class="quiz-meta-pill">${C.escape(quizQuestion.episode)}</span>
-            <button class="quiz-meta-link" type="button">보러가기</button>
+            <span class="quiz-meta-pill is-timer"><img src="${namedAssetBase}icon-quiz-clock.svg" alt="" loading="lazy" />${question.time}</span>
+            <span class="quiz-meta-actions">
+              <span class="quiz-meta-pill">${C.escape(question.episode)}</span>
+              <button class="quiz-meta-link" type="button">보러가기</button>
+            </span>
           </div>
-          ${answerList(selected)}
+          ${answerList(question, selected, nextRoute)}
           <div class="quiz-play-companion">
             ${namedAsset("quiz-play-companion.svg", "quiz-play-companion__image", "퀴즈 캐릭터")}
           </div>
         </section>
       `,
+    });
+  }
+
+  function quiz(selected = false) {
+    return quizQuestionScreen(quizQuestion, {
+      selected,
+      nextRoute: "quizFifth",
+    });
+  }
+
+  function quizFifth() {
+    return quizQuestionScreen(quizFifthQuestion, {
+      nextRoute: "quizResultGood",
+      className: "quiz-fifth-screen",
     });
   }
 
@@ -347,13 +378,12 @@
             <p>유저 참여 현황과 심사 결과를 확인할 수 있어요.</p>
             <button type="button">퀴즈 만들러 가기 ></button>
           </div>
-          ${namedAsset("character-recipe-chef.png", "my-quiz-hero__chef")}
+          ${namedAsset("character-chef-no-oven.png", "my-quiz-hero__chef")}
         </section>
 
         <section class="quiz-section">
           <div class="quiz-section__head">
             <h2>유저 참여 현황</h2>
-            <span>최근 30일</span>
           </div>
           ${statGrid(myQuizStats)}
         </section>
@@ -398,7 +428,7 @@
             `,
           )
           .join("")}
-        <button class="quiz-webtoon-add" type="button" data-route="${selected ? "quizCreateSearchSelected" : "quizCreateSearch"}" aria-label="웹툰 검색">+</button>
+        <button class="quiz-webtoon-add ${selected ? "is-next" : ""}" type="button" data-route="${selected ? "quizCreateSearchSelected" : "quizCreateSearch"}" aria-label="웹툰 검색">${selected ? "›" : "+"}</button>
       </div>
     `;
   }
@@ -445,10 +475,10 @@
         <h2>웹툰을 검색해보세요</h2>
         <label class="quiz-search-field">
           <input value="연애리뷰" aria-label="웹툰 검색어" />
-          <button type="button" aria-label="검색">⌕</button>
+          <button type="button" aria-label="검색"><span class="quiz-search-icon" aria-hidden="true"></span></button>
         </label>
         <button class="quiz-search-result ${active ? "is-selected" : ""}" type="button" data-route="quizCreateSearchSelected">
-          ${C.asset("poster", "romance", "quiz-search-result__thumb")}
+          ${C.asset("poster", "retireLife", "quiz-search-result__thumb")}
           <span>
             <strong>연애리뷰</strong>
             <em>${providerBadge("series")} <i>사이다</i> <i>사이다</i></em>
@@ -502,7 +532,7 @@
         </section>
 
         <section class="quiz-review-note">
-          ${C.asset("icon", "quizWriting")}
+          ${C.asset("icon", "quizGuideChef")}
           <p>부적절한 내용은 검수 후 등록이 거부될 수 있습니다!<br />등록된 퀴즈는 24시간 내 심사 후 공개돼요!<br />등록하신 웹툰 퀴즈에 대한 저작권은 프레시밀크에 귀속 됩니다.</p>
         </section>
 
@@ -552,9 +582,9 @@
         <h2>내 퀴즈 평가</h2>
         <div>
           ${[
-            ["좋아요", "7개", "good"],
-            ["쉬워요", "15개", "easy"],
-            ["어려워요", "23개", "hard"],
+            ["좋아요", "7 개", "good"],
+            ["쉬워요", "15 개", "easy"],
+            ["어려워요", "23 개", "hard"],
           ]
             .map(
               ([label, value, face]) => `
@@ -597,7 +627,7 @@
   function statusSummary(info) {
     return `
       <article class="quiz-status-summary">
-        ${C.asset("poster", "aiDoctor", "quiz-status-summary__thumb")}
+        ${C.asset("poster", "aiDoctorDark", "quiz-status-summary__thumb")}
         <div>
           <h3>AI. 닥터 8화</h3>
           <p>등록일 2026.05.24</p>
@@ -626,7 +656,7 @@
           status === "quizRejected"
             ? `
               <section class="quiz-reject-reason">
-                <strong>반려 사유</strong>
+                <strong>${C.icon("rejectReason")}반려 사유</strong>
                 <p>정답이 맞지 않음</p>
               </section>
             `
@@ -670,6 +700,7 @@
   window.StoritScreenRegistry.register({
     quiz: () => quiz(false),
     quizSelected: () => quiz(true),
+    quizFifth,
     quizResultGood: () => quizResult(true),
     quizResultLow: () => quizResult(false),
     myQuiz,
@@ -681,5 +712,8 @@
     quizReview: () => quizStatus("quizReview"),
     quizApproved: () => quizStatus("quizApproved"),
     quizRejected: () => quizStatus("quizRejected"),
+    myQuizReviewing: () => quizStatus("quizReview"),
+    myQuizApproved: () => quizStatus("quizApproved"),
+    myQuizRejected: () => quizStatus("quizRejected"),
   });
 })();

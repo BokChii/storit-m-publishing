@@ -1368,7 +1368,7 @@
 
 .exchange-screen .screen-content {
   gap: 13px;
-  padding: 11px 26px 34px;
+  padding: 11px 26px 76px;
 }
 
 .exchange-screen .rs-exchange-summary {
@@ -1603,6 +1603,8 @@
 }
 
 .exchange-screen .rs-sticky-action {
+  position: relative;
+  z-index: calc(var(--z-scallop) + 1);
   margin-top: -2px;
 }
 
@@ -1695,7 +1697,7 @@
 
 .exchange-done-screen .screen-content {
   gap: 18px;
-  padding: 0 26px 40px;
+  padding: 0 26px 76px;
 }
 
 .exchange-done-screen .rs-complete-hero {
@@ -1836,6 +1838,8 @@
 }
 
 .exchange-done-screen .rs-sticky-action {
+  position: relative;
+  z-index: calc(var(--z-scallop) + 1);
   margin-top: 39px;
 }
 
@@ -2164,7 +2168,7 @@
 
 .reward-detail-screen .screen-content {
   gap: 15px;
-  padding: 0 26px 48px;
+  padding: 0 26px 76px;
 }
 
 .reward-detail-screen .app-header {
@@ -2271,8 +2275,9 @@
 }
 
 .reward-detail-screen .rs-sticky-action {
-  position: static;
-  margin-top: 76px;
+  position: relative;
+  z-index: calc(var(--z-scallop) + 1);
+  margin-top: 54px;
   padding: 0;
 }
 

@@ -917,8 +917,8 @@
 .hm-mission-screen,
 .hm-attendance-screen,
 .hm-reward-screen {
-  background:
-    var(--color-primary);
+  box-sizing: border-box;
+  background: var(--color-primary);
   padding-top: 16px;
 }
 
@@ -943,7 +943,7 @@
   display: grid;
   align-content: start;
   gap: 10px;
-  padding-bottom: 42px;
+  padding-bottom: 124px;
   background:
     linear-gradient(180deg, #fffaf2 0%, #fff5dc 100%),
     var(--hm-cream);
@@ -958,7 +958,7 @@
 .hm-mission-screen.has-scallop::after,
 .hm-attendance-screen.has-scallop::after,
 .hm-reward-screen.has-scallop::after {
-  z-index: 6;
+  z-index: var(--z-scallop);
 }
 
 .hm-recipe-hero {
@@ -1207,6 +1207,7 @@
   display: grid;
   gap: 7px;
   padding-inline: 5px;
+  padding-bottom: 74px;
 }
 
 .hm-mission-item {
@@ -1328,7 +1329,7 @@
 }
 
 .hm-mission-meter span {
-  width: var(--value, 25%);
+  width: var(--value, 0%);
   height: 100%;
   display: block;
   border-radius: inherit;
@@ -1452,6 +1453,7 @@
 .hm-oven-screen.success-scene {
   padding: 16px 0 0;
   background:
+    linear-gradient(var(--color-primary) 0 16px, transparent 16px),
     url("../assets/figma-exported/named/bg-oven.png") center top / cover no-repeat;
 }
 
@@ -1463,8 +1465,14 @@
   border-top-right-radius: 18px;
 }
 
+.hm-oven-screen .app-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
 .hm-oven-screen .screen-content {
-  padding: 0;
+  padding: 0 0 88px;
+  background: transparent;
 }
 
 .hm-oven-scene {
@@ -1481,13 +1489,7 @@
 }
 
 .hm-oven-scene::before {
-  content: "";
-  position: absolute;
-  inset: -128px 0 0;
-  z-index: 0;
-  height: calc(100% + 128px);
-  background: url("../assets/figma-exported/named/bg-oven.png") center top / cover no-repeat;
-  pointer-events: none;
+  content: none;
 }
 
 .hm-oven-scene__copy {
@@ -1534,8 +1536,9 @@
   margin: 0;
   color: var(--hm-brown-dark);
   text-shadow: 0 3px 0 rgba(255, 229, 150, 0.58);
+  font-family: var(--font-display);
   font-size: 30px;
-  font-weight: 900;
+  font-weight: 400;
   line-height: 1.1;
 }
 
@@ -1544,7 +1547,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: 381px;
+  top: 421px;
   transform: translateX(-50%);
 }
 
@@ -1569,8 +1572,14 @@
 }
 
 .hm-reward-screen .hm-flow-action {
+  position: relative;
+  z-index: calc(var(--z-scallop) + 1);
   width: 320px;
-  margin: 48px auto 0;
+  margin: 48px auto 30px;
+}
+
+.hm-reward-screen .screen-content {
+  z-index: auto;
 }
 
 .hm-complete-cookie {
@@ -1581,7 +1590,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: 343px;
+  top: 383px;
   transform: translateX(-50%);
   border-radius: 50%;
   background: transparent;
@@ -1805,11 +1814,11 @@
 .hm-attendance-hero {
   min-height: 108px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 105px;
+  grid-template-columns: minmax(0, 1fr) 72px;
   gap: 8px;
   align-items: center;
   overflow: hidden;
-  padding: 14px 10px 13px 25px;
+  padding: 14px 6px 13px 25px;
   border: 1px solid var(--hm-line);
   border-radius: 10px;
   background: #fff;
@@ -1817,17 +1826,27 @@
 }
 
 .hm-attendance-hero .hm-kicker {
-  margin-bottom: 8px;
-  color: #ef9f27;
-  font-size: 12px;
-  font-weight: 900;
+  margin: 0 0 8px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .hm-attendance-hero h2 {
-  color: #3d2000;
-  font-size: 16px;
-  font-weight: 900;
+  margin: 0;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
   white-space: nowrap;
+}
+
+.hm-attendance-hero h2 span {
+  color: #ef9f27;
 }
 
 .hm-attendance-hero p:not(.hm-kicker) {
@@ -1844,11 +1863,11 @@
 }
 
 .hm-attendance-hero__character img {
-  width: 91px;
-  height: 69px;
+  width: 78px;
+  height: 68px;
   display: block;
   object-fit: contain;
-  transform: translate(0, 2px);
+  transform: translate(1px, 2px);
 }
 
 .hm-calendar {
@@ -1951,35 +1970,43 @@
   color: var(--hm-orange);
 }
 
-.hm-calendar__day.is-today {
-  outline: 2px solid var(--hm-yellow);
-  outline-offset: -2px;
-  background: #fff9e9;
-}
-
 .hm-attendance-action {
   bottom: 14px;
+  margin-top: 24px;
 }
 
 .hm-attendance-notice {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  position: sticky;
-  bottom: 86px;
+  gap: 10px;
+  position: relative;
+  bottom: auto;
   z-index: 4;
-  margin-top: 4px;
-  padding: 12px 13px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #ffe485, #ffc83e);
-  box-shadow: 0 14px 28px rgba(101, 54, 0, 0.2);
+  margin-top: 10px;
+  padding: 11px 12px;
+  border: 1px solid #ef9f27;
+  border-radius: 10px;
+  background: #fff4d4;
+  box-shadow: none;
   color: var(--hm-brown-dark);
+}
+
+.hm-attendance-notice[hidden] {
+  display: none;
+}
+
+.hm-attendance-notice__icon {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .hm-attendance-notice span {
   display: grid;
   gap: 3px;
+  min-width: 0;
 }
 
 .hm-attendance-notice strong {
@@ -1990,6 +2017,37 @@
 .hm-attendance-notice small {
   font-size: 10px;
   font-weight: 900;
+}
+
+.hm-attendance-action .btn:disabled {
+  border-color: #a9a39b;
+  background: #f3f2ef;
+  color: #3d2000;
+  opacity: 1;
+}
+
+.phone-frame:has(.hm-attendance-screen)::after {
+  content: none;
+}
+
+.hm-attendance-screen.has-scallop::after {
+  content: "";
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: var(--z-scallop);
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg width='74' height='40' viewBox='0 0 74 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 16C8 16 13 0 37 0C61 0 66 16 74 16V40H0V16Z' fill='%23FFD761'/%3E%3C/svg%3E") 0 0 / 74px 40px repeat-x;
+}
+
+@media (max-width: 430px) {
+  .hm-attendance-screen.has-scallop::after {
+    position: fixed;
+    width: 100vw;
+  }
 }
 
 @media (max-width: 360px) {
@@ -2740,11 +2798,11 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);
+  min-height: 100dvh;
   display: grid;
-  align-items: start;
-  justify-items: center;
+  place-items: center;
   box-sizing: border-box;
-  padding-top: 119px;
+  padding: 0;
 }
 
 .hm-mission-exp-modal__dim {
@@ -2755,7 +2813,7 @@
 
 .hm-mission-exp-modal__sheet {
   width: 330px;
-  min-height: 446px;
+  height: 446px;
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -2790,10 +2848,13 @@
   display: grid;
   place-items: center;
   background: transparent;
-  color: #3d2000;
-  font-size: 34px;
-  font-weight: 400;
   line-height: 1;
+}
+
+.hm-mission-exp-modal__close img {
+  width: 17px;
+  height: 17px;
+  display: block;
 }
 
 .hm-mission-exp-modal__confetti {
@@ -2810,11 +2871,19 @@
   position: relative;
   z-index: 2;
   display: block;
-  margin: 88px auto 31px;
+  margin: 88px auto 17px;
   object-fit: contain;
 }
 
-.hm-mission-exp-modal__sheet h2 {
+.hm-mission-exp-modal__message {
+  width: 100%;
+  position: relative;
+  z-index: 4;
+  pointer-events: none;
+  text-align: center;
+}
+
+.hm-mission-exp-modal__message h2 {
   margin: 0;
   color: #3d2000;
   font-size: 21px;
@@ -2822,8 +2891,8 @@
   line-height: 1.25;
 }
 
-.hm-mission-exp-modal__sheet p {
-  margin: 16px 0 0;
+.hm-mission-exp-modal__message p {
+  margin: 9px 0 0;
   color: #7459d9;
   font-size: 19px;
   font-weight: 900;
