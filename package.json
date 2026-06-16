@@ -1,0 +1,13 @@
+{
+  "name": "storit-mobile-publishing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static mobile web publishing prototype for Storit.",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "test": "node scripts/verify-render.js",
+    "package": "bash scripts/package-delivery.sh",
+    "deploy:preview": "npx vercel deploy . -y --target preview",
+    "deploy:prod": "npx vercel --prod"
+  }
+}

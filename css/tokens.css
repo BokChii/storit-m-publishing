@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "Jalnan2";
+  src: url("../assets/fonts/Jalnan2TTF.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --app-width: 375px;
+  --app-min-height: 812px;
+  --font-main: "Noto Sans KR", "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Jalnan2", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+
+  --color-bg: #fffaf2;
+  --color-bg-strong: #fff3d2;
+  --color-bg-soft: #fff7e9;
+  --color-surface: #ffffff;
+  --color-surface-warm: #fff9ed;
+  --color-line: #f0dfc4;
+  --color-line-strong: #dfcba9;
+  --color-primary: #ffd75a;
+  --color-primary-deep: #f6a01a;
+  --color-primary-soft: #fff1bc;
+  --color-brown: #4d2600;
+  --color-brown-2: #7a3f00;
+  --color-brown-3: #9a650c;
+  --color-text: #2e1905;
+  --color-muted: #8b7b68;
+  --color-muted-2: #b8aa95;
+  --color-green: #44c86a;
+  --color-green-soft: #d9ffd8;
+  --color-red: #ff5b55;
+  --color-red-soft: #ffd4cb;
+  --color-blue: #438cff;
+  --color-purple-soft: #e9d9ff;
+  --color-overlay: rgba(23, 18, 12, 0.58);
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 20px rgba(99, 62, 14, 0.08);
+  --shadow-pop: 0 22px 60px rgba(42, 24, 8, 0.22);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+
+  --z-header: 10;
+  --z-tabbar: 20;
+  --z-modal: 100;
+}

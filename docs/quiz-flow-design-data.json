@@ -1,0 +1,133 @@
+{
+  "feature": "quizFlow",
+  "source": "final quiz-related design screenshots provided in chat",
+  "viewport": {
+    "width": 372,
+    "height": 812
+  },
+  "referenceImages": {
+    "myQuizList": "assets/reference/quiz-flow/my-quiz-list.png",
+    "quizCreateEmpty": "assets/reference/quiz-flow/quiz-create-empty.png",
+    "quizCreateSelected": "assets/reference/quiz-flow/quiz-create-selected.png",
+    "quizWebtoonSearchDisabled": "assets/reference/quiz-flow/quiz-webtoon-search-disabled.png",
+    "quizWebtoonSearchActive": "assets/reference/quiz-flow/quiz-webtoon-search-active.png",
+    "quizExitConfirm": "assets/reference/quiz-flow/quiz-exit-confirm.png",
+    "quizSubmitted": "assets/reference/quiz-flow/quiz-submitted.png",
+    "myQuizReviewing": "assets/reference/quiz-flow/my-quiz-reviewing.png",
+    "myQuizApproved": "assets/reference/quiz-flow/my-quiz-approved.png",
+    "myQuizRejected": "assets/reference/quiz-flow/my-quiz-rejected.png"
+  },
+  "routes": {
+    "myQuiz": {
+      "title": "내 웹툰 퀴즈",
+      "reference": "myQuizList",
+      "description": "내가 만든 퀴즈 대시보드, 유저 참여 현황, 가장 많이 풀린 퀴즈, 내 퀴즈 목록 상태 필터를 보여준다.",
+      "primaryAction": "퀴즈 만들러 가기",
+      "floatingAction": "+",
+      "sections": ["hero", "participationStats", "mostPlayedQuiz", "myQuizList"]
+    },
+    "quizCreate": {
+      "title": "퀴즈 만들기",
+      "references": ["quizCreateEmpty", "quizCreateSelected"],
+      "description": "웹툰 선택, 회차 작성, 퀴즈 질문, 정답/오답 4개 입력, 등록 안내, 문제 등록하기 버튼을 가진 제작 화면이다.",
+      "steps": [
+        "웹툰을 선택해주세요",
+        "회차를 작성해주세요",
+        "문제를 만들어주세요"
+      ],
+      "form": {
+        "episodePlaceholder": "예: 5",
+        "questionPlaceholder": "예: 무게가 왕이 되겠다고 결심하게 된 이유는?",
+        "correctPlaceholder": "정답 작성하기",
+        "wrongPlaceholder": "오답 작성하기"
+      },
+      "notice": "부적절한 내용은 검수 후 등록이 거부될 수 있습니다. 등록된 퀴즈는 24시간 내 검수 후 공개돼요! 등록하신 웹툰 퀴즈에 대한 저작권은 프레시밀크에 귀속 됩니다.",
+      "primaryAction": "문제 등록하기"
+    },
+    "quizWebtoonSearchSheet": {
+      "title": "웹툰을 검색해보세요",
+      "references": ["quizWebtoonSearchDisabled", "quizWebtoonSearchActive"],
+      "description": "퀴즈 만들기 화면 위에 dim 처리 후 하단 바텀시트로 노출되는 웹툰 검색 UI다.",
+      "searchKeyword": "연애리뷰",
+      "searchIcon": "magnifier",
+      "result": {
+        "title": "연애리뷰",
+        "tags": ["사이다", "사이다"]
+      },
+      "buttons": {
+        "cancel": "취소",
+        "select": "선택하기"
+      },
+      "stateNotes": [
+        "검색 결과 선택 전에는 선택하기 버튼이 비활성 톤이다.",
+        "검색 결과 선택 후에는 선택하기 버튼이 primary orange 톤으로 활성화된다."
+      ]
+    },
+    "quizExitConfirmModal": {
+      "title": "작성중인 내용이 있습니다. 정말 나가시겠습니까?",
+      "reference": "quizExitConfirm",
+      "description": "퀴즈 작성 중 뒤로가기 또는 작성 중단 시 뜨는 중앙 확인 모달이다.",
+      "body": "등록하지 않고 페이지를 벗어날 경우, 지금까지 작성한 내용이 사라집니다.",
+      "buttons": {
+        "stay": "머무르기",
+        "move": "이동하기"
+      }
+    },
+    "quizSubmitted": {
+      "title": "퀴즈 만들기",
+      "reference": "quizSubmitted",
+      "description": "퀴즈 등록 완료 후 노출되는 일러스트 장면형 완료 화면이다.",
+      "speech": "등록이 완료되었습니다",
+      "primaryAction": "홈 화면으로 돌아가기"
+    },
+    "myQuizReviewing": {
+      "title": "내 웹툰 퀴즈",
+      "reference": "myQuizReviewing",
+      "status": "심사 중",
+      "description": "심사 중 상태 상세. 퀴즈 문항과 정답/오답만 보여주고 하단에 돌아가기 버튼이 있다.",
+      "primaryAction": "돌아가기"
+    },
+    "myQuizApproved": {
+      "title": "내 웹툰 퀴즈",
+      "reference": "myQuizApproved",
+      "status": "승인완료",
+      "description": "승인 완료 상태 상세. 유저 참여 현황, 내 퀴즈 평가, 퀴즈 문항과 답안을 보여준다.",
+      "stats": [
+        { "label": "총 플레이 수", "value": "1,248회", "meta": "어제 대비 ▲ 18" },
+        { "label": "평균 정답률", "value": "38%", "meta": "상위 23%" },
+        { "label": "평균 풀이 시간", "value": "6.2초", "meta": "상위 41%" }
+      ],
+      "ratings": [
+        { "label": "좋아요", "count": "7개" },
+        { "label": "쉬워요", "count": "15개" },
+        { "label": "어려워요", "count": "23개" }
+      ],
+      "primaryAction": "돌아가기"
+    },
+    "myQuizRejected": {
+      "title": "내 웹툰 퀴즈",
+      "reference": "myQuizRejected",
+      "status": "반려",
+      "description": "반려 상태 상세. 퀴즈 문항과 답안 아래 반려 사유 박스를 보여주고 재등록 버튼을 제공한다.",
+      "rejectReasonTitle": "반려 사유",
+      "rejectReason": "정답이 맞지 않음",
+      "primaryAction": "재등록하기"
+    }
+  },
+  "sharedQuizCard": {
+    "webtoonTitle": "AI. 닥터 8화",
+    "registeredAt": "등록일 2026.05.24",
+    "questionExample": "예: 무게가 왕이 되겠다고 결심하게 된 이유는?",
+    "answerLabels": {
+      "correct": "정답 작성하기",
+      "wrong": "오답 작성하기"
+    }
+  },
+  "implementationNotes": [
+    "All references are final screenshot baselines for visual publishing work, not full-screen implementation assets.",
+    "Text, form fields, cards, buttons, badges, bottom sheets, and modals should be implemented as HTML/CSS components.",
+    "Only illustration/image assets should be exported separately from Figma when needed.",
+    "The webtoon search bottom sheet has disabled and active select states.",
+    "The reviewing, approved, and rejected detail pages share the same top quiz card and answer block, with status-specific sections below."
+  ]
+}
