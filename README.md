@@ -42,7 +42,6 @@ zip에는 실행에 필요한 파일만 포함됩니다.
 - `css/`
 - `js/`
 - `assets/`
-- `docs/`
 - `README.md`
 - `DEPLOYMENT.md`
 - `vercel.json`
@@ -72,12 +71,6 @@ npm test
 ```
 
 `npm test`는 등록된 route 전체가 오류 없이 HTML을 렌더링하는지 확인합니다.
-
-## 작업 문서
-
-- `docs/SCREEN_MAP.md`: 화면 목록, route, 주요 클릭 흐름
-- `docs/QA_CHECKLIST.md`: 최종 검수 체크리스트
-- `assets/README.md`: Figma 에셋 export 및 폴더 정리 규칙
 
 ## 작업 범위
 

@@ -6,8 +6,7 @@ delivery/
 .playwright-mcp/
 .omx/
 .codex-local/
-docs/local/
-docs/HANDOFF_MESSAGES.md
+docs/
 test-results/
 assets/reference/
 tmp-figma/

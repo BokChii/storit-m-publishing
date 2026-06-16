@@ -23,7 +23,6 @@ zip -qr "$ZIP_PATH" \
   css \
   js \
   assets \
-  docs \
   -x "*.DS_Store" \
   -x "*/.DS_Store" \
   -x "assets/derived/*" \
