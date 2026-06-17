@@ -262,52 +262,70 @@
   }
 
   function myPage() {
+    const completedIngredients = D.ingredients.map((item) => ({ ...item, done: true }));
     return C.shell({
       title: '마이페이지',
       back: 'home',
       activeNav: 'myPage',
-      className: 'account-screen account-my-page account-my-page--classic',
+      className: 'account-screen account-my-page account-my-page--final',
       right: `<button class="icon-button account-header-action account-header-gear" data-route="settings" aria-label="설정"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.7 3.4 9.2 5.6a7.3 7.3 0 0 0-1.4.8L5.7 5.8 3.4 8.1l.7 2.1a7.6 7.6 0 0 0-.6 1.5l-2.1.6v3.3l2.1.6c.2.5.4 1 .7 1.5l-.8 2 2.3 2.4 2.1-.7c.4.3.9.6 1.4.8l.5 2.1h3.4l.5-2.1c.5-.2 1-.4 1.4-.8l2.1.7 2.3-2.4-.8-2c.3-.5.5-1 .7-1.5l2.1-.6v-3.3l-2.1-.6c-.1-.5-.4-1-.6-1.5l.7-2.1-2.3-2.3-2.1.6c-.4-.3-.9-.6-1.4-.8l-.5-2.2H9.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="11.4" cy="13" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>`,
       content: `
-        <section class="account-classic-profile" aria-label="프로필">
-          <div class="account-classic-profile__avatar">
+        <section class="account-final-profile" aria-label="프로필">
+          <div class="account-final-profile__avatar">
             <img src="${assetBase}user-profile-cookie.svg" alt="" loading="lazy" />
           </div>
-          <div class="account-classic-profile__body">
-            <div class="account-classic-profile__name">
+          <div class="account-final-profile__body">
+            <div class="account-final-profile__name">
               <h2>${C.escape(D.user.name)}</h2>
-              <img src="${assetBase}icon-user-profile-edit.svg" alt="" loading="lazy" />
+              <button type="button" data-modal="editLife">프로필 수정 ›</button>
             </div>
-            <div class="account-classic-profile__level">
+            <div class="account-final-profile__level">
               <strong>LV. ${C.escape(D.user.level)}</strong>
-              <div><span style="width:67%"></span><em>67%</em></div>
+              <div class="account-final-profile__bar"><span></span></div>
             </div>
+            <p>다음 레벨까지 <strong>120 EXP ›</strong></p>
           </div>
         </section>
 
-        <section class="account-classic-card account-classic-mission">
-          <header>
-            <h3>오늘의 쿠키 제작 진행상태</h3>
-            <button type="button" data-route="mission">미션 보러가기</button>
-          </header>
-          ${C.ingredientTrack(D.ingredients)}
-        </section>
-
-        <section class="account-classic-stats" aria-label="내 활동 요약">
-          <article><span>내 쿠키</span><strong>${C.icon('cookie')} ${C.escape(D.user.cookie)}개</strong></article>
-          <article><span>내 순위</span><strong>33위</strong></article>
-          <article><span>내 점수</span><strong>822점</strong></article>
-        </section>
-
-        <section class="account-classic-card account-classic-tags">
-          <h3>나를 설명하는 태그</h3>
-          <div>
-            ${['#기자매', '#판타지 덕후', '#행운의 여신'].map((tag) => C.pill(tag, 'soft')).join('')}
-            <button type="button" data-modal="editLife" aria-label="태그 추가">+</button>
+        <section class="account-final-card account-final-achievements">
+          <h3>나의 업적</h3>
+          <div class="account-final-achievements__grid">
+            <article>
+              <span class="account-achievement-visual is-crown"></span>
+              <strong>최고 랭킹</strong>
+              <em>10위</em>
+            </article>
+            <article>
+              <span class="account-achievement-visual is-clover"></span>
+              <strong>행운 횟수</strong>
+              <em>7회</em>
+            </article>
+            <article>
+              <span class="account-achievement-visual is-score"></span>
+              <strong>최고 점수</strong>
+              <em>98.8점</em>
+            </article>
+            <article>
+              <span class="account-achievement-visual is-calendar"></span>
+              <strong>연속 출석</strong>
+              <em>15일</em>
+            </article>
           </div>
         </section>
 
-        <div class="account-classic-pref-grid">
+        <section class="account-final-card account-final-cookie" data-route="cookieHistory">
+          <img class="account-final-cookie__asset" src="${assetBase}icon-quiz-writing-cookie.png" alt="" loading="lazy" />
+          <strong class="account-final-cookie__title">쿠키 내역 관리</strong>
+          <span class="account-final-cookie__caption">보유 쿠키</span>
+          <div class="account-final-cookie__stats">
+            <span><small>보유</small><strong>80</strong></span>
+            <span><small>누적 획득</small><strong>1,240</strong></span>
+            <span><small>누적 사용</small><strong>1,160</strong></span>
+          </div>
+          <i aria-hidden="true">›</i>
+        </section>
+
+        <div class="account-final-pref-grid">
           <section>
             <span>인생 웹툰</span>
             <strong>기자매</strong>
@@ -320,18 +338,26 @@
           </section>
         </div>
 
-        <div class="account-classic-shortcut-grid">
+        <div class="account-final-shortcut-grid">
           <section>
-            <span>${C.icon('gift')} 내 보관함</span>
+            <span><img src="${assetBase}icon-shop-category-gift.svg" alt="" loading="lazy" /> 내 보관함</span>
             <strong>사용 가능한<br />상품권 2개</strong>
             <button type="button" data-route="vault">보관함 가기 ›</button>
           </section>
           <section>
-            <span>${C.icon('myQuiz')} 내 퀴즈</span>
+            <span><img src="${assetBase}icon-home-myquiz.svg" alt="" loading="lazy" /> 내 퀴즈</span>
             <strong>퀴즈 심사 결과<br />확인 1건</strong>
             <button type="button" data-route="myQuiz">내 퀴즈 가기 ›</button>
           </section>
         </div>
+
+        <section class="account-final-card account-final-mission">
+          <div>
+            <h3>오늘의 쿠키 제작 진행상태</h3>
+          </div>
+          <button type="button" data-route="mission">미션 보러가기</button>
+          ${C.ingredientTrack(completedIngredients)}
+        </section>
       `,
     });
   }
