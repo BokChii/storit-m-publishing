@@ -1,0 +1,90 @@
+/* Shared app chrome normalization for Figma-framed Storit pages. */
+:root {
+  --storit-frame-top-band: 16px;
+  --storit-frame-radius: 18px;
+  --storit-frame-header-height: 60px;
+  --storit-frame-title-size: 17px;
+  --storit-frame-title-weight: 800;
+  --storit-frame-title-color: #191f28;
+  --storit-frame-bg: #fefaf4;
+  --storit-scallop-height: 52px;
+  --storit-scallop-bg: url("data:image/svg+xml,%3Csvg width='74' height='52' viewBox='0 0 74 52' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 16C8 16 13 0 37 0C61 0 66 16 74 16V52H0V16Z' fill='%23FFD761'/%3E%3C/svg%3E") 0 0 / 74px 52px repeat-x;
+}
+
+.phone-frame.has-scallop-frame::after {
+  content: "";
+  display: block;
+  height: var(--storit-scallop-height);
+  background: var(--storit-scallop-bg);
+}
+
+:is(
+  .hm-mission-screen,
+  .hm-attendance-screen,
+  .hm-reward-screen,
+  .quiz-play-screen,
+  .quiz-result-screen,
+  .my-quiz-screen,
+  .quiz-create-screen,
+  .quiz-status-screen,
+  .quiz-submit-screen,
+  .ranking-shop-screen,
+  .account-screen
+) {
+  box-sizing: border-box;
+  padding-top: var(--storit-frame-top-band);
+  background:
+    linear-gradient(var(--color-primary) 0 var(--storit-frame-top-band), var(--storit-frame-bg) var(--storit-frame-top-band) 100%);
+}
+
+:is(
+  .hm-mission-screen,
+  .hm-attendance-screen,
+  .hm-reward-screen,
+  .quiz-play-screen,
+  .quiz-result-screen,
+  .my-quiz-screen,
+  .quiz-create-screen,
+  .quiz-status-screen,
+  .quiz-submit-screen,
+  .ranking-shop-screen,
+  .account-screen
+) > .app-header {
+  height: var(--storit-frame-header-height);
+  padding: 0 14px;
+  border-top-left-radius: var(--storit-frame-radius);
+  border-top-right-radius: var(--storit-frame-radius);
+  background: var(--storit-frame-bg);
+}
+
+:is(
+  .hm-mission-screen,
+  .hm-attendance-screen,
+  .hm-reward-screen,
+  .quiz-play-screen,
+  .quiz-result-screen,
+  .my-quiz-screen,
+  .quiz-create-screen,
+  .quiz-status-screen,
+  .quiz-submit-screen,
+  .ranking-shop-screen,
+  .account-screen
+) .app-title,
+.auth-term-detail-title {
+  color: var(--storit-frame-title-color);
+  font-family: var(--font-main);
+  font-size: var(--storit-frame-title-size);
+  font-weight: var(--storit-frame-title-weight);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.auth-userinfo-panel::after {
+  height: var(--storit-scallop-height);
+  background: var(--storit-scallop-bg);
+}
+
+.hm-attendance-screen.has-scallop::after {
+  content: none;
+  display: none;
+}

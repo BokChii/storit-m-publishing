@@ -1,7 +1,7 @@
 (function () {
   const D = window.StoritData;
   const C = window.StoritComponents;
-  const quizCssHref = "./css/quiz.css?v=quiz-result-polish-20260617k";
+  const quizCssHref = "./css/quiz.css?v=quiz-result-polish-20260617i";
   const namedAssetBase = "./assets/figma-exported/named/";
 
   const quizQuestion = {
@@ -111,7 +111,7 @@
       return;
     }
 
-    if (document.querySelector(`link[href="${quizCssHref}"]`)) return;
+    if (document.querySelector('link[href^="./css/quiz.css"], link[data-screen-style="quiz"]')) return;
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
