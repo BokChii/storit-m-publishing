@@ -2657,7 +2657,7 @@
 .rs-reward-copy-toast {
   position: fixed;
   left: 50%;
-  bottom: 65px;
+  bottom: 15px;
   z-index: calc(var(--z-modal) + 1);
   width: 330px;
   min-height: 139px;
@@ -5620,4 +5620,79 @@
 
 .exchange-screen .rs-flow-action {
   margin-top: 6px;
+}
+
+/* Comment pass: vault used and reward detail */
+.vault-screen .rs-tabs {
+  align-items: end;
+}
+
+.vault-screen .rs-tab {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 18px;
+}
+
+.vault-screen--used .rs-vault-count {
+  margin-top: 44px;
+  margin-bottom: 16px;
+}
+
+.vault-screen--used .rs-reward-card.is-used {
+  width: 335px;
+  min-height: 110px;
+  grid-template-columns: 80px minmax(0, 1fr) 59px;
+  gap: 14px;
+  padding: 15px 15px 15px 14px;
+  border-color: #faefdf;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.vault-screen--used .rs-reward-card.is-used .rs-reward-card__media {
+  width: 80px;
+  height: 80px;
+  min-height: 80px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.vault-screen--used .rs-reward-card.is-used .rs-reward-card__media img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.reward-detail-screen .rs-detail-hero h2 {
+  color: #3d2000;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.reward-detail-screen .rs-copy-button img {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(61%) saturate(1276%) hue-rotate(20deg) brightness(91%) contrast(105%);
+}
+
+.reward-detail-screen .rs-reward-info-panel .rs-info-list span {
+  color: #888880;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.reward-detail-screen .rs-reward-info-panel .rs-info-list strong {
+  color: #3d2000;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.reward-detail-screen .rs-sticky-action .btn {
+  border-radius: 16px;
 }
