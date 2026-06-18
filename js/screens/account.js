@@ -469,9 +469,10 @@
   function notificationRow(item) {
     const attrs = item.route ? `data-route="${C.escape(item.route)}"` : '';
     const isNoticeCookie = item.icon === 'cookiePlain' || item.icon === 'cookiePaid';
+    const keepIconSize = item.icon === 'noticeCookieOpen' || item.icon === 'cookiePaid';
     const icon = isNoticeCookie ? `<img class="account-notice-cookie-solid" src="${assetBase}icon-notice-cookie-paid.svg" alt="" loading="lazy" />` : item.asset ? C.asset(item.assetType || 'icon', item.asset) : C.icon(item.icon);
     return `
-      <article class="account-notice-row is-${C.escape(item.tone)}" ${attrs}>
+      <article class="account-notice-row is-${C.escape(item.tone)} ${keepIconSize ? '' : 'is-icon-small'}" ${attrs}>
         <span class="account-notice-row__icon" aria-hidden="true">
           ${icon}
         </span>
