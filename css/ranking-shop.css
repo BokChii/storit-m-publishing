@@ -2931,6 +2931,7 @@
 }
 
 .rs-ranking-benefit-card__art img {
+  position: relative;
   width: 94px;
   height: auto;
   max-width: none;
@@ -3229,11 +3230,16 @@
   white-space: nowrap;
 }
 
+.rs-ranking-me-block small em {
+  color: #fff;
+  font-style: normal;
+}
+
 .rs-ranking-daily-card__top > button {
   height: 42px;
   border: 0;
   border-radius: 14px;
-  background: #fff7d2;
+  background: #fff;
   color: #3d2000;
   font-size: 12px;
   font-weight: 800;
@@ -3261,15 +3267,26 @@
 }
 
 .rs-ranking-benefit-card--daily {
-  min-height: 100px;
+  min-height: 127px;
   position: relative;
   display: grid;
   grid-template-columns: 213px 1fr;
+  grid-template-rows: 27px 100px;
   overflow: visible;
   background: #fff7d2;
 }
 
+.rs-ranking-benefit-card--daily .rs-ranking-live {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: center;
+}
+
 .rs-ranking-benefit-card--daily .rs-ranking-benefits {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  grid-row: 2;
   width: 199px;
   height: 88px;
   align-self: center;
@@ -3327,29 +3344,31 @@
 
 .rs-ranking-benefit-card__bg {
   position: absolute;
-  right: -1px;
+  right: 0;
   bottom: 0;
-  width: 134px;
+  z-index: 0;
+  width: 234px;
   height: 96px;
   display: flex;
   align-items: flex-end;
-  overflow: hidden;
+  overflow: visible;
+  pointer-events: none;
 }
 
 .rs-ranking-benefit-card__bg img {
   width: 234px;
   height: 95px;
   max-width: none;
-  transform: translateX(-112px);
+  transform: none;
 }
 
 .rs-ranking-benefit-card__art {
   position: absolute;
   right: 54px;
-  bottom: 0;
+  bottom: -10px;
   width: 68px;
   height: 83px;
-  z-index: 1;
+  z-index: 3;
 }
 
 .rs-ranking-benefit-card__art img {
@@ -3527,6 +3546,25 @@
   height: 49px;
 }
 
+.ranking-daily-screen .rs-lucky-card {
+  position: fixed;
+  left: 50%;
+  bottom: 82px;
+  z-index: calc(var(--z-tabbar) - 1);
+  width: min(335px, calc(100vw - 40px));
+  min-height: 76px;
+  margin: 0;
+  transform: translateX(-50%);
+}
+
+.ranking-daily-screen .rs-daily-rank-table + .rs-lucky-card {
+  margin-top: 0;
+}
+
+.ranking-daily-screen .screen-content {
+  padding-bottom: 174px;
+}
+
 .rs-daily-rank-table--tail {
   margin-top: -8px;
   border-radius: 0;
@@ -3636,12 +3674,9 @@
 }
 
 .rs-season-reward-card footer {
-  height: 40px;
-  display: grid;
-  grid-template-columns: 14px minmax(0, 1fr);
-  align-items: center;
-  gap: 5px;
-  padding: 0 118px 0 14px;
+  min-height: 48px;
+  display: block;
+  padding: 5px 118px 5px 14px;
   color: #3d2000;
   font-size: 10px;
   font-weight: 800;
@@ -3654,11 +3689,15 @@
 
 .rs-season-reward-card footer div {
   min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.rs-season-reward-card__time {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  column-gap: 7px;
-  row-gap: 0;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
 }
 
 .rs-season-reward-card footer span,
@@ -3674,7 +3713,6 @@
 }
 
 .rs-season-reward-card footer small {
-  flex: 0 0 100%;
   color: #3d2000;
   font-size: 7.5px;
   font-weight: 700;
@@ -3743,7 +3781,7 @@
 
 .rs-season-crown {
   position: absolute;
-  top: -17px;
+  top: -20px;
   left: 50%;
   width: 27px;
   height: 22px;
@@ -4049,43 +4087,8 @@
   content: none !important;
 }
 
-.ranking-daily-screen .bottom-nav {
-  height: 76px;
-  padding: 8px 18px 11px;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  background: #ffd95e;
-}
-
-.ranking-season-screen .bottom-nav {
-  height: 76px;
-  padding: 8px 18px 11px;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  background: #ffd95e;
-}
-
-.ranking-daily-screen .nav-item,
-.ranking-season-screen .nav-item {
-  gap: 1px;
-  color: rgba(93, 51, 0, 0.4);
-  font-size: 8px;
-  font-weight: 500;
-}
-
-.ranking-daily-screen .nav-item.is-active,
-.ranking-season-screen .nav-item.is-active {
-  color: #3d2000;
-}
-
-.ranking-daily-screen .nav-item__icon,
-.ranking-season-screen .nav-item__icon {
-  width: 22px;
-  height: 22px;
-}
-
 .ranking-daily-screen .screen-content {
-  padding-bottom: 96px;
+  padding-bottom: 174px;
 }
 
 .ranking-season-screen .screen-content {
@@ -4105,9 +4108,9 @@
 }
 
 .rs-ranking-live {
-  min-height: 40px;
-  align-items: start;
-  padding-top: 9px;
+  min-height: 27px;
+  align-items: center;
+  padding-top: 0;
   font-weight: 700;
 }
 
@@ -4144,7 +4147,7 @@
 /* Figma sync: product detail */
 .product-detail-screen .screen-content {
   gap: 15px;
-  padding: 11px 26px 128px;
+  padding: 11px 26px 72px;
 }
 
 .product-detail-screen .rs-detail-hero {
@@ -4331,10 +4334,21 @@
   font-size: 16px;
 }
 
+.product-detail-screen .rs-flow-action {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+  margin: 8px 0 28px;
+  padding: 0;
+  background: transparent;
+}
+
 /* Figma sync: exchange apply */
 .exchange-screen .screen-content {
   gap: 10px;
-  padding: 26px 26px 128px;
+  padding: 26px 26px 80px;
 }
 
 .exchange-screen .rs-exchange-summary {
@@ -4598,18 +4612,33 @@
 }
 
 .exchange-screen .rs-check-row {
-  position: fixed;
-  left: max(26px, calc((100vw - 375px) / 2 + 26px));
-  right: max(26px, calc((100vw - 375px) / 2 + 26px));
-  bottom: 116px;
-  z-index: calc(var(--z-scallop) + 4);
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+  margin: 2px 0 0;
 }
 
 .exchange-screen .rs-check-row__mark {
   width: 16px;
   height: 16px;
+  display: grid;
+  place-items: center;
   border-radius: 3px;
-  font-size: 10px;
+}
+
+.exchange-screen .rs-check-row__mark::before {
+  content: "";
+  width: 10px;
+  height: 7px;
+  display: block;
+  opacity: 0;
+  background: url("../assets/figma-exported/named/icon-exchange-check.svg") center / contain no-repeat;
+}
+
+.exchange-screen .rs-check-row.is-checked .rs-check-row__mark::before {
+  opacity: 1;
 }
 
 .exchange-screen .rs-sticky-action {
@@ -4623,6 +4652,17 @@
   bottom: 52px;
   z-index: calc(var(--z-scallop) + 4);
   margin-top: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.exchange-screen .rs-flow-action {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+  margin: 4px 0 28px;
   padding: 0;
   background: transparent;
 }
@@ -4879,6 +4919,7 @@
 .shop-screen .rs-shop-balance-row {
   width: 330px;
   margin: 0 3px;
+  grid-template-columns: 118px 24px 70px 118px;
   border-color: #faefdf;
 }
 
@@ -4928,6 +4969,21 @@
 .shop-screen .rs-shop-hero__art img {
   transform: scale(0.8);
   transform-origin: center bottom;
+}
+
+.shop-screen .rs-shop-hero__art {
+  right: 0;
+  bottom: 14px;
+}
+
+.shop-screen .rs-shop-balance-row__arrow-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.shop-screen .rs-shop-balance-row__cookie {
+  width: 16px;
+  height: 16px;
 }
 
 .shop-screen .rs-category-tabs {
@@ -5092,7 +5148,7 @@
 
 .shop-screen .rs-shop-recommend-card.is-google-play .rs-shop-recommend-card__title,
 .product-detail-screen .rs-shop-recommend-card.is-google-play .rs-shop-recommend-card__title {
-  min-height: 20px;
+  min-height: 10px;
   display: block;
   color: #1c1c1c;
   font-family: "Noto Sans KR", sans-serif;
@@ -5140,7 +5196,7 @@
 
 .shop-screen .rs-shop-next-button {
   top: 53px;
-  right: -8px;
+  right: -30px;
   width: 18px;
   height: 25px;
   padding: 0;
@@ -5397,8 +5453,8 @@
 }
 
 .vault-screen .rs-reward-card__inline-icon {
-  width: 13px;
-  height: 13px;
+  width: 11px;
+  height: 11px;
   object-fit: contain;
 }
 
@@ -5419,10 +5475,53 @@
   width: 330px;
   min-height: 65px;
   margin: 11px auto 0;
-  padding: 12px 17px;
+  padding: 12px 17px 11px;
   border: 1px solid #faefdf;
   border-radius: 10px;
   background: #faefdf;
+}
+
+.vault-screen .rs-vault-notice strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #3d2000;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.vault-screen .rs-vault-notice__icon {
+  width: 15px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.vault-screen .rs-vault-notice p {
+  position: relative;
+  margin: 7px 0 0;
+  padding-left: 20px;
+  color: #3d2000;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  white-space: nowrap;
+}
+
+.vault-screen .rs-vault-notice p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 13px;
+  height: 13px;
+  display: block;
+  border: 0;
+  border-radius: 0;
+  font-size: 0;
+  background: url("../assets/figma-exported/named/icon-vault-notice-check.svg") center / contain no-repeat;
 }
 
 .vault-screen .rs-vault-empty {

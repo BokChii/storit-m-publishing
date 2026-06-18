@@ -1627,7 +1627,7 @@
 }
 
 .account-cookie-row.is-use .account-cookie-row__icon {
-  background: #ffe8e4;
+  background: transparent;
 }
 
 .account-cookie-row div {
@@ -3492,6 +3492,10 @@ body:has(.account-settings-screen) .modal p {
   height: 48px;
   place-items: center;
   border-radius: 0;
+  background: transparent;
+}
+
+.account-cookie-history-screen .account-cookie-row.is-use .account-cookie-row__icon {
   background: transparent;
 }
 

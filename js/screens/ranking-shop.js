@@ -12,7 +12,7 @@
 
     const link = doc.createElement("link");
     link.rel = "stylesheet";
-    link.href = "./css/ranking-shop.css?v=vault-used-align-20260618a";
+    link.href = "./css/ranking-shop.css?v=vault-icons-20260618a";
     if (link.setAttribute) {
       link.setAttribute("data-storit-css", "ranking-shop");
     }
@@ -294,7 +294,7 @@
           </div>
           <strong>${escape(reward.name)}</strong>
           <small>${namedAsset("shop-price-cookie.svg", "쿠키", "rs-reward-card__inline-icon")} 50 쿠키 교환</small>
-          <small>${namedAsset("icon-detail-calendar.svg", "날짜", "rs-reward-card__inline-icon")} ${escape(reward.date)}</small>
+          <small>${namedAsset("icon-vault-calendar.svg", "날짜", "rs-reward-card__inline-icon")} ${escape(reward.date)}</small>
         </div>
         <button class="rs-reward-card__button" data-route="${used ? "rewardUsed" : "rewardDetail"}">${used ? "사용완료" : "사용하기"}</button>
       </article>
@@ -347,7 +347,7 @@
               ${rankingAsset("쿠키.svg", "쿠키", "rs-ranking-me-block__cookie")}
               <span>
                 <b>${escape(D.user.name)}</b>
-                <small>32위 822점</small>
+                <small><em>32위</em> 822점</small>
               </span>
             </div>
             <div class="rs-ranking-goal-block">
@@ -357,9 +357,8 @@
             <button type="button" data-route="quiz">점수 올리러 가기</button>
           </div>
 
-          <p class="rs-ranking-live"><span>${rankingAsset("live.svg", "LIVE")}</span> 일간 랭킹은 오늘 본 웹툰 퀴즈의 총점의 합으로 경쟁합니다.</p>
-
           <div class="rs-ranking-benefit-card rs-ranking-benefit-card--daily">
+            <p class="rs-ranking-live"><span>${rankingAsset("live.svg", "LIVE")}</span> 일간 랭킹은 오늘 본 웹툰 퀴즈의 총점의 합으로 경쟁합니다.</p>
             <div class="rs-ranking-benefits">
               <article>${rankingAsset("왕관.svg", "왕관")}<strong>1등</strong>${rankingCookieCount("50")}</article>
               <article>${rankingAsset("클로버.svg", "클로버")}<strong>행운의 특송</strong>${rankingCookieCount("20")}</article>
@@ -429,10 +428,8 @@
             <div class="rs-season-reward-card__cookie">${rankingAsset("금메달 단상대 쿠키.svg", "금메달 단상대 쿠키")}</div>
           </div>
           <footer>
-            ${rankingAsset("시계.svg", "시계")}
             <div>
-              <span>이번 시즌 남은 시간</span>
-              <strong>25일 03:41:29</strong>
+              <span class="rs-season-reward-card__time">${rankingAsset("시계.svg", "시계")}<span>이번 시즌 남은 시간</span><strong>25일 03:41:29</strong></span>
               <small>시즌에 3일 이상 참여하면 랭킹 보상에 도전할 수 있어요!</small>
             </div>
           </footer>
@@ -600,7 +597,7 @@
             <p>매주 추첨을 통해 아이패드를 드려요!</p>
           </div>
           ${namedAsset("shop-event-ipad-figma.png", "아이패드", "rs-event-card__image")}
-          <button class="rs-event-card__button" data-route="mission">
+          <button class="rs-event-card__button" type="button">
             <span>이벤트 참여하러가기</span>
             ${namedAsset("shop-event-next.svg", "", "rs-event-card__arrow")}
           </button>
@@ -664,7 +661,7 @@
           </div>
         </section>
 
-        <div class="fixed-bottom-action rs-sticky-action">${C.button("교환 신청하기", { route: "exchangeApply" })}</div>
+        <div class="rs-flow-action rs-sticky-action">${C.button("교환 신청하기", { route: "exchangeApply" })}</div>
       `,
     });
   }
@@ -692,11 +689,11 @@
         </section>
 
         <button class="rs-check-row ${checked ? "is-checked" : ""}" data-action="check">
-          <span class="rs-check-row__mark">✓</span>
+          <span class="rs-check-row__mark" aria-hidden="true"></span>
           <span>위 내용을 모두 확인했어요</span>
         </button>
 
-        <div class="fixed-bottom-action rs-sticky-action">${C.button("신청 확정하기", { route: "exchangeDone", variant: "dark", disabled: !checked })}</div>
+        <div class="rs-flow-action rs-sticky-action">${C.button("신청 확정하기", { route: "exchangeDone", variant: "dark", disabled: !checked })}</div>
       `,
     });
   }
@@ -762,7 +759,7 @@
 
         ${used ? "" : `
           <section class="rs-vault-notice">
-            <strong>안내사항</strong>
+            <strong>${namedAsset("icon-vault-notice-shield.svg", "", "rs-vault-notice__icon")} 안내사항</strong>
             <p>유효기간이 지난 기프티콘은 자동으로 사용 완료 처리됩니다.</p>
           </section>
         `}
