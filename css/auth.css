@@ -755,7 +755,7 @@
   position: absolute;
   z-index: 2;
   right: -4px;
-  bottom: 22px;
+  bottom: 250px;
   width: 170px;
   max-height: 220px;
   object-fit: contain;
@@ -785,7 +785,7 @@
 
 .auth-onboarding--cookie .auth-onboarding__character {
   right: 28px;
-  bottom: 110px;
+  bottom: 90px;
   width: 150px;
   height: auto;
   max-height: none;
@@ -800,7 +800,7 @@
 .auth-onboarding--ranking .auth-onboarding__character {
   left: 50%;
   right: auto;
-  bottom: 134px;
+  bottom: 250px;
   width: 196px;
   height: auto;
   max-height: none;
@@ -818,7 +818,7 @@
 .auth-onboarding--shop .auth-onboarding__character {
   left: 50%;
   right: auto;
-  bottom: 54px;
+  bottom: 154px;
   width: 184px;
   height: auto;
   max-height: none;

@@ -12,7 +12,7 @@
 
     const link = doc.createElement("link");
     link.rel = "stylesheet";
-    link.href = "./css/ranking-shop.css?v=vault-icons-20260618a";
+    link.href = "./css/ranking-shop.css?v=ranking-season-comment-20260618a";
     if (link.setAttribute) {
       link.setAttribute("data-storit-css", "ranking-shop");
     }
@@ -109,7 +109,7 @@
       ? rankingAsset(medal, `${rank}등`, "rs-daily-rank-row__medal")
       : `<b>${escape(rank)}</b>`;
     return `
-      <article class="rs-daily-rank-row ${isMe ? "is-me" : ""}">
+      <article class="rs-daily-rank-row is-rank-${escape(rank)} ${isMe ? "is-me" : ""}">
         <span class="rs-daily-rank-row__rank">${rankContent}</span>
         ${rankingProfile()}
         <strong class="rs-daily-rank-row__name">${escape(name)}</strong>
@@ -361,7 +361,7 @@
             <p class="rs-ranking-live"><span>${rankingAsset("live.svg", "LIVE")}</span> 일간 랭킹은 오늘 본 웹툰 퀴즈의 총점의 합으로 경쟁합니다.</p>
             <div class="rs-ranking-benefits">
               <article>${rankingAsset("왕관.svg", "왕관")}<strong>1등</strong>${rankingCookieCount("50")}</article>
-              <article>${rankingAsset("클로버.svg", "클로버")}<strong>행운의 특송</strong>${rankingCookieCount("20")}</article>
+              <article>${rankingAsset("클로버.svg", "클로버")}<strong>행운의 등수</strong>${rankingCookieCount("20")}</article>
               <article>${rankingAsset("불.svg", "불")}<strong>TOP 30</strong>${rankingCookieCount("1")}</article>
             </div>
             <div class="rs-ranking-benefit-card__bg">${rankingAsset("배경.svg", "오븐 배경")}</div>
@@ -385,8 +385,8 @@
           <span class="rs-lucky-card__icon" aria-hidden="true">${rankingAsset("행운쿠키.svg", "행운 쿠키")}</span>
           <div>
             <strong>오늘의 행운 구간</strong>
-            <b>10위~30위 사이</b>
-            <p>시간이 지날수록 올라가요!</p>
+            <b><span class="rs-lucky-range-number">10</span>위~<span class="rs-lucky-range-number">30</span>위 사이</b>
+            <p>시간이 지날수록 좁혀져요!</p>
           </div>
           <span class="rs-lucky-card__range">${rankingAsset("행운구간.svg", "행운 구간")}</span>
         </section>
@@ -417,7 +417,7 @@
           <header>
             <b>SEASON 05</b>
             <span>시즌 랭킹은 상위 20%까지 쿠키 보상 지급!</span>
-            <button type="button" data-modal="rankingSeasonReward" aria-label="시즌 보상 세부안">i</button>
+            <button type="button" data-modal="rankingSeasonReward" aria-label="시즌 보상 세부안">${namedAsset("icon-season-info.svg", "", "rs-season-info-icon")}</button>
           </header>
           <div class="rs-season-reward-card__body">
             <div class="rs-season-rewards">

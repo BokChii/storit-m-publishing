@@ -3618,10 +3618,17 @@
   justify-self: end;
   border: 0;
   border-radius: 50%;
-  background: #3d2000;
-  color: #fff5c8;
+  padding: 0;
+  background: #f3ede3;
+  color: #3d2000;
   font-size: 11px;
   font-weight: 800;
+}
+
+.rs-season-info-icon {
+  width: 15px;
+  height: 15px;
+  display: block;
 }
 
 .rs-season-reward-card__body {
@@ -3644,7 +3651,7 @@
   justify-items: center;
   align-content: center;
   gap: 5px;
-  border-right: 1px solid #eee2d0;
+  border-right: 0;
   color: #3d2000;
   font-size: 11px;
   font-weight: 800;
@@ -3725,7 +3732,8 @@
   display: grid;
   grid-template-columns: 1fr 1.04fr 1fr;
   align-items: end;
-  gap: 4px;
+  gap: 0;
+  margin-bottom: 0;
   padding: 20px 0 0;
 }
 
@@ -3795,6 +3803,7 @@
 }
 
 .rs-season-table {
+  margin-top: 0;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
   background: #fff;
@@ -4013,8 +4022,8 @@
 .modal.ranking-season-reward-modal h2 {
   margin: 0 0 20px;
   color: #000;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -4104,7 +4113,20 @@
 
 .rs-ranking-daily-card__top {
   min-height: 56px;
+  grid-template-columns: 1fr 1fr 100px;
   padding: 6px 12px;
+}
+
+.rs-ranking-me-block__cookie {
+  width: 35px;
+  height: 35px;
+}
+
+.rs-ranking-daily-card__top > button {
+  width: 100px;
+  height: 35px;
+  min-height: 35px;
+  border-radius: 14px;
 }
 
 .rs-ranking-live {
@@ -4112,6 +4134,23 @@
   align-items: center;
   padding-top: 0;
   font-weight: 700;
+}
+
+.rs-ranking-benefit-card--daily .rs-ranking-benefits article {
+  gap: 8px;
+}
+
+.rs-ranking-benefit-card__art img {
+  position: relative;
+  left: 20px;
+}
+
+.ranking-daily-screen .rs-daily-rank-row.is-rank-1 {
+  background: #fef4d2;
+}
+
+.ranking-daily-screen .rs-lucky-range-number {
+  color: #54368c;
 }
 
 .rs-ranking-me-block b,

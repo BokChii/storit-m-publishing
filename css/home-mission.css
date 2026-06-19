@@ -992,9 +992,21 @@
 }
 
 .hm-recipe-hero__copy,
+.hm-recipe-hero__sparkle-art,
 .hm-recipe-hero__chef {
   position: relative;
   z-index: 2;
+}
+
+.hm-recipe-hero__sparkle-art {
+  width: 25px;
+  height: 24px;
+  position: absolute;
+  right: 118px;
+  top: 66px;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .hm-recipe-hero h2,
@@ -1293,6 +1305,11 @@
 .hm-mission-item .hm-icon-bubble img[src$="ingredient-chocolate.svg"] {
   width: 33px !important;
   height: 27px !important;
+}
+
+.hm-ingredient-track .hm-ingredient .hm-icon-bubble img {
+  height: 25px !important;
+  object-fit: contain;
 }
 
 .hm-mission-item__copy {

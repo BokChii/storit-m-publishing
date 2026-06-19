@@ -373,6 +373,7 @@
           <h2>초코칩 쿠키 만들기</h2>
           <p>5가지 재료를 모두 모으면<br />쿠키 1개를 드려요! 🍪</p>
         </div>
+        <img class="hm-recipe-hero__sparkle-art" src="${assetBase}mission-hero-sparkle.svg" alt="" loading="lazy" />
         <img class="hm-recipe-hero__chef" src="${assetBase}mission-recipe-side.png" alt="" loading="lazy" />
       </section>
     `;

@@ -523,14 +523,14 @@
         </article>
         <nav class="account-notice-pager" aria-label="공지사항 이전 다음">
           <button type="button" data-route="noticeMaintenance">
-            <span aria-hidden="true">‹</span>
+            <img class="account-notice-pager__arrow" src="${assetBase}icon-notice-pager-prev.svg" alt="" loading="lazy" />
             <strong>이전글</strong>
             <small>${C.escape(notice.prev)}</small>
           </button>
           <button type="button" data-route="noticeWelcome">
             <strong>다음글</strong>
             <small>${C.escape(notice.next)}</small>
-            <span aria-hidden="true">›</span>
+            <img class="account-notice-pager__arrow" src="${assetBase}icon-notice-pager-next.svg" alt="" loading="lazy" />
           </button>
         </nav>
       `,
