@@ -173,14 +173,14 @@
 }
 
 .hm-heart-set__plus {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   display: inline-grid;
   place-items: center;
   border-radius: 50%;
   background: #ffd95e;
   color: #5d3300;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   line-height: 1;
 }
@@ -454,6 +454,10 @@
   transform: none;
 }
 
+.hm-quick-menu__item:nth-child(4) .hm-icon-bubble {
+  transform: translateX(3px);
+}
+
 .hm-mission-preview,
 .hm-list-section {
   border: 1px solid var(--hm-line);
@@ -725,6 +729,8 @@
 .hm-cheer-cookie .icon-symbol img {
   width: 48px;
   height: 47px;
+  transform: translateX(-7px);
+
 }
 
 .hm-cheer-list {
@@ -1016,7 +1022,7 @@
   margin: 0;
   color: var(--hm-brown-dark);
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.14;
 }
 
@@ -1053,7 +1059,7 @@
 .hm-recipe-hero p:not(.hm-kicker) {
   color: #3d2000;
   font-size: 10px;
-  font-weight: 700;
+  font-weight:700;
 }
 
 .hm-recipe-hero__chef {
@@ -1210,12 +1216,6 @@
   white-space: nowrap;
 }
 
-.hm-ingredient strong {
-  color: #000;
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .hm-ingredient small {
   width: 15px;
   height: 15px;
@@ -1337,15 +1337,17 @@
 
 .hm-mission-item__copy strong {
   color: var(--hm-brown-dark);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
+  color: #1C1000;
 }
 
 .hm-mission-item__copy p {
   margin: 0;
   color: var(--hm-muted);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
+  color: #888880;
 }
 
 .hm-mission-meter {
@@ -1410,17 +1412,17 @@
 }
 
 .hm-mission-item__action span {
-  min-width: 53px;
-  min-height: 25px;
+  min-width: 52px;
+  min-height: 22px;
   display: inline-grid;
   place-items: center;
-  padding: 0 7px;
-  border-radius: 8px;
+  padding: 0 10px;
+  border-radius: 10px;
   background: #ef9f27;
   color: #fff;
-  font-size: 10.5px;
-  font-weight: 600;
+  font-size: 10px;
   line-height: 1;
+  font-weight: 600;
 }
 
 .hm-mission-item.is-done .hm-mission-item__action span {
@@ -1497,7 +1499,7 @@
   padding: 16px 0 0;
   background:
     linear-gradient(var(--color-primary) 0 50px, transparent 50px),
-    url("../assets/figma-exported/named/bg-oven.png") center top / cover no-repeat;
+    url("../assets/figma-exported/named/bg-oven.png") center -90px / auto 110% no-repeat;
 }
 
 .hm-oven-screen .app-header {
@@ -1596,7 +1598,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: 421px;
+  top: 390px;
   transform: translateX(-50%);
 }
 
@@ -1639,7 +1641,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: 383px;
+  top: 46%;
   transform: translateX(-50%);
   border-radius: 50%;
   background: transparent;
@@ -1656,7 +1658,7 @@
 .hm-complete-chef {
   position: absolute;
   right: 1px;
-  bottom: 78px;
+  bottom: 15%;
   z-index: 3;
 }
 
@@ -1682,8 +1684,8 @@
   display: grid;
   gap: 0;
   position: absolute;
-  left: 45px;
-  bottom: 126px;
+  left: 70px;
+  bottom: 155px;
   z-index: 4;
   width: 126px;
   min-height: 97px;
@@ -1698,7 +1700,7 @@
 }
 
 .hm-complete-message strong {
-  color: var(--hm-brown-dark);
+  color: #322814;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.25;
@@ -1709,7 +1711,7 @@
 }
 
 .hm-complete-message span {
-  color: var(--hm-brown-dark);
+  color: #322814;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.25;
@@ -1799,14 +1801,14 @@
 .hm-reward-message h2 {
   color: var(--hm-brown-dark);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
 }
 
 .hm-reward-message p {
   color: var(--hm-brown-dark);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.35;
 }
 
@@ -1827,23 +1829,23 @@
   margin: 0;
   color: var(--hm-brown-dark);
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .hm-cookie-balance div {
   display: flex;
   justify-content: center;
-  gap: 22px;
+  gap: 28px;
   align-items: center;
   color: var(--hm-brown-dark);
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 900;
 }
 
 .hm-cookie-balance div > span {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   line-height: 30px;
 }
 
@@ -1895,7 +1897,6 @@
 
 .hm-attendance-panel {
   overflow: hidden;
-  border: 1px solid var(--hm-line);
   border-radius: 10px;
   background: #fff;
   box-shadow: none;
@@ -1911,7 +1912,7 @@
   color: #000;
   font-size: 16px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.7;
   letter-spacing: 0;
   white-space: nowrap;
 }
@@ -1920,8 +1921,8 @@
   margin: 0;
   color: #000;
   font-size: 12px;
-  font-weight: 800;
-  line-height: 1.2;
+  font-weight: 700;
+  line-height: 1.5;
   letter-spacing: 0;
   white-space: nowrap;
 }
@@ -1972,7 +1973,7 @@
 .hm-calendar__month strong {
   color: #3d2000;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .hm-calendar__month .icon-button {
@@ -1984,8 +1985,8 @@
 .hm-calendar__grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 4px;
-  padding: 0 10px 13px;
+  gap: 10px;
+  padding: 0 10px 20px;
   color: var(--hm-muted);
   text-align: center;
 }
@@ -1999,7 +2000,7 @@
   border-bottom: 1px solid #f3eadb;
   color: var(--hm-brown-soft);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .hm-calendar__grid > strong:first-child,
@@ -2020,11 +2021,11 @@
   min-height: 43px;
   display: grid;
   place-items: center;
-  gap: 1px;
+  gap: 5px;
   border-radius: 10px;
   color: var(--hm-muted);
   font-size: 10px;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .hm-calendar__day.is-today {
@@ -2086,20 +2087,20 @@
 
 .hm-attendance-action {
   bottom: 14px;
-  margin-top: 57px;
+  margin-top: 10px;
 }
 
 .hm-attendance-notice {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 25px;
   position: relative;
   bottom: auto;
   z-index: 4;
   margin-top: 4px;
   min-height: 61px;
-  padding: 9px 10px 9px 16px;
+  padding: 6px 10px 7px 16px;
   border: 1px solid #ef9f27;
   border-radius: 12px;
   background: #fff4d4;
@@ -2112,8 +2113,8 @@
 }
 
 .hm-attendance-notice__icon {
-  width: 49px;
-  height: 49px;
+  width: 40px;
+  height: 35px;
   flex: 0 0 auto;
   object-fit: contain;
 }
@@ -2140,14 +2141,14 @@
 }
 
 .hm-attendance-notice .icon-button {
-  width: 32px;
-  height: 42px;
+  width: 35px;
+  height: 30px;
   flex: 0 0 32px;
   color: #3d2000;
   font-size: 44px;
   font-weight: 400;
-  line-height: 1;
-  transform: translateY(-1px);
+  line-height: 0;
+  transform: translateY(-7px);
 }
 
 .hm-attendance-action .btn:disabled {
@@ -2272,15 +2273,16 @@
   width: 85px;
   height: 21px;
   display: block;
+  margin-top: 4px;
 }
 
 .hm-exp-bar span {
   position: absolute;
   right: 8px;
-  top: 50%;
+  top: 68%;
   color: #5d3300;
-  font-size: 8px;
-  font-weight: 900;
+  font-size: 10px;
+  font-weight: 800;
   line-height: 1;
   transform: translateY(-50%);
 }
@@ -2318,15 +2320,14 @@
 }
 
 .hm-home-screen .hm-heart-set__plus {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   margin-top: 1px;
+  margin-left: 2px;
   padding: 0;
   border: 0;
   background: #ffd95e;
   color: #5d3300;
-  font-size: 11px;
-  font-weight: 900;
   cursor: pointer;
 }
 
@@ -2364,8 +2365,8 @@
   border-radius: 9px;
   background: var(--color-primary);
   color: #5d3300;
-  font-size: 11px;
-  font-weight: 900;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .hm-cookie-pill__icon {
@@ -2409,14 +2410,13 @@
   padding: 28px 13px 12px 25px;
   border: 0;
   border-radius: 8px;
-  background: linear-gradient(90deg, rgba(255, 246, 218, 0.92) 0 42%, rgba(255, 239, 196, 0.72) 100%);
   box-shadow: none;
 }
 
 .hm-home-banner::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -12px;
   z-index: 0;
   background: url("../assets/figma-exported/named/bg-home-banner.png") center / cover no-repeat;
   opacity: 0.7;
@@ -2525,7 +2525,7 @@
   justify-content: center;
   justify-items: center;
   text-align: center;
-  padding-left: 1px;
+  padding-left: 0px;
 }
 
 .hm-chance-banner__copy strong {
@@ -2554,8 +2554,9 @@
 .hm-chance-banner__right {
   gap: 6px;
   min-height: 44px;
-  padding: 0 48px 0 4px;
+  padding: 1px 48px 0 0px;
   background: transparent;
+  transform: translateY(-4px);
 }
 
 .hm-chance-banner__right::after {
@@ -2594,10 +2595,10 @@
 }
 
 .hm-weekday-tabs button::after {
-  height: 4px;
+  height: 3px;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -3px;
   background: #f2ebdf;
   border-radius: 999px;
 }
@@ -2728,6 +2729,7 @@
   color: #888880;
   font-size: 8px;
   font-weight: 600;
+  transform: translateX(-15px);
 }
 
 .hm-heart-modal[hidden] {
@@ -2801,7 +2803,7 @@
   margin: 0;
   color: #111;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -2827,7 +2829,7 @@
   background: #fef4d2;
   color: #5d3300;
   font-size: 10px;
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1;
   white-space: nowrap;
 }
@@ -2851,6 +2853,7 @@
   place-items: center;
   padding: 0;
   margin-left: 6px;
+  margin-bottom: 2px;
   background: transparent;
 }
 
@@ -2870,7 +2873,7 @@
   color: #111;
   font-family: var(--font-main);
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.35;
 }
 
@@ -2892,7 +2895,7 @@
 .hm-heart-modal__count strong {
   color: #f6a01a;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.1;
 }
 
@@ -2910,7 +2913,7 @@
   height: 56px;
   border-radius: 16px;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .hm-heart-modal__button--wait {
@@ -3008,7 +3011,7 @@
   position: relative;
   z-index: 2;
   display: block;
-  margin: 88px auto 17px;
+  margin: 88px auto 35px;
   object-fit: contain;
 }
 
@@ -3023,9 +3026,9 @@
 .hm-mission-exp-modal__message h2 {
   margin: 0;
   color: #3d2000;
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.55;
 }
 
 .hm-mission-exp-modal__message p {

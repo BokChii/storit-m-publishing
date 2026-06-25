@@ -416,10 +416,11 @@
     expModalTimers.set(modal, timer);
   }
 
-  function openExpModal(modal, autoCloseMs) {
+  function openExpModal(modal) {
     if (!modal) return;
+    clearExpModalTimer(modal);
     modal.hidden = false;
-    scheduleExpModalAutoClose(modal, autoCloseMs);
+    //scheduleExpModalAutoClose(modal, autoCloseMs);
   }
 
   function watchExpModals() {
@@ -518,6 +519,7 @@
 
   let missionBakingTimer = 0;
   let missionCookieRewardTimer = 0;
+  let rewardCopyToastTimer = 0;
   let missionTickAudio = null;
   let missionDingAudio = null;
   let missionAudioUnlocked = false;
@@ -532,6 +534,16 @@
   function currentRoute() {
     return window.location.hash.replace(/^#/, "") || "onboarding1";
   }
+  function syncRewardCopyToast() {
+    window.clearTimeout(rewardCopyToastTimer);
+
+    if (currentRoute() !== "rewardCopied") return;
+    rewardCopyToastTimer = window.setTimeout(() => {
+     if (currentRoute() === "rewardCopied") {
+      window.StoritRouter?.navigate("rewardDetail");
+    }
+  }, 1000);
+}
 
   function stopMissionBakingTimers() {
     if (missionBakingTimer) {
@@ -729,13 +741,15 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     window.StoritRouter.start();
-    watchExpModals();
+//    watchExpModals();
     syncMissionFlowSideEffects();
     openMissionExpIfQueued();
   });
 
   window.addEventListener("hashchange", syncMissionFlowSideEffects);
   window.addEventListener("hashchange", openMissionExpIfQueued);
+  window.addEventListener("hashchange", syncRewardCopyToast);
   document.addEventListener("storit:render", openMissionExpIfQueued);
+  document.addEventListener("storit:render", syncRewardCopyToast);
   document.addEventListener("storit:mission-exp-request", openMissionExp);
 })();

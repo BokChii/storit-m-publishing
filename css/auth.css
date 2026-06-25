@@ -657,7 +657,7 @@
 }
 
 .auth-onboarding--ranking .auth-onboarding__copy {
-  transform: translateY(-12px);
+  transform: translateY(22px);
 }
 
 .auth-onboarding--ranking .auth-bg-layer::after,
@@ -719,9 +719,10 @@
   font-family: var(--font-main);
   max-width: 292px;
   color: #4d2a05;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1.45;
+  margin-top: 12px;
 }
 
 .auth-onboarding--cookie .auth-onboarding__copy {
@@ -732,8 +733,12 @@
   gap: 0;
 }
 
+.auth-onboarding--cookie .auth-onboarding__copy h1 {
+  line-height: 1.2;
+}
+
 .auth-onboarding--cookie .auth-onboarding__copy p:not(.auth-kicker) {
-  margin-top: 6px;
+  margin-top: 12px;
   color: #3f2508;
   font-size: 13px;
   font-weight: 600;

@@ -52,7 +52,7 @@
     quitQuiz: {
       icon: "question",
       title: "작성중인 내용이 있습니다.\n정말 나가시겠습니까?",
-      text: "등록하지 않고 페이지를 벗어날 경우, 지금까지 작성한 내용이 사라집니다.",
+      text: "등록하지 않고 페이지를 벗어날 경우,\n지금까지 작성한 내용이 사라집니다.",
       buttons: [
         ["머무르기", "orange", "close"],
         ["이동하기", "soft", "myQuiz"],
@@ -112,6 +112,7 @@
     "미스터리",
     "추리",
     "SF",
+    "코미디"
   ];
 
   const accountLifeEditIcon = `

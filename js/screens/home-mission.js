@@ -266,7 +266,7 @@
     return `
       <nav class="hm-weekday-tabs" aria-label="요일 필터">
         ${["전체", "월", "화", "수", "목", "금", "토", "일"]
-          .map((day, index) => `<button class="${index === 1 ? "is-active" : ""}" type="button">${C.escape(day)}</button>`)
+          .map((day, index) => `<button class="${index === 1 ? "is-active" : ""}" type="button" aria-pressed="${index === 1}">${C.escape(day)}</button>`)
           .join("")}
       </nav>
     `;
@@ -616,6 +616,19 @@
         ${attendanceSuccessNotice(extra)}
         ${missionExpModal()}
       `,
+    });
+  }
+
+  if (typeof document !== "undefined" && document.addEventListener) {
+    document.addEventListener("click", (event) => {
+      const tab = event.target.closest?.(".hm-weekday-tabs button");
+      if (!tab) return;
+
+      tab.parentElement?.querySelectorAll("button").forEach((button) => {
+        const selected = button === tab;
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
     });
   }
 

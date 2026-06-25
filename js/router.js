@@ -88,26 +88,11 @@
   }
 
   function openExpModalAfterRoute() {
-    const autoCloseMs = 1000;
     const open = () => {
       const modal = document.querySelector("[data-exp-modal]");
-      if (!modal) return;
-      if (window.__storitExpModalTimer) {
-        window.clearTimeout(window.__storitExpModalTimer);
-      }
-      modal.hidden = false;
-      const openedAt = Date.now();
-      const closeAfterElapsed = () => {
-        const remaining = autoCloseMs - (Date.now() - openedAt);
-        if (remaining > 0) {
-          window.__storitExpModalTimer = window.setTimeout(closeAfterElapsed, remaining);
-          return;
-        }
-        modal.hidden = true;
-        window.__storitExpModalTimer = 0;
-      };
-      window.__storitExpModalTimer = window.setTimeout(closeAfterElapsed, autoCloseMs);
+      if (modal) modal.hidden = false;
     };
+
     open();
     window.setTimeout(open, 0);
     window.setTimeout(open, 50);

@@ -50,18 +50,18 @@
       { icon: 'reject', title: D.notices[5][0], body: D.notices[5][1], action: '2/3', tone: 'reject' },
     ],
     notice: [
-      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!!', body: '스토릿에 오신 여러분을 환영합니다.', action: '확인하기', tone: 'notice', route: 'noticeWelcome', pinned: true },
-      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!!', body: '서비스 안정화를 위한 점검이 진행됩니...', action: '확인하기', tone: 'notice', route: 'noticeMaintenance' },
-      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!!', body: '상품권 관련 오류 개선사항입니다.', action: '확인하기', tone: 'notice', route: 'noticeMaintenance' },
-      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!!', body: '스토릿에 오신 여러분을 환영합니다.', action: '확인하기', tone: 'notice', route: 'noticeWelcome' },
+      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!', body: '스토릿에 오신 여러분을 환영합니다.', action: '확인하기', tone: 'notice', route: 'noticeWelcome', pinned: true },
+      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!', body: '서비스 안정화를 위한 점검이 진행됩니...', action: '확인하기', tone: 'notice', route: 'noticeMaintenance' },
+      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!', body: '상품권 관련 오류 개선사항입니다.', action: '확인하기', tone: 'notice', route: 'noticeMaintenance' },
+      { icon: 'megaphone', title: '새 공지사항이 등록되었어요!', body: '스토릿에 오신 여러분을 환영합니다.', action: '확인하기', tone: 'notice', route: 'noticeWelcome' },
     ],
   };
 
   const noticeDetails = {
     noticeWelcome: {
       title: '스토릿에 오신 여러분을 환영합니다.',
-      prev: '서비스 안정화를 위한 점...',
-      next: '서비스 안정화를 위한 점...',
+      prev: '서비스 안정화를 위한 점..',
+      next: '서비스 안정화를 위한 점..',
       body: [
         '안녕하세요, 스토릿입니다.',
         '스토릿은 좋아하는 작품을 더 재미있게 즐길 수 있도록 만든 팬덤 퀴즈 커뮤니티입니다.',
@@ -73,8 +73,8 @@
     },
     noticeMaintenance: {
       title: '서비스 안정화를 위한 점검이 진행됩니다.',
-      prev: '서비스 안정화를 위한 점...',
-      next: '서비스 안정화를 위한 점...',
+      prev: '서비스 안정화를 위한 점..',
+      next: '서비스 안정화를 위한 점..',
       body: [
         '안녕하세요, 스토릿입니다.',
         '더 안정적인 서비스 이용을 위해 아래 시간 동안 점검이 진행될 예정입니다.',
@@ -148,18 +148,26 @@
       sections: [
         [
           '1. 수집하는 개인정보의 항목 및 수집 방법',
-          '회사는 소셜 로그인 및 서비스 제공을 위해 아래의 개인정보를 수집합니다.\n가입 시(소셜 연동): 이메일 주소, 닉네임, 프로필 사진\n리워드 사용 및 환급 시(필요 시): 본인인증 정보(CI/DI), 휴대전화 번호, 은행 계좌번호\n자동 수집 항목: 서비스 이용기록, 접속 로그, IP 주소, 불량 이용 기록',
+          '회사는 소셜 로그인 및 서비스 제공을 위해 아래의 개인정보를 수집합니다.\n가입 시(소셜 연동): 이메일 주소, 닉네임, 프로필 사진\n리워드 사용 및 환급 시(필요 시): 본인인증 정보(CI/DI), 휴대전화 번호, 은행 계좌번호\n자동 수집 항목: 서비스 이용기록, 접속 로그, IP 주소, 불량 이용 기록\n만 14세 미만 아동 가입 시: 법정대리인의 정보 (이름, 연락처, 동의 의사 확인 기록)',
         ],
         [
           '2. 개인정보의 수집 및 이용 목적',
-          '회원 관리, 서비스 및 리워드 제공, 맞춤형 콘텐츠 제공, 신규 서비스 개발을 위한 통계 분석, 이벤트 및 광고성 정보 제공(동의한 경우에 한함)을 목적으로 개인정보를 이용합니다.',
+          '회원 관리: 소셜 계정을 통한 본인 식별, 불량 회원의 부정 이용 방지, 만 14세 미만 아동 확인 및 법정대리인 동의 여부 확인\n서비스 및 리워드 제공: 웹툰 퀴즈 서비스 제공, 리워드(포인트) 적립 및 정산, 맞춤형 콘텐츠 제공\n신규 서비스 및 마케팅: 신규 기능(커뮤니티, 길드 등) 개발을 위한 통계 분석, 이벤트 및 광고성 정보 제공(동의한 경우에 한함)',
         ],
         [
           '3. 개인정보의 보유 및 이용 기간',
-          '원칙적으로 회원 탈퇴 시 또는 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 단, 부정이용 및 어뷰징 방지를 위해 탈퇴 후에도 6개월간 최소한의 식별 정보를 보관할 수 있습니다.',
+          '원칙적으로 회원 탈퇴 시 또는 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 단, 부정이용 및 어뷰징 방지를 위해 탈퇴 후에도 6개월간 최소한의 식별 정보(탈퇴 기록 및 불량 이용 기록)를 보관할 수 있으며, 관련 법령에 따라 보존할 의무가 있는 경우 아래와 같이 보관합니다.\n전자상거래 등에서의 소비자보호에 관한 법률에 따른 대금결제 및 재화 등의 공급에 관한 기록: 5년',
         ],
         [
-          '4. 개인정보 보호책임자',
+          '4. 개인정보의 파기 절차 및 방법',
+          '파기 절차: 목적이 달성된 개인정보는 내부 방침 및 기타 관련 법령에 의한 정보보호 사유에 따라 일정 기간 저장된 후 파기됩니다.\n파기 방법: 전자적 파일 형태로 저장된 개인정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 완전히 삭제합니다.',
+        ],
+        [
+          '5. 이용자 및 법정대리인의 권리와 행사 방법',
+          '이용자 및 만 14세 미만 아동의 법정대리인은 언제든지 등록되어 있는 자신 혹은 당해 아동의 개인정보를 조회하거나 수정할 수 있으며, 동의 철회(회원 탈퇴)를 요청할 수 있습니다.\ 해당 권리는 서비스 내 설정/마이페이지 메뉴 또는 개인정보 보호책임자에게 서면, 이메일 등을 통해 행사하실 수 있습니다.',
+        ],
+        [
+          '6. 개인정보 보호책임자',
           '회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 이용자의 불만 처리 및 피해 구제를 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.\n담당자: 김동신\n이메일: kdshin@freshmilk.kr',
         ],
       ],
@@ -377,7 +385,7 @@
           <div class="account-final-profile__body">
             <div class="account-final-profile__name">
               <h2>${C.escape(D.user.name)}</h2>
-              <button type="button" data-modal="accountProfileEdit">프로필 수정 ›</button>
+              <button type="button" data-modal="accountProfileEdit">프로필 수정  <img class="account-shortcut-chevron" src="${assetBase}account-shortcut-chevron-right.svg" alt="" loading="lazy" /></button>
             </div>
             <div class="account-final-profile__level">
               <strong>LV. ${C.escape(D.user.level)}</strong>
@@ -386,7 +394,7 @@
             <p>
               다음 레벨까지
               <button class="account-exp-trigger" type="button" data-modal="accountExpInfo">
-                120 EXP <span class="account-inline-chevron" aria-hidden="true">›</span>
+                120 EXP <img class="account-inline-chevron" src="${assetBase}icon-chevron-right.svg" alt="" loading="lazy" />
               </button>
             </p>
           </div>
@@ -427,7 +435,7 @@
             <span><small>누적 획득</small><strong>1,240</strong></span>
             <span><small>누적 사용</small><strong>1,160</strong></span>
           </div>
-          <i class="account-card-chevron" aria-hidden="true">›</i>
+          <img class="account-card-chevron" src="${assetBase}account-card-chevron-right.svg" alt="" loading="lazy" />
         </section>
 
         <div class="account-final-pref-grid">
@@ -447,12 +455,12 @@
           <section>
             <span><img src="${assetBase}icon-mypage-vault-present.svg" alt="" loading="lazy" /> 내 보관함</span>
             <strong>사용 가능한<br />상품권 2개</strong>
-            <button type="button" data-route="vault">보관함 가기 <span class="account-shortcut-chevron" aria-hidden="true">›</span></button>
+            <button type="button" data-route="vault">보관함 가기 <img class="account-shortcut-chevron" src="${assetBase}account-shortcut-chevron-right.svg" alt="" loading="lazy" /></button>
           </section>
           <section>
             <span><img src="${assetBase}icon-mypage-myquiz-memo.svg" alt="" loading="lazy" /> 내 퀴즈</span>
             <strong>퀴즈 심사 결과<br />확인 1건</strong>
-            <button type="button" data-route="myQuiz">내 퀴즈 가기 <span class="account-shortcut-chevron" aria-hidden="true">›</span></button>
+            <button type="button" data-route="myQuiz">내 퀴즈 가기 <img class="account-shortcut-chevron" src="${assetBase}account-shortcut-chevron-right.svg" alt="" loading="lazy" /></button>
           </section>
         </div>
       `,
@@ -558,7 +566,7 @@
           <strong>${C.escape(row.label)}</strong>
           <small>${C.escape(row.desc)}</small>
         </span>
-        ${row.action === 'toggle' ? `<span class="toggle ${row.on ? 'is-on' : ''}" aria-hidden="true"></span>` : '<span class="account-card-arrow" aria-hidden="true">›</span>'}
+        ${row.action === 'toggle' ? `<span class="toggle ${row.on ? 'is-on' : ''}" aria-hidden="true"></span>` : `<img class="account-card-arrow" src="${assetBase}icon-setting-cards-arrow.svg" alt="" loading="lazy" />`}
       </button>
     `;
   }
@@ -668,7 +676,7 @@
           <span class="account-check-row__label"><span class="check-mark" aria-hidden="true"></span> 회원 탈퇴 유의사항을 확인했으며 동의합니다</span>
         </button>
         <section class="account-form-card account-withdraw-form">
-          <label class="field-label" for="withdraw-reason">떠나시는 이유를 알려주세요</label>
+          <label class="field-label" for="withdraw-reason">떠나시는 이유를 알려주세요!</label>
           <textarea id="withdraw-reason" class="textarea account-textarea" placeholder="서비스 탈퇴 사유에 대해 알려주세요.&#10;고객님의 소중한 피드백을 담아&#10;더 좋은 서비스로 보답 드리도록 하겠습니다!"></textarea>
         </section>
         <div class="fixed-bottom-action">${C.button('회원 탈퇴', { route: 'signup', variant: 'orange', disabled: true })}</div>

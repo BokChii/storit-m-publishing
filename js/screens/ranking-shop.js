@@ -552,7 +552,7 @@
           ${categories
             .map(
               ([label, icon], index) => `
-                <button class="rs-category-tab ${index === 0 ? "is-active" : ""}">
+                <button class="rs-category-tab ${index === 0 ? "is-active" : ""}" type="button" aria-pressed="${index === 0}">
                   <span aria-hidden="true">${C.icon(icon)}</span>
                   <strong>${escape(label)}</strong>
                 </button>
@@ -577,12 +577,19 @@
               <p>상품 1354687개</p>
             </div>
             <div class="rs-sort-tabs">
-              <select class="rs-sort-tabs__select" aria-label="상품 정렬">
-                <option>인기순</option>
-                <option>보유 가격 순</option>
-                <option>높은 가격 순</option>
-                <option>최신순</option>
-              </select>
+              <button class="rs-sort-tabs__select" type="button" aria-haspopup="listbox" aria-expanded="false">인기순</button>
+              <div class="rs-sort-menu" role="listbox" hidden>
+                ${["인기순", "낮은 가격 순", "높은 가격 순", "최신순"]
+                  .map(
+                    (label, index) => `
+                      <button class="rs-sort-menu__option ${index === 0 ? "is-selected" : ""}" type="button" role="option" aria-selected="${index === 0}">
+                        <span>${escape(label)}</span>
+                        <i aria-hidden="true"></i>
+                      </button>
+                    `,
+                  )
+                  .join("")}
+              </div>
             </div>
           </div>
           <div class="rs-shop-popular-grid">
@@ -805,6 +812,59 @@
         ` : ""}
         <div class="fixed-bottom-action rs-sticky-action">${C.button("완료", { route: "vault" })}</div>
       `,
+    });
+  }
+
+  if (typeof document !== "undefined" && document.addEventListener) {
+    document.addEventListener("click", (event) => {
+      const sortButton = event.target.closest?.(".shop-screen .rs-sort-tabs__select");
+      if (sortButton) {
+        const sortTabs = sortButton.closest(".rs-sort-tabs");
+        const menu = sortTabs?.querySelector(".rs-sort-menu");
+        const isOpen = sortTabs?.classList.toggle("is-open");
+
+        sortButton.setAttribute("aria-expanded", String(Boolean(isOpen)));
+        if (menu) menu.hidden = !isOpen;
+        return;
+      }
+
+      const sortOption = event.target.closest?.(".shop-screen .rs-sort-menu__option");
+      if (sortOption) {
+        const sortTabs = sortOption.closest(".rs-sort-tabs");
+        const sortButton = sortTabs?.querySelector(".rs-sort-tabs__select");
+        const menu = sortTabs?.querySelector(".rs-sort-menu");
+        const label = sortOption.textContent.trim();
+
+        sortTabs?.querySelectorAll(".rs-sort-menu__option").forEach((button) => {
+          const selected = button === sortOption;
+          button.classList.toggle("is-selected", selected);
+          button.setAttribute("aria-selected", String(selected));
+        });
+
+        if (sortButton) {
+          sortButton.textContent = label;
+          sortButton.setAttribute("aria-expanded", "false");
+        }
+        sortTabs?.classList.remove("is-open");
+        if (menu) menu.hidden = true;
+        return;
+      }
+
+      document.querySelectorAll(".shop-screen .rs-sort-tabs.is-open").forEach((sortTabs) => {
+        sortTabs.classList.remove("is-open");
+        sortTabs.querySelector(".rs-sort-tabs__select")?.setAttribute("aria-expanded", "false");
+        const menu = sortTabs.querySelector(".rs-sort-menu");
+        if (menu) menu.hidden = true;
+      });
+
+      const tab = event.target.closest?.(".shop-screen .rs-category-tab");
+      if (!tab) return;
+
+      tab.parentElement?.querySelectorAll(".rs-category-tab").forEach((button) => {
+        const selected = button === tab;
+        button.classList.toggle("is-active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
     });
   }
 

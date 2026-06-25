@@ -42,7 +42,11 @@
       route: "quizApproved",
       thumb: "darkMage",
       title: "66666년 만에 환생한 흑마법사 퀴즈",
-      meta: "▶ 255회    정답률 42%    평균 5.8초",
+      stats: {
+        playCount: 255,
+        correctRate: 42,
+        averageTime: 5.8,
+      },
       side: "플레이 1,248회",
     },
     {
@@ -441,7 +445,17 @@
         <div class="quiz-list-item__body">
           ${statusPill(item.status, item.tone)}
           <h3>${C.escape(item.title)}</h3>
-          <p>${C.escape(item.meta)}</p>
+          ${
+            item.stats
+              ? `
+                <div class="quiz-list-item__stats">
+                  <span>▶ ${C.escape(item.stats.playCount)}회</span>
+                  <span>정답률 ${C.escape(item.stats.correctRate)}%</span>
+                  <span>평균 ${C.escape(item.stats.averageTime)}초</span>
+                </div>
+              `
+              : `<p>${C.escape(item.meta)}</p>`
+          }
         </div>
         <div class="quiz-list-item__side">
           <button type="button" data-route="${C.escape(item.route)}">상세<br />보기</button>
@@ -450,13 +464,48 @@
     `;
   }
 
+  function myQuizFilterCount(filter) {
+    return filter === "all"
+      ? myQuizItems.length
+      : myQuizItems.filter((item) => item.tone === filter).length;
+  }
+
+  function myQuizFilterButton(label, filter, active = false) {
+    return `
+      <button
+        class="${active ? "is-active" : ""}"
+        type="button"
+        data-quiz-filter="${C.escape(filter)}"
+        aria-pressed="${active}"
+      >${C.escape(label)}${myQuizFilterCount(filter)}</button>
+    `;
+  }
+
+  function filteredMyQuizRows(filter = "all") {
+    const items = filter === "all"
+      ? myQuizItems
+      : myQuizItems.filter((item) => item.tone === filter);
+
+    return items.map(myQuizRow).join("");
+  }
+
   function bestQuizCard() {
+    const stats = {
+      playCount: 255,
+      correctRate: 42,
+      averageTime: 5.8,
+    };
+
     return `
       <article class="quiz-best-card">
         ${C.asset("poster", "darkMage")}
         <div>
           <strong>66666년 만에 환생한 흑마법사 퀴즈</strong>
-          <p>▶ 255회&nbsp;&nbsp;&nbsp;정답률 42%&nbsp;&nbsp;&nbsp;평균 5.8초</p>
+          <div class="quiz-best-card__stats">
+            <span>▶ ${C.escape(stats.playCount)}회</span>
+            <span>정답률 ${C.escape(stats.correctRate)}%</span>
+            <span>평균 ${C.escape(stats.averageTime)}초</span>
+          </div>
         </div>
       </article>
     `;
@@ -474,9 +523,9 @@
           <div>
             <h2>나만의 웹툰 퀴즈를 만들어봐요!</h2>
             <p>유저 참여 현황과 심사 결과를 확인할 수 있어요.</p>
-            <button type="button">퀴즈 만들러 가기 〉</button>
+            <button type="button">퀴즈 만들러 가기 <img class="my-quiz-chevron-right" src="${namedAssetBase}myquiz-chevron-right.svg" alt="" loading="lazy" /></button>
           </div>
-          <img class="asset my-quiz-hero__sparkle" src="${namedAssetBase}myquiz-hero-sparkle.svg" alt="" loading="lazy" />
+          <img class="my-quiz-hero__sparkle" src="${namedAssetBase}myquiz-hero-sparkle.svg" alt="" loading="lazy" />
           ${namedAsset("character-myquiz-hero-cookie.svg", "my-quiz-hero__chef")}
         </section>
 
@@ -498,14 +547,14 @@
           <div class="quiz-section__head">
             <h2>내 퀴즈 목록</h2>
             <div class="quiz-filter-row">
-              <button class="is-active" type="button">전체 7</button>
-              <button type="button">승인4</button>
-              <button type="button">심사중2</button>
-              <button type="button">반려1</button>
+              ${myQuizFilterButton("전체", "all", true)}
+              ${myQuizFilterButton("승인", "approved")}
+              ${myQuizFilterButton("심사중", "review")}
+              ${myQuizFilterButton("반려", "rejected")}
             </div>
           </div>
-          <div class="quiz-list">
-            ${myQuizItems.map(myQuizRow).join("")}
+          <div class="quiz-list" data-my-quiz-list>
+            ${filteredMyQuizRows()}
           </div>
         </section>
         <button class="quiz-floating-add" type="button" data-route="quizCreate" aria-label="퀴즈 만들기">${floatingAddIcon()}</button>
@@ -517,17 +566,19 @@
     const selectedIndex = selected ? readSelectedWebtoonIndex() : -1;
     const actionIcon = "icon-quiz-create-add.svg";
     return `
-      <div class="quiz-webtoon-strip">
-        ${webtoonChoices
-          .map(
-            ([thumb, title], index) => `
-              <button class="quiz-webtoon-choice ${selectedIndex === index ? "is-selected" : ""} ${selected && selectedIndex !== index ? "is-faded" : ""}" type="button" data-route="quizCreateSelected" data-quiz-webtoon-index="${index}" aria-pressed="${selectedIndex === index}">
-                ${C.asset("poster", thumb)}
-                <span>${C.escape(title)}</span>
-              </button>
-            `,
-          )
-          .join("")}
+      <div class="quiz-webtoon-picker">
+        <div class="quiz-webtoon-strip">
+          ${webtoonChoices
+            .map(
+              ([thumb, title], index) => `
+                <button class="quiz-webtoon-choice ${selectedIndex === index ? "is-selected" : ""} ${selected && selectedIndex !== index ? "is-faded" : ""}" type="button" data-route="quizCreateSelected" data-quiz-webtoon-index="${index}" aria-pressed="${selectedIndex === index}">
+                  ${C.asset("poster", thumb)}
+                  <span>${C.escape(title)}</span>
+                </button>
+              `,
+            )
+            .join("")}
+        </div>
         <button class="quiz-webtoon-add ${selected ? "is-next" : ""}" type="button" data-route="${selected ? "quizCreateSearchSelected" : "quizCreateSearch"}" aria-label="웹툰 검색">
           <img src="${namedAssetBase}${actionIcon}" alt="" loading="lazy" />
         </button>
@@ -583,7 +634,7 @@
             <img class="quiz-search-icon" src="${namedAssetBase}icon-quiz-create-magnifier.svg" alt="" loading="lazy" />
           </button>
         </label>
-        <button class="quiz-search-result ${active ? "is-selected" : ""}" type="button" data-route="quizCreateSearchSelected">
+        <button class="quiz-search-result ${active ? "is-selected" : ""}" type="button" aria-pressed="${active}">
           ${C.asset("poster", "retireLife", "quiz-search-result__thumb")}
           <span>
             <strong>연애리뷰</strong>
@@ -642,7 +693,7 @@
           <p>부적절한 내용은 검수 후 등록이 거부될 수 있습니다!<br />등록된 퀴즈는 24시간 내 심사 후 공개돼요!<br />등록하신 웹툰 퀴즈에 대한 저작권은 프레시밀크에 귀속 됩니다.</p>
         </section>
 
-        <button class="quiz-register-button ${selected ? "is-ready" : ""}" type="button" ${selected ? 'data-route="quizSubmitted"' : "disabled"}>문제 등록하기</button>
+        <button class="quiz-register-button" type="button" disabled>문제 등록하기</button>
         ${searchState ? quizSearchSheet(searchState === "active") : ""}
       `,
     });
@@ -719,7 +770,9 @@
             .map(
               ([type, value], index) => `
                 <div class="${index === 0 ? "is-correct" : ""}">
-                  <span>${index === 0 ? "○" : "×"}</span>
+                  <span class="quiz-answer-marker" aria-hidden="true">
+                    <img src="${namedAssetBase}${index === 0 ? "icon-quiz-answer-o.svg" : "icon-quiz-answer-x.svg"}" alt="" loading="lazy" />
+                  </span>
                   <p>${C.escape(`${type} 작성하기`)}</p>
                 </div>
               `,
@@ -787,6 +840,29 @@
     });
   }
 
+  function updateQuizCreateSubmit(screen) {
+    if (!screen) return;
+
+    const submitButton = screen.querySelector(".quiz-register-button");
+    if (!submitButton) return;
+
+    const hasWebtoon = Boolean(screen.querySelector(".quiz-webtoon-choice.is-selected"));
+    const hasEpisode = Boolean(screen.querySelector(".quiz-episode-field input")?.value.trim());
+    const hasQuestion = Boolean(screen.querySelector(".quiz-question-field textarea")?.value.trim());
+    const answerInputs = Array.from(screen.querySelectorAll(".quiz-answer-field input"));
+    const hasAnswers = answerInputs.length > 0 && answerInputs.every((input) => input.value.trim());
+    const isReady = hasWebtoon && hasEpisode && hasQuestion && hasAnswers;
+
+    submitButton.disabled = !isReady;
+    submitButton.classList.toggle("is-ready", isReady);
+
+    if (isReady) {
+      submitButton.dataset.route = "quizSubmitted";
+    } else {
+      delete submitButton.dataset.route;
+    }
+  }
+
   if (typeof document !== "undefined" && document.addEventListener) {
     document.addEventListener("click", (event) => {
       const answer = event.target.closest?.(".quiz-answer");
@@ -800,6 +876,7 @@
         webtoon.parentElement?.querySelectorAll(".quiz-webtoon-choice").forEach((item) => {
           item.classList.toggle("is-faded", item !== webtoon);
         });
+        updateQuizCreateSubmit(webtoon.closest(".quiz-create-screen"));
       }
 
       const episode = event.target.closest?.(".quiz-episode-grid button");
@@ -807,6 +884,47 @@
 
       const rating = event.target.closest?.(".quiz-rating-row button");
       if (rating) markSelected(rating, "button");
+
+      const searchResult = event.target.closest?.(".quiz-search-result");
+      if (searchResult) {
+        const isSelected = searchResult.classList.toggle("is-selected");
+        searchResult.setAttribute("aria-pressed", String(isSelected));
+
+        const selectButton = searchResult.closest(".quiz-search-sheet")?.querySelector(".quiz-search-actions__select");
+        if (selectButton) {
+          selectButton.disabled = !isSelected;
+          if (isSelected) {
+            selectButton.dataset.route = "quizCreateSelected";
+          } else {
+            delete selectButton.dataset.route;
+          }
+        }
+      }
+
+      const quizFilter = event.target.closest?.("[data-quiz-filter]");
+      if (quizFilter) {
+        const filterRow = quizFilter.closest(".quiz-filter-row");
+        const quizList = quizFilter.closest(".quiz-list-section")?.querySelector("[data-my-quiz-list]");
+        const filter = quizFilter.dataset.quizFilter || "all";
+
+        filterRow?.querySelectorAll("[data-quiz-filter]").forEach((button) => {
+          const selected = button === quizFilter;
+          button.classList.toggle("is-active", selected);
+          button.setAttribute("aria-pressed", String(selected));
+        });
+
+        if (quizList) quizList.innerHTML = filteredMyQuizRows(filter);
+      }
+    });
+
+    document.addEventListener("input", (event) => {
+      const screen = event.target.closest?.(".quiz-create-screen");
+      if (screen) updateQuizCreateSubmit(screen);
+    });
+
+    document.addEventListener("change", (event) => {
+      const screen = event.target.closest?.(".quiz-create-screen");
+      if (screen) updateQuizCreateSubmit(screen);
     });
   }
 

@@ -1147,7 +1147,7 @@
 }
 
 .account-settings-screen .account-settings-card {
-  gap: 19px;
+  gap: 10px;
   padding: 0 11px 27px;
   border: 0;
   border-radius: 0;
@@ -1188,10 +1188,6 @@
 
 .account-settings-screen .account-settings-row small {
   display: none;
-}
-
-.account-settings-screen .account-settings-row.is-danger strong {
-  color: #2f1a05;
 }
 
 .account-settings-screen .account-card-arrow {
@@ -1250,7 +1246,7 @@
 }
 
 .account-form-card .field-label {
-  margin: 4px 0 0;
+  margin: 10px 8px 0;
 }
 
 .account-input,
@@ -1347,11 +1343,6 @@
   overflow: visible;
 }
 
-.account-withdraw-screen .screen-content {
-  padding-top: 0;
-  gap: 13px;
-}
-
 .account-withdraw-screen .app-header {
   height: 72px;
 }
@@ -1401,7 +1392,7 @@
 .account-warning-card {
   display: grid;
   gap: 13px;
-  min-height: 172px;
+  min-height: 205px;
   padding: 22px 24px 18px;
   border: 0;
   border-radius: 8px;
@@ -1686,12 +1677,6 @@
   }
 }
 
-/* Final Figma capture alignment for account bundle. */
-.account-my-page--final .screen-content {
-  gap: 13px;
-  padding: 0 20px 96px;
-}
-
 .account-my-page--final {
   padding-top: 0;
 }
@@ -1739,8 +1724,8 @@
 }
 
 .account-my-page--final .account-final-profile__avatar img {
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   object-fit: contain;
 }
 
@@ -1810,11 +1795,10 @@
 .account-my-page--final .account-inline-chevron {
   display: inline-block;
   color: currentColor;
-  font-family: var(--font-main);
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
-  transform: translateY(-0.5px);
+  width: 7px;
+  height: 10px;
+  object-fit: contain;
+  transform: translateX(2px);
 }
 
 .account-my-page--final .account-final-card {
@@ -1848,11 +1832,6 @@
   color: #3d2000;
 }
 
-.account-my-page--final .account-final-achievements__grid .account-achievement-visual {
-  width: 31px;
-  height: 31px;
-}
-
 .account-my-page--final .account-final-achievements__grid strong {
   margin-top: 2px;
   color: #3d2000;
@@ -1875,25 +1854,6 @@
   grid-template-rows: 24px 16px 24px;
   gap: 3px 12px;
   padding: 14px 18px 12px 16px;
-}
-
-.account-my-page--final .account-final-cookie__asset {
-  grid-column: 1;
-  grid-row: 1 / span 3;
-  align-self: center;
-  width: 58px;
-  height: 58px;
-  object-fit: contain;
-}
-
-.account-my-page--final .account-final-cookie__title {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  color: #3d2000;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1.1;
 }
 
 .account-my-page--final .account-final-cookie__caption {
@@ -1923,13 +1883,6 @@
 
 .account-my-page--final .account-final-cookie__stats small {
   display: none;
-}
-
-.account-my-page--final .account-final-cookie__stats strong {
-  color: #ef9f27;
-  font-size: 17px;
-  font-weight: 900;
-  line-height: 1;
 }
 
 .account-my-page--final .account-final-cookie i {
@@ -1976,8 +1929,8 @@
 }
 
 .account-my-page--final .account-final-pref-grid button {
-  min-width: 70px;
-  min-height: 30px;
+  min-width: 60px;
+  min-height: 27px;
   margin-top: 12px;
   border: 1px solid #ef9f27;
   background: #ffd95e;
@@ -2405,7 +2358,7 @@
   border-radius: 8px 8px 0 0;
   color: #2f1a05;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .account-notification-tabs .tab.is-active {
@@ -2506,8 +2459,8 @@
 }
 
 .account-notice-row__chip {
-  min-width: 58px;
-  min-height: 31px;
+  min-width: 60px;
+  min-height: 25px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2656,7 +2609,7 @@
   margin: 0;
   color: #16110c;
   font-family: var(--font-main);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.45;
   letter-spacing: 0;
@@ -2668,7 +2621,7 @@
   display: block;
   position: absolute;
   left: 50%;
-  bottom: 26px;
+  bottom: 10px;
   margin: 0;
   transform: translateX(-50%);
 }
@@ -2699,6 +2652,12 @@
   color: #17110c;
   font-family: var(--font-main);
   text-align: left;
+}
+.account-notice-pager button:last-child strong,
+.account-notice-pager button:last-child small {
+  width: 100%;
+  text-align: right;
+  justify-self: end;
 }
 
 .account-notice-pager button:last-child {
@@ -2823,7 +2782,7 @@
   background: #ffd75a;
   color: #4d2600;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .account-complete-state {
@@ -2903,10 +2862,6 @@
   font-weight: 700;
 }
 
-.account-withdraw-screen .screen-content {
-  gap: 16px;
-  padding: 35px 26px 158px;
-}
 
 .account-withdraw-hero {
   grid-template-columns: minmax(0, 1fr) 118px;
@@ -2933,7 +2888,7 @@
 }
 
 .account-warning-card {
-  gap: 14px;
+  gap: 10px;
   padding: 25px 25px 22px;
   border: 0;
   border-radius: 8px;
@@ -3035,7 +2990,7 @@
 }
 
 .account-withdraw-form .field-label {
-  margin: 0 0 2px;
+  margin: 0 8 2px;
   color: #4d2600;
   font-size: 14px;
   font-weight: 400;
@@ -3082,13 +3037,13 @@ body:has(.account-settings-screen) .modal-asset {
 
 body:has(.account-settings-screen) .modal h2 {
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 body:has(.account-settings-screen) .modal p {
-  color: #2f1a05;
-  font-size: 11px;
-  font-weight: 400;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 /* Figma MCP sync: account/settings/cookie history (1466:27787). */
@@ -3117,8 +3072,8 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-my-page--final .account-final-profile__avatar img {
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
 }
 
 .account-my-page--final .account-final-profile__name h2 {
@@ -3195,6 +3150,7 @@ body:has(.account-settings-screen) .modal p {
 
 .account-settings-screen .account-settings-row {
   min-height: 40px;
+  padding: 0 9px;
 }
 
 .account-settings-screen .account-settings-row strong {
@@ -3706,13 +3662,13 @@ body:has(.account-settings-screen) .modal p {
   min-width: 72px;
   height: 24px;
   min-height: 24px;
-  padding: 0 9px;
-  border: 1px solid rgba(93, 51, 0, 0.55);
-  border-radius: 999px;
+  padding: 0 6px;
+  border: 1px solid rgba(255, 217, 94, 100);
+  border-radius: 10px;
   background: #fef4d2;
   color: #3d2000;
   font-family: var(--font-main);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 12px;
   white-space: nowrap;
@@ -3754,8 +3710,8 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-my-page--final .account-final-achievements__grid .account-achievement-visual {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
 }
 
 .account-my-page--final .account-final-achievements__grid strong {
@@ -3771,7 +3727,8 @@ body:has(.account-settings-screen) .modal p {
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
-  line-height: 18px;
+  line-height: 14px;
+  margin-top: -5px;
 }
 
 .account-my-page--final .account-final-cookie {
@@ -3814,15 +3771,6 @@ body:has(.account-settings-screen) .modal p {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   text-align: left;
-}
-
-.account-my-page--final .account-final-cookie__stats > span {
-  position: relative;
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-  padding: 0 12px;
-  border: 0;
 }
 
 .account-my-page--final .account-final-cookie__stats > span:first-child {
@@ -4008,11 +3956,6 @@ body:has(.account-settings-screen) .modal p {
   display: none;
 }
 
-.account-withdraw-screen .screen-content {
-  gap: 16px;
-  padding: 26px 26px 146px;
-}
-
 .account-withdraw-hero {
   min-height: 138px;
   grid-template-columns: minmax(0, 1fr) 112px;
@@ -4028,7 +3971,7 @@ body:has(.account-settings-screen) .modal p {
 .account-withdraw-hero h1 strong {
   display: block;
   color: #3d2000;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 34px;
 }
@@ -4036,7 +3979,7 @@ body:has(.account-settings-screen) .modal p {
 .account-withdraw-hero h1 span {
   display: block;
   color: #3d2000;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 23px;
 }
@@ -4055,10 +3998,9 @@ body:has(.account-settings-screen) .modal p {
   align-items: center;
   gap: 8px;
   padding-left: 0;
-  color: #3d2000;
+  color: #000000;
   font-size: 16px;
   font-weight: 700;
-  line-height: 22px;
 }
 
 .account-warning-card strong::before {
@@ -4066,20 +4008,14 @@ body:has(.account-settings-screen) .modal p {
   display: none;
 }
 
-.account-warning-card strong img {
-  width: 18px;
-  height: 18px;
-  display: block;
-  object-fit: contain;
-}
-
 /* Withdrawal QA alignment. */
 .account-withdraw-screen .screen-content {
+  padding-top: 12px;
   gap: 14px;
 }
 
 .account-withdraw-hero {
-  min-height: 142px;
+  min-height: 116px;
   padding: 2px 0 0 25px;
   overflow: visible;
 }
@@ -4099,16 +4035,16 @@ body:has(.account-settings-screen) .modal p {
 
 .account-withdraw-hero h1 span {
   font-family: var(--font-main);
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .account-withdraw-hero__asset,
 .account-withdraw-hero .asset.character {
   z-index: 0;
-  right: 4px;
-  bottom: -32px;
-  width: 130px;
-  height: 153px;
+  right: 10px;
+  bottom: -34px;
+  width: 100px;
+  height: 150px;
 }
 
 .account-warning-card {
@@ -4118,7 +4054,7 @@ body:has(.account-settings-screen) .modal p {
 
 .account-warning-card strong img {
   width: 22px;
-  height: 22px;
+  height: 25px;
 }
 
 .account-warning-card ul,
@@ -4163,7 +4099,7 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-withdraw-screen .account-check-row:not(.is-checked) .check-mark::before {
-  opacity: 0;
+  opacity: 0.2;
 }
 
 .account-withdraw-screen .account-check-row.is-checked .check-mark {
@@ -4213,7 +4149,7 @@ body:has(.account-settings-screen) .modal p {
 
 .account-sheet * {
   font-family: "Noto Sans KR", sans-serif;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .account-sheet__handle {
@@ -4229,6 +4165,7 @@ body:has(.account-settings-screen) .modal p {
   font-size: 20px;
   font-weight: 700;
   line-height: 28px;
+  margin-top: 4px
 }
 
 .account-sheet-actions {
@@ -4267,7 +4204,8 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-profile-edit-sheet {
-  min-height: 520px;
+  height: 497px;
+  min-height: 497px;
   gap: 11px;
   padding: 15px 30px 40px;
 }
@@ -4301,6 +4239,9 @@ body:has(.account-settings-screen) .modal p {
 
 .account-profile-edit-feedback.is-success {
   color: #43bb65;
+}
+.account-profile-edit-feedback:empty {
+  display: none;
 }
 
 .account-profile-edit-input {
@@ -4419,18 +4360,17 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-genre-chip {
-  min-width: 52px;
+  min-width: 0px;
   height: 25px;
-  padding: 0 11px;
+  padding: 0 10px;
   border: 1px solid #ef9f27;
   border-radius: 9px;
   background: #fef4d2;
   color: #ef9f27;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 18px;
-  letter-spacing: 0;
-  text-align: center;
+  white-space: nowrap;
 }
 
 .account-genre-chip.is-selected {
@@ -4493,11 +4433,6 @@ body:has(.account-settings-screen) .modal p {
   text-align: center;
 }
 
-/* Keep the first my-page viewport aligned with the Figma frame so the nav does not cover card buttons. */
-.account-my-page--final .screen-content {
-  gap: 12px;
-}
-
 .account-my-page--final .account-final-achievements {
   gap: 12px;
   padding-bottom: 12px;
@@ -4542,16 +4477,13 @@ body:has(.account-settings-screen) .modal p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 6px;
 }
 
 .account-my-page--final .account-shortcut-chevron {
   display: inline-block;
   color: currentColor;
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  transform: translateY(-1px);
+  transform: translateY(1px);
 }
 
 .account-my-page--final .account-final-shortcut-grid section {
@@ -4629,7 +4561,7 @@ body:has(.account-settings-screen) .modal p {
   color: #3d2000;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 18px;
   letter-spacing: 0;
 }
@@ -4646,37 +4578,17 @@ body:has(.account-settings-screen) .modal p {
 
 /* Comment pass: align My Page cookie history summary to the Figma card. */
 .account-my-page--final .account-final-cookie {
-  min-height: 112px;
+  min-height: 100px;
   display: grid;
-  grid-template-columns: 72px minmax(0, 1fr) 24px;
-  grid-template-rows: 30px 48px;
+  grid-template-columns: 55px minmax(0, 1fr) 21px;
+  grid-template-rows: 22px 48px;
   align-items: center;
-  gap: 8px 12px;
-  padding: 16px 16px 16px 18px;
+  gap: 0px 8px;
+  padding: 12px 20px 16px 20px;
   border-radius: 12px;
   background: #fff;
 }
 
-.account-my-page--final .account-final-cookie__asset {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  align-self: center;
-  justify-self: center;
-  width: 68px;
-  height: 82px;
-  object-fit: contain;
-}
-
-.account-my-page--final .account-final-cookie__title {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  color: #1f2937;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 26px;
-  letter-spacing: -0.01em;
-}
 
 .account-my-page--final .account-final-cookie__caption {
   display: none;
@@ -4699,7 +4611,7 @@ body:has(.account-settings-screen) .modal p {
   position: relative;
   display: grid;
   place-items: center;
-  gap: 5px;
+  gap: 3px;
   min-width: 0;
   padding: 0 8px;
   border: 0;
@@ -4717,23 +4629,6 @@ body:has(.account-settings-screen) .modal p {
   bottom: 4px;
   width: 1px;
   background: #efe9e0;
-}
-
-.account-my-page--final .account-final-cookie__stats small {
-  display: block;
-  color: #9ca3af;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 16px;
-  white-space: nowrap;
-}
-
-.account-my-page--final .account-final-cookie__stats strong {
-  display: block;
-  color: #e67b1f;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
 }
 
 .account-my-page--final .account-final-cookie i,

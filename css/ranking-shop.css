@@ -616,7 +616,7 @@
   background: #3d2000;
   color: #fef4d2;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 20px;
 }
 
@@ -701,7 +701,7 @@
 
 .rs-shop-balance-row button:last-child {
   border-left: 1px solid #eadbc6;
-  background: #f7ecdc;
+  background: #faefdf;
 }
 
 .rs-shop-balance-row__arrow {
@@ -1613,9 +1613,7 @@
   background: transparent;
 }
 
-.product-detail-screen .rs-sticky-action .btn {
-  border-radius: 12px;
-}
+
 
 .rs-copy-list {
   gap: 8px;
@@ -1987,7 +1985,7 @@
   height: 24px;
   display: grid;
   place-items: center;
-  border: 1px solid #c9b38e;
+  border: 1px solid #5d3300;
   border-radius: 7px;
   color: transparent;
 }
@@ -2467,7 +2465,7 @@
   min-width: 150px;
   min-height: 38px;
   border: 1px solid #f6a01a;
-  border-radius: 999px;
+  border-radius: 14px;
   background: #ffd95e;
   color: #3d2000;
   font-size: 13px;
@@ -2490,8 +2488,8 @@
 }
 
 .reward-detail-screen .rs-detail-hero {
-  gap: 10px;
-  padding: 22px 0 0;
+  gap: 11px;
+  padding: 30px 0 0;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -2504,7 +2502,7 @@
 }
 
 .reward-detail-screen .rs-detail-hero__image img {
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .reward-detail-screen .rs-detail-hero h2 {
@@ -2533,15 +2531,15 @@
   content: "1234 5678 9101 1112";
   display: block;
   transform: translateY(66px);
-  color: #3d2000;
+  color: #000000;
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 900;
 }
 
 .reward-detail-screen .rs-copy-button {
   min-height: 42px;
-  margin-top: 20px;
+  margin-top: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2554,8 +2552,8 @@
 }
 
 .reward-detail-screen .rs-copy-button img {
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
@@ -2563,6 +2561,7 @@
   overflow: hidden;
   border-radius: 8px;
   box-shadow: none;
+  transform: translateY(-2px);
 }
 
 .reward-detail-screen .rs-reward-info-panel .rs-info-list {
@@ -2876,7 +2875,6 @@
   gap: 4px;
   min-height: 64px;
   padding: 0 3px;
-  border-right: 1px solid rgba(93, 51, 0, 0.1);
   text-align: center;
 }
 
@@ -3075,7 +3073,7 @@
 }
 
 .rs-ranking-separator {
-  min-height: 25px;
+  min-height: 18px;
   display: grid;
   place-items: center;
   border-top: 1px solid #f1e5d0;
@@ -3213,7 +3211,7 @@
 .rs-ranking-goal-block b {
   display: block;
   color: #3d2000;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   line-height: 1.1;
   white-space: nowrap;
@@ -3241,7 +3239,7 @@
   border-radius: 14px;
   background: #fff;
   color: #3d2000;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -3251,7 +3249,7 @@
   align-items: center;
   gap: 7px;
   padding: 0 12px;
-  background: #fffaf0;
+  background: #fef4d2;
   color: #3d2000;
   font-size: 10px;
   font-weight: 700;
@@ -3304,7 +3302,6 @@
   justify-items: center;
   align-content: center;
   gap: 3px;
-  border-right: 1px solid #eee2d0;
   text-align: center;
 }
 
@@ -3319,7 +3316,7 @@
 }
 
 .rs-ranking-benefit-card--daily .rs-ranking-benefits strong {
-  color: #3d2000;
+  color: #000000;
   font-size: 10px;
   font-weight: 800;
   line-height: 1;
@@ -3330,8 +3327,8 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  color: #3d2000;
-  font-size: 13px;
+  color: #000000;
+  font-size: 16px;
   font-weight: 800;
   line-height: 1;
 }
@@ -3409,9 +3406,9 @@
 .rs-daily-rank-table__head {
   height: 32px;
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr) 78px;
+  grid-template-columns: 54px minmax(0, 1fr) 64px;
   align-items: center;
-  padding: 0 18px;
+  padding: 0 30px 0 9px;
   background: #ffd95e;
   color: #3d2000;
   font-size: 10px;
@@ -3437,13 +3434,13 @@
 .rs-daily-rank-row {
   height: 40px;
   display: grid;
-  grid-template-columns: 76px minmax(0, 1fr) 78px;
+  grid-template-columns: 54px minmax(0, 1fr) 64px;
   align-items: center;
   column-gap: 0;
-  padding: 0 18px;
+  padding: 0 20px 0 9px;
   border-top: 1px solid #eee8dd;
   background: #fff;
-  color: #3d2000;
+  color: #242019;
 }
 
 .rs-daily-rank-row.is-me {
@@ -3455,9 +3452,9 @@
   grid-row: 1;
   display: grid;
   place-items: center;
-  color: #3d2000;
+  color: #000000;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .rs-daily-rank-row__medal {
@@ -3480,8 +3477,8 @@
   grid-row: 1;
   min-width: 0;
   overflow: hidden;
-  padding-left: 39px;
-  font-size: 13px;
+  padding-left: 32px;
+  font-size: 12px;
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3496,11 +3493,11 @@
 }
 
 .rs-ranking-separator {
-  height: 22px;
+  height: 18px;
   display: grid;
   place-items: center;
   border-top: 1px solid #eee8dd;
-  background: #fff;
+  background: #f8f3eb;
   letter-spacing: 0;
 }
 
@@ -3571,7 +3568,7 @@
 .ranking-daily-screen .rs-lucky-card {
   position: fixed;
   left: 50%;
-  bottom: 82px;
+  bottom: 85px;
   z-index: calc(var(--z-tabbar) - 1);
   width: min(335px, calc(100vw - 40px));
   min-height: 76px;
@@ -3656,7 +3653,7 @@
 .rs-season-reward-card__body {
   min-height: 100px;
   position: relative;
-  padding: 8px 0 0 16px;
+  padding: 6px 0 0 16px;
 }
 
 .rs-season-rewards {
@@ -3768,7 +3765,7 @@
   gap: 5px;
   border-radius: 8px;
   background: #fff6d5;
-  color: #3d2000;
+  color: #242019;
   text-align: center;
 }
 
@@ -3778,7 +3775,7 @@
 }
 
 .rs-season-podium article > strong {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -3838,12 +3835,12 @@
 .rs-season-rank-row {
   height: 40px;
   display: grid;
-  grid-template-columns: 45px 27px minmax(0, 1fr) 85px;
+  grid-template-columns: 23px 27px minmax(0, 1fr) 85px;
   align-items: center;
   column-gap: 7px;
-  padding: 0 14px;
+  padding: 0 20px 0 25px;
   border-top: 1px solid #eee8dd;
-  color: #3d2000;
+  color: #242019;
   background: #fff;
 }
 
@@ -3859,7 +3856,7 @@
 .rs-season-rank-row > span {
   min-width: 0;
   overflow: hidden;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3987,7 +3984,7 @@
   top: 160px;
   transform: translateX(-50%);
   margin-top: 0;
-  gap: 8px;
+  gap: 4px;
   font-size: 21px;
 }
 
@@ -4119,11 +4116,38 @@
 }
 
 .ranking-daily-screen .screen-content {
+  padding-top: 92px;
   padding-bottom: 174px;
 }
 
 .ranking-season-screen .screen-content {
+  padding-top: 44px;
   padding-bottom: 96px;
+}
+
+.ranking-daily-screen .rs-ranking-tabs,
+.ranking-season-screen .rs-ranking-tabs {
+  position: fixed;
+  left: 50%;
+  top: 76px;
+  z-index: calc(var(--z-header) + 1);
+  width: calc(min(100vw, var(--app-width)) - 40px);
+  max-width: calc(var(--app-width) - 40px);
+  transform: translateX(-50%);
+}
+
+.ranking-daily-screen .rs-ranking-daily-card__top {
+  position: fixed;
+  left: 50%;
+  top: 112px;
+  z-index: calc(var(--z-header) + 1);
+  width: calc(min(100vw, var(--app-width)) - 40px);
+  max-width: calc(var(--app-width) - 40px);
+  transform: translateX(-50%);
+}
+
+.ranking-daily-screen .rs-ranking-daily-card {
+  padding-top: 9px;
 }
 
 .ranking-daily-screen .app-title,
@@ -4165,6 +4189,7 @@
 .rs-ranking-benefit-card__art img {
   position: relative;
   left: 20px;
+  top: 16px;
 }
 
 .ranking-daily-screen .rs-daily-rank-row.is-rank-1 {
@@ -4207,8 +4232,10 @@
 
 /* Figma sync: product detail */
 .product-detail-screen .screen-content {
+  grid-template-columns: minmax(0, 1fr);
   gap: 15px;
-  padding: 11px 26px 72px;
+  padding: 5px 26px 72px;
+
 }
 
 .product-detail-screen .rs-detail-hero {
@@ -4389,10 +4416,17 @@
   bottom: 64px;
 }
 
-.product-detail-screen .rs-sticky-action .btn {
+
+.product-detail-screen .rs-sticky-action .btn,
+.exchange-screen .rs-sticky-action .btn {
+  width: 100%;
+  height: 56px;
   min-height: 56px;
+  padding: 0;
+  box-sizing: border-box;
   border-radius: 16px;
   font-size: 16px;
+  line-height: 1;
 }
 
 .product-detail-screen .rs-flow-action {
@@ -4457,7 +4491,7 @@
 .exchange-screen .rs-exchange-summary strong {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
   color: #3d2000;
   font-size: 16px;
   font-weight: 700;
@@ -4670,6 +4704,7 @@
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
+  transform: translateY(-7px);
 }
 
 .exchange-screen .rs-check-row {
@@ -4694,7 +4729,7 @@
   width: 10px;
   height: 7px;
   display: block;
-  opacity: 0;
+  opacity: 0.1;
   background: url("../assets/figma-exported/named/icon-exchange-check.svg") center / contain no-repeat;
 }
 
@@ -4732,6 +4767,7 @@
   min-height: 56px;
   border-radius: 16px;
   font-size: 16px;
+  transform: translateY(-14px);
 }
 
 .exchange-screen .rs-sticky-action .btn:disabled {
@@ -4915,7 +4951,7 @@
 
 .rs-exchange-done-balance__link {
   grid-auto-flow: column;
-  gap: 6px;
+  gap: 0px;
   border: 0;
   background: transparent;
   color: #3d2000;
@@ -4994,6 +5030,7 @@
   font-weight: 700;
   line-height: 20px;
   letter-spacing: -0.01em;
+  transform: translateY(-5px);
 }
 
 .shop-screen .rs-shop-hero p {
@@ -5002,6 +5039,7 @@
   font-weight: 700;
   line-height: 14px;
   letter-spacing: 0;
+  transform: translateY(-5px);
 }
 
 .shop-screen .rs-shop-balance-row button:first-child span {
@@ -5072,7 +5110,7 @@
 }
 
 .shop-screen .rs-category-tab.is-active {
-  background: #fef4d2;
+  background: #FAEFDF;
 }
 
 .shop-screen .rs-category-tab span {
@@ -5094,7 +5132,7 @@
 .shop-screen .rs-category-tab strong {
   color: #3d2000;
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 7px;
+  font-size: 8px;
   font-weight: 600;
   line-height: 10px;
   letter-spacing: -0.07px;
@@ -5112,16 +5150,16 @@
 
 .shop-screen .rs-section__header,
 .shop-screen .rs-filter-bar {
-  min-height: 42px;
+  min-height: 20px;
   padding: 0;
 }
 
 .shop-screen .rs-section__header h3,
 .shop-screen .rs-filter-bar h3 {
   margin: 0;
-  color: #3d2000;
+  color: #000000;
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 20px;
   letter-spacing: -0.14px;
@@ -5131,9 +5169,9 @@
   margin-top: 2px;
   color: rgba(136, 136, 128, 0.8);
   font-family: "Noto Sans KR", sans-serif;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
-  line-height: 10px;
+  line-height: 16px;
 }
 
 .shop-screen .rs-sort-tabs {
@@ -5509,11 +5547,11 @@
 }
 
 .vault-screen .rs-reward-card__body small {
-  gap: 5px;
+  gap: 8px;
   color: #3d2000;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 13px;
 }
 
@@ -5527,7 +5565,7 @@
   align-self: center;
   width: 59px;
   min-height: 25px;
-  margin-top: 0;
+  margin-top: 51px;
   border: 1px solid #28a745;
   border-radius: 4px;
   background: #fff;
@@ -5552,7 +5590,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: #3d2000;
+  color: #000000;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
   font-weight: 700;
@@ -5622,7 +5660,7 @@
 
 .shop-screen .rs-sort-tabs {
   position: relative;
-  width: 78px;
+  width: 92px;
   height: 24px;
   overflow: visible;
   border: 1px solid #ef9f27;
@@ -5631,16 +5669,16 @@
 }
 
 .shop-screen .rs-sort-tabs::after {
-  content: "";
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  width: 7px;
-  height: 7px;
-  border-right: 1.5px solid #3d2000;
-  border-bottom: 1.5px solid #3d2000;
-  pointer-events: none;
-  transform: translateY(-62%) rotate(45deg);
+ content: "";
+ position: absolute;
+ right: 8px;
+ top: 50%;
+ width: 7px;
+ height: 7px;
+ border-right: 1.5px solid #3d2000;
+ border-bottom: 1.5px solid #3d2000;
+ pointer-events: none;
+ transform: translateY(-62%) rotate(45deg);
 }
 
 .shop-screen .rs-sort-tabs__select {
@@ -5648,16 +5686,72 @@
   height: 100%;
   padding: 0 21px 0 10px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
-  color: #3d2000;
+  color: #000000;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
   outline: none;
+  text-align: left;
+}
+
+.shop-screen .rs-sort-menu {
+  width: 92px;
+  display: grid;
+  gap: 0;
+  position: absolute;
+  right: 0;
+  top: 28px;
+  z-index: 20;
+  padding: 6px 4px;
+  border: 1px solid #ef9f27;
+  border-radius: 6px;
+  background: #fff4cf;
+  box-shadow: 0 4px 8px rgba(61, 32, 0, 0.08);
+}
+
+.shop-screen .rs-sort-menu[hidden] {
+  display: none;
+}
+
+.shop-screen .rs-sort-menu__option {
+  width: 100%;
+  min-height: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 10px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 2px 0 0;
+  background: transparent;
+  color: #000;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: left;
+}
+
+.shop-screen .rs-sort-menu__option span {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.shop-screen .rs-sort-menu__option i {
+  width: 9px;
+  height: 9px;
+  display: block;
+  border: 1px solid #ef9f27;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.shop-screen .rs-sort-menu__option.is-selected i {
+  box-shadow: inset 0 0 0 2px #fff4cf;
+  background: #ffd95e;
 }
 
 .exchange-screen .screen-content {
@@ -5731,7 +5825,7 @@
 }
 
 .reward-detail-screen .rs-detail-hero h2 {
-  color: #3d2000;
+  color: #000000;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 700;

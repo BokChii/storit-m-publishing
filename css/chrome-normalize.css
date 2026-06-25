@@ -196,6 +196,7 @@
   font-family: "Noto Sans KR", var(--font-main);
   font-style: normal;
   font-size: 16px;
+  color: #1C1000;
   font-weight: 700;
   line-height: 20px;
   letter-spacing: -0.01em;
@@ -214,6 +215,12 @@
 
 .hm-attendance-screen .hm-mission-exp-modal {
   z-index: calc(var(--z-modal) + 100);
+}
+.hm-attendance-screen
+.screen-content:has(.hm-mission-exp-modal:not([hidden])),
+.quiz-result-screen
+  .screen-content:has(.hm-mission-exp-modal:not([hidden])) {
+  z-index: calc(var(--z-header) + 1);
 }
 
 .phone-frame.has-scallop-frame:has(.hm-attendance-screen .hm-mission-exp-modal:not([hidden]))::after {
