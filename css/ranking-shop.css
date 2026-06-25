@@ -5705,7 +5705,7 @@
   gap: 0;
   position: absolute;
   right: 0;
-  top: 28px;
+  top: 23px;
   z-index: 20;
   padding: 6px 4px;
   border: 1px solid #ef9f27;
@@ -5750,7 +5750,8 @@
 }
 
 .shop-screen .rs-sort-menu__option.is-selected i {
-  box-shadow: inset 0 0 0 2px #fff4cf;
+  border-width: 1px;
+  box-shadow: inset 0 0 0 1px #fff4cf;
   background: #ffd95e;
 }
 

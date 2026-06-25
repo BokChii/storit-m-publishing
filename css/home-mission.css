@@ -2668,7 +2668,7 @@
   line-height: 1.35;
 }
 
-.hm-quiz-row__action.is-featured {
+.hm-quiz-row__action:not(.is-result):active {
   background: #ffd95e;
   color: #3d2000;
 }

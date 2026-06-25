@@ -679,7 +679,7 @@
           <label class="field-label" for="withdraw-reason">떠나시는 이유를 알려주세요!</label>
           <textarea id="withdraw-reason" class="textarea account-textarea" placeholder="서비스 탈퇴 사유에 대해 알려주세요.&#10;고객님의 소중한 피드백을 담아&#10;더 좋은 서비스로 보답 드리도록 하겠습니다!"></textarea>
         </section>
-        <div class="fixed-bottom-action">${C.button('회원 탈퇴', { route: 'signup', variant: 'orange', disabled: true })}</div>
+        <div class="fixed-bottom-action">${C.button('회원 탈퇴', { route: 'onboarding1', variant: 'orange', disabled: true })}</div>
       `,
     });
   }

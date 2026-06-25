@@ -290,7 +290,7 @@
                       ${item.genre.map((tag) => `<span>${C.escape(tag)}</span>`).join("")}
                     </p>
                   </div>
-                  <button class="hm-quiz-row__action ${index === 1 ? "is-featured" : ""} ${isResult ? "is-result" : ""}" type="button" data-route="${index === 1 || isResult ? "quizResultGood" : "quiz"}">
+                  <button class="hm-quiz-row__action ${isResult ? "is-result" : ""}" type="button" data-route="${index === 1 || isResult ? "quizResultGood" : "quiz"}">
                     ${isResult ? "결과<br />보기" : "퀴즈<br />보기"}
                   </button>
                 </article>

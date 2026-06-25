@@ -329,9 +329,9 @@
           <strong>${good ? "시험을 본 다른 사용자에게 응원의 말을 남겨주세요!" : "시험을 본 다른 학생들에게 응원의 말을 남겨주세요!"}</strong>
         </div>
         <div class="quiz-cheer-card__body">
-          <label class="quiz-write-field">
-            <input type="text" placeholder="${good ? "응원의 한마디를 입력해주세요..." : "오늘도 시험 보느라 수고했습니다!_무게대왕"}" aria-label="응원의 한마디" />
-            ${good ? `<button type="button">입력</button>` : ""}
+          <label class="quiz-write-field" data-quiz-cheer-field>
+            <input type="text" placeholder="${good ? "응원의 한마디를 입력해주세요..." : "오늘도 시험 보느라 수고했습니다!_무게대왕"}" aria-label="응원의 한마디" data-quiz-cheer-input />
+            ${good ? `<button type="button" data-action="submit-quiz-cheer">입력</button>` : ""}
           </label>
           ${namedAsset("quiz-result-cookie-large.svg", "quiz-cheer-card__asset", "응원 캐릭터")}
         </div>
@@ -412,7 +412,7 @@
 
         <div class="quiz-cta-row">
           ${C.button("랭킹 보러가기", { route: "rankingDaily", variant: "outline" })}
-          ${C.button("다른 문제 풀러가기", { route: "quiz" })}
+          ${C.button("다른 문제 풀러가기", { route: "home" })}
         </div>
         ${quizExpModal(good ? 60 : 35)}
       `,
@@ -884,6 +884,19 @@
 
       const rating = event.target.closest?.(".quiz-rating-row button");
       if (rating) markSelected(rating, "button");
+
+      const cheerButton = event.target.closest?.("[data-action='submit-quiz-cheer']");
+      if (cheerButton) {
+        const field = cheerButton.closest("[data-quiz-cheer-field]");
+        const input = field?.querySelector("[data-quiz-cheer-input]");
+        const value = input?.value.trim();
+
+        if (!field || !value) return;
+
+        field.classList.add("is-submitted");
+        field.innerHTML = `<span>${C.escape(value)}_${C.escape(D.user.name)}</span>`;
+        return;
+      }
 
       const searchResult = event.target.closest?.(".quiz-search-result");
       if (searchResult) {
