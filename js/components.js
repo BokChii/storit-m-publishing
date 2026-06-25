@@ -1,7 +1,7 @@
 (function () {
   const navItems = [
     { id: "home", label: "홈", icon: "home" },
-    { id: "rankingDaily", label: "랭킹", icon: "ranking" },
+    { id: "rankingDaily", route: "rankingOnboarding", label: "랭킹", icon: "ranking" },
     { id: "shop", label: "상점", icon: "shop" },
     { id: "myPage", label: "마이페이지", icon: "mypage" },
   ];
@@ -143,7 +143,7 @@
         ${navItems
           .map(
             (item) => `
-              <button class="nav-item ${active === item.id ? "is-active" : ""}" data-route="${item.id}">
+              <button class="nav-item ${active === item.id ? "is-active" : ""}" data-route="${item.route || item.id}">
                 <span class="nav-item__icon">${iconSvg(item.icon)}</span>
                 <span>${item.label}</span>
               </button>

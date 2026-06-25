@@ -3,6 +3,7 @@
   const C = window.StoritComponents;
   const assetBase = "./assets/figma-exported/named/";
   const rankingAssetBase = "./assets/figma-exported/ranking-page/";
+  const SEASON_RANK_EXPANDED_KEY = "storit.demo.seasonRankExpanded";
 
   function ensureStyles() {
     if (typeof document === "undefined") return;
@@ -31,6 +32,22 @@
 
   function rankingAsset(file, alt = "", className = "") {
     return `<img class="${escape(className)}" src="${rankingAssetBase}${escape(file)}" alt="${escape(alt)}" loading="lazy" />`;
+  }
+
+  function isSeasonRankExpanded() {
+    try {
+      return window.sessionStorage.getItem(SEASON_RANK_EXPANDED_KEY) === "true";
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function setSeasonRankExpanded(expanded) {
+    try {
+      window.sessionStorage.setItem(SEASON_RANK_EXPANDED_KEY, String(Boolean(expanded)));
+    } catch (error) {
+      // Demo-only visual state.
+    }
   }
 
   function initials(name) {
@@ -396,13 +413,19 @@
   }
 
   function rankingSeason() {
+    const isExpanded = isSeasonRankExpanded();
     const seasonRows = [
       { rank: 4, name: "무게대마왕", score: "22,110" },
-      { rank: 5, name: D.user.name, score: "22,110" },
+      { rank: 5, name: "바람의검신", score: "21,304" },
       { rank: 6, name: "은빛여우", score: "18,672" },
-      { rank: 30, name: "불꽃기사", score: "17,954", isMe: true },
-      { rank: 31, name: "어둠의주술사", score: "16,738" },
-      { rank: 32, name: "빛의수호자", score: "15,623" },
+      { rank: 10, name: D.user.name, score: "18,010", isMe: true },
+      { rank: 11, name: "불꽃기사", score: "17,954" },
+      { rank: 12, name: "빛의수호자", score: "15,623" },
+    ];
+    const hiddenSeasonRows = [
+      { rank: 7, name: "은빛여우", score: "18,672" },
+      { rank: 8, name: "별빛마법사", score: "18,421" },
+      { rank: 9, name: "구름도토리", score: "18,240" },
     ];
 
     return C.shell({
@@ -460,12 +483,25 @@
         <section class="rs-season-table">
           <div class="rs-season-table__body">
             ${seasonRows.slice(0, 3).map(seasonRankRow).join("")}
-            <div class="rs-ranking-separator">${rankingAsset("점점점.svg", "생략")}</div>
+            <button class="rs-ranking-separator" type="button" data-action="toggle-season-rank-gap" aria-expanded="${isExpanded}" aria-label="접힌 순위 ${isExpanded ? "닫기" : "펼치기"}">${rankingAsset("점점점.svg", "생략")}</button>
+            ${isExpanded ? hiddenSeasonRows.map(seasonRankRow).join("") : ""}
             ${seasonRows.slice(3).map(seasonRankRow).join("")}
           </div>
         </section>
       `,
     });
+  }
+
+  function rankingOnboarding() {
+    return `
+      <section class="screen rs-ranking-onboarding-screen" data-route="rankingYesterday">
+        <div class="rs-ranking-onboarding-bg" aria-hidden="true"></div>
+        <div class="rs-ranking-onboarding-content">
+          <h1>매일 달라지는 랭킹,<br /><mark>어제의 주인공</mark>은 누구?</h1>
+          ${namedAsset("character-ranking-medal.svg", "랭킹 주인공 쿠키", "rs-ranking-onboarding-cookie")}
+        </div>
+      </section>
+    `;
   }
 
   function rankingYesterday() {
@@ -492,7 +528,7 @@
               ${rankingCookieCount("20")}
             </article>
           </div>
-          ${rankingAsset("금메달 단상대 쿠키.svg", "금메달 쿠키", "rs-yesterday-cookie")}
+          ${namedAsset("character-ranking-medal.svg", "금메달 쿠키", "rs-yesterday-cookie")}
         </div>
       </section>
     `;
@@ -817,6 +853,14 @@
 
   if (typeof document !== "undefined" && document.addEventListener) {
     document.addEventListener("click", (event) => {
+      const seasonRankToggle = event.target.closest?.("[data-action='toggle-season-rank-gap']");
+      if (seasonRankToggle) {
+        event.preventDefault();
+        setSeasonRankExpanded(!isSeasonRankExpanded());
+        window.StoritRouter?.navigate("rankingSeason", { push: false });
+        return;
+      }
+
       const sortButton = event.target.closest?.(".shop-screen .rs-sort-tabs__select");
       if (sortButton) {
         const sortTabs = sortButton.closest(".rs-sort-tabs");
@@ -871,6 +915,7 @@
   window.StoritScreenRegistry.register({
     rankingDaily,
     rankingSeason,
+    rankingOnboarding,
     rankingYesterday,
     shop,
     productDetail,

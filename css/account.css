@@ -2518,7 +2518,18 @@
 
 .account-notification-screen .screen-content {
   min-height: calc(var(--app-min-height) - 76px);
+  padding-top: 35px;
   padding-bottom: 112px;
+}
+
+.account-notification-screen .account-notification-tabs {
+  position: fixed;
+  left: 50%;
+  top: 76px;
+  z-index: calc(var(--z-header) + 1);
+  width: calc(min(100vw, var(--app-width)) - 36px);
+  max-width: calc(var(--app-width) - 36px);
+  transform: translateX(-50%);
 }
 
 .account-notification-screen .account-notice-row__body strong,
@@ -3160,6 +3171,13 @@ body:has(.account-settings-screen) .modal p {
   line-height: 20px;
 }
 
+.account-settings-screen .account-settings-row__value {
+  color: #888880;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
 .account-settings-screen .account-settings-row .toggle {
   width: 42px;
   height: 24px;
@@ -3352,7 +3370,7 @@ body:has(.account-settings-screen) .modal p {
 
 .account-cookie-history-screen .screen-content {
   gap: 0;
-  padding: 28px 19px 96px;
+  padding: 238px 19px 96px;
 }
 
 .account-cookie-history-screen .app-header {
@@ -3361,11 +3379,16 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-cookie-history-screen .account-cookie-ledger {
+  position: fixed;
+  left: 50%;
+  top: 88px;
+  z-index: calc(var(--z-header) + 1);
   display: grid;
   width: 337px;
   max-width: 100%;
   gap: 0;
   margin: 0 auto 15px;
+  transform: translateX(-50%);
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(61, 32, 0, 0.03);
@@ -3378,6 +3401,18 @@ body:has(.account-settings-screen) .modal p {
   min-height: 99px;
   padding: 20px 17px 0 20px;
   background: #fef4d2;
+}
+
+.account-cookie-history-screen .account-cookie-ledger__balance::after {
+  content: "";
+  position: absolute;
+  right: 107px;
+  top: 56px;
+  z-index: 1;
+  width: 18px;
+  height: 22px;
+  background: url("../assets/figma-exported/named/cookie-history-sparkle.svg") center / contain no-repeat;
+  pointer-events: none;
 }
 
 .account-cookie-history-screen .account-cookie-ledger__metric {
@@ -3472,12 +3507,17 @@ body:has(.account-settings-screen) .modal p {
 }
 
 .account-cookie-history-screen .account-cookie-tabs {
+  position: fixed;
+  left: 50%;
+  top: 264px;
+  z-index: calc(var(--z-header) + 1);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   width: 335px;
   max-width: 100%;
   height: 38px;
-  margin: 0 auto 8px;
+  margin: 0;
+  transform: translateX(-50%);
   overflow: hidden;
   border: 0;
   border-radius: 6px;
@@ -3900,11 +3940,13 @@ body:has(.account-settings-screen) .modal p {
 .account-legal-card {
   display: grid;
   gap: 18px;
-  max-height: none;
-  padding: 22px 20px;
+  max-height: calc(var(--app-min-height) - 244px);
+  padding: 22px 20px 96px;
+  overflow-y: auto;
   border-radius: 8px;
   background: #fff;
   color: #191f28;
+  overscroll-behavior: contain;
 }
 
 .account-legal-card section {

@@ -3,6 +3,7 @@
   const C = window.StoritComponents;
   const quizCssHref = "./css/quiz.css?v=quiz-result-comment-20260618a";
   const namedAssetBase = "./assets/figma-exported/named/";
+  const QUIZ_RESULT_EXP_KEY = "storit.demo.quiz.showResultExp";
 
   const quizQuestion = {
     number: "Q4.",
@@ -169,6 +170,24 @@
     document.head.appendChild(link);
   }
 
+  function queueQuizResultExp() {
+    try {
+      window.sessionStorage.setItem(QUIZ_RESULT_EXP_KEY, "true");
+    } catch (error) {
+      // Demo-only visual state.
+    }
+  }
+
+  function consumeQuizResultExp() {
+    try {
+      const shouldShow = window.sessionStorage.getItem(QUIZ_RESULT_EXP_KEY) === "true";
+      window.sessionStorage.removeItem(QUIZ_RESULT_EXP_KEY);
+      return shouldShow;
+    } catch (error) {
+      return false;
+    }
+  }
+
   function namedAsset(file, className, alt = "") {
     return `<img class="${C.escape(className)}" src="${namedAssetBase}${C.escape(file)}" alt="${C.escape(alt)}" loading="lazy" />`;
   }
@@ -230,7 +249,7 @@
   }
 
   function quizQuestionScreen(question, options = {}) {
-    ensureQuizStyles();
+  ensureQuizStyles();
     const selected = Boolean(options.selected);
     const nextRoute = options.nextRoute || "quizFifth";
     const extraClass = options.className || "";
@@ -330,8 +349,8 @@
         </div>
         <div class="quiz-cheer-card__body">
           <label class="quiz-write-field" data-quiz-cheer-field>
-            <input type="text" placeholder="${good ? "응원의 한마디를 입력해주세요..." : "오늘도 시험 보느라 수고했습니다!_무게대왕"}" aria-label="응원의 한마디" data-quiz-cheer-input />
-            ${good ? `<button type="button" data-action="submit-quiz-cheer">입력</button>` : ""}
+            <input type="text" placeholder="응원의 한마디를 입력해주세요..." aria-label="응원의 한마디" data-quiz-cheer-input />
+            <button type="button" data-action="submit-quiz-cheer">입력</button>
           </label>
           ${namedAsset("quiz-result-cookie-large.svg", "quiz-cheer-card__asset", "응원 캐릭터")}
         </div>
@@ -393,7 +412,7 @@
                 ${
                   good
                     ? `<span><em>맛있는 점수</em>가<br />완성됐어요!</span>`
-                    : `<span>다른 웹툰도<br />풀어볼까요.</span>`
+                    : `<span><em>다른 웹툰</em>도<br />풀어볼까요.</span>`
                 }
               </p>
             </div>
@@ -401,7 +420,7 @@
               ${
                 good
                   ? namedAsset("character-quiz-result-tray.svg", "quiz-result-character__image", "결과 캐릭터")
-                  : namedAsset("character-quiz-low-result.png", "quiz-result-character__image", "저점 결과 캐릭터")
+                  : namedAsset("character-quiz-low-result.svg", "quiz-result-character__image", "저점 결과 캐릭터")
               }
             </div>
           </div>
@@ -414,7 +433,7 @@
           ${C.button("랭킹 보러가기", { route: "rankingDaily", variant: "outline" })}
           ${C.button("다른 문제 풀러가기", { route: "home" })}
         </div>
-        ${quizExpModal(good ? 60 : 35)}
+        ${consumeQuizResultExp() ? quizExpModal(good ? 60 : 35) : ""}
       `,
     });
   }
@@ -866,7 +885,10 @@
   if (typeof document !== "undefined" && document.addEventListener) {
     document.addEventListener("click", (event) => {
       const answer = event.target.closest?.(".quiz-answer");
-      if (answer) markSelected(answer, ".quiz-answer");
+      if (answer) {
+        if (answer.dataset.route?.startsWith("quizResult")) queueQuizResultExp();
+        markSelected(answer, ".quiz-answer");
+      }
 
       const webtoon = event.target.closest?.(".quiz-webtoon-choice");
       if (webtoon) {

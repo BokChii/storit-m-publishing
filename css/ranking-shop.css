@@ -2294,7 +2294,7 @@
 
 .vault-screen .rs-tab {
   min-height: 32px;
-  border-bottom: 2px solid #d5d0c7;
+  border-bottom: 2.5px solid #d5d0c7;
   border-radius: 0;
   color: #c5bdb2;
   font-size: 12px;
@@ -3496,9 +3496,14 @@
   height: 18px;
   display: grid;
   place-items: center;
+  padding: 0;
   border-top: 1px solid #eee8dd;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
   background: #f8f3eb;
   letter-spacing: 0;
+  cursor: pointer;
 }
 
 .rs-ranking-separator img {
@@ -3822,7 +3827,7 @@
 }
 
 .rs-season-table {
-  margin-top: 0;
+  margin-top: 3px;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
   background: #fff;
@@ -3876,6 +3881,7 @@
   height: 10px;
 }
 
+.rs-ranking-onboarding-screen,
 .rs-yesterday-screen {
   position: relative;
   overflow: hidden;
@@ -3883,12 +3889,51 @@
   cursor: pointer;
 }
 
+.rs-ranking-onboarding-bg,
 .rs-yesterday-bg {
   position: absolute;
   inset: 0;
   background:
     linear-gradient(180deg, rgba(255, 245, 216, 0.22), rgba(120, 60, 8, 0.18)),
     url("../assets/figma-exported/named/bg-ranking-podium.png") center / cover no-repeat;
+}
+
+.rs-yesterday-bg {
+  background-position: center, center 5%;
+  background-size: auto, auto 120%;
+}
+
+.rs-ranking-onboarding-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding-top: 195px;
+  text-align: center;
+}
+
+.rs-ranking-onboarding-content h1 {
+  margin: 0;
+  color: #5d3300;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.rs-ranking-onboarding-content h1 mark {
+  background: transparent;
+  color: #ef9f27;
+}
+
+.rs-ranking-onboarding-cookie {
+  width: 216px;
+  height: 218px;
+  margin-top: 50px;
+  object-fit: contain;
 }
 
 .rs-yesterday-content {
@@ -3898,31 +3943,31 @@
   display: grid;
   justify-items: center;
   align-content: start;
-  padding-top: 135px;
+  padding-top: 132px;
   text-align: center;
 }
 
 .rs-yesterday-content h1 {
   margin: 0;
-  color: #3d2000;
+  color: #5d3300;
   font-family: var(--font-display);
-  font-size: 29px;
+  font-size: 30px;
   font-weight: 400;
   line-height: 1.22;
 }
 
 .rs-yesterday-cards {
-  width: 244px;
+  width: 238px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 56px;
+  gap: 20px;
+  margin-top: 52px;
 }
 
 .rs-yesterday-cards article {
   position: relative;
-  height: 146px;
-  min-height: 146px;
+  height: 145px;
+  min-height: 145px;
   display: grid;
   justify-items: center;
   align-content: center;
@@ -3941,8 +3986,19 @@
 }
 
 .rs-yesterday-cards article > img:first-child {
-  width: 27px;
-  height: 22px;
+  position: absolute;
+  left: 50%;
+  top: -17px;
+  width: 34px;
+  height: 28px;
+  transform: translateX(-50%);
+  object-fit: contain;
+}
+
+.rs-yesterday-cards .is-lucky > img:first-child {
+  top: -21px;
+  width: 34px;
+  height: 34px;
 }
 
 .rs-yesterday-cards strong {
@@ -3981,10 +4037,10 @@
 .rs-yesterday-cards .rs-ranking-cookie-count {
   position: absolute;
   left: 50%;
-  top: 160px;
+  top: 158px;
   transform: translateX(-50%);
   margin-top: 0;
-  gap: 4px;
+  gap: 8px;
   font-size: 21px;
 }
 
@@ -3995,7 +4051,7 @@
   border-radius: 0;
   background: transparent;
   font-size: 21px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .rs-yesterday-cards .rs-ranking-cookie-count img {
@@ -4004,9 +4060,9 @@
 }
 
 .rs-yesterday-cookie {
-  width: 206px;
-  height: 204px;
-  margin-top: 56px;
+  width: 150px;
+  height: 178px;
+  margin-top: 57px;
   object-fit: contain;
 }
 
@@ -4582,7 +4638,7 @@
   box-sizing: border-box;
   display: grid;
   gap: 8px;
-  padding: 18px 42px;
+  padding: 18px 24px;
   border: 1px solid #faefdf;
   border-radius: 10px;
   background: #fff;
@@ -5457,19 +5513,25 @@
 /* Figma MCP sync: vault flow (1473:61155). */
 .vault-screen .screen-content {
   gap: 0;
-  padding: 0 18px 92px;
+  padding: 32px 18px 92px;
 }
 
 .vault-screen .rs-tabs {
   width: 320px;
   height: 27px;
-  margin: 5px auto 0;
+  position: fixed;
+  left: 50%;
+  top: 81px;
+  z-index: calc(var(--z-header) + 1);
+  margin: 0;
   gap: 10px;
+  transform: translateX(-50%);
+  background: var(--color-bg);
 }
 
 .vault-screen .rs-tab {
   min-height: 27px;
-  border-bottom-width: 2px;
+  border-bottom-width: 2.5px;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
   font-weight: 700;

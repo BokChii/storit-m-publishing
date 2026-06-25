@@ -5468,24 +5468,30 @@
 }
 
 /* Quiz result comment pass: tighten result hero and support cards. */
-.quiz-result-screen.is-good .screen-content {
+.quiz-result-screen.is-good .screen-content,
+.quiz-result-screen.is-low .screen-content {
   gap: 11px;
 }
 
 .quiz-result-screen.is-good .quiz-result-hero,
-.quiz-result-screen.is-good .quiz-score-stage {
+.quiz-result-screen.is-good .quiz-score-stage,
+.quiz-result-screen.is-low .quiz-result-hero,
+.quiz-result-screen.is-low .quiz-score-stage {
   min-height: 267px;
 }
 
-.quiz-result-screen.is-good .quiz-score-ring-image {
+.quiz-result-screen.is-good .quiz-score-ring-image,
+.quiz-result-screen.is-low .quiz-score-ring-image {
   top: 0;
 }
 
-.quiz-result-screen.is-good .quiz-result-metrics {
+.quiz-result-screen.is-good .quiz-result-metrics,
+.quiz-result-screen.is-low .quiz-result-metrics {
   margin-top: 9px;
 }
 
-.quiz-result-screen.is-good .quiz-speech-bubble {
+.quiz-result-screen.is-good .quiz-speech-bubble,
+.quiz-result-screen.is-low .quiz-speech-bubble {
   left: 18px;
   top: 21px;
   width: 125px;
@@ -5493,17 +5499,32 @@
   z-index: 6;
 }
 
-.quiz-result-screen.is-good .quiz-speech-bubble p {
+.quiz-result-screen.is-good .quiz-speech-bubble p,
+.quiz-result-screen.is-low .quiz-speech-bubble p {
   padding: 20px 13px 0 22px;
 }
 
-.quiz-result-screen.is-good .quiz-result-character {
+.quiz-result-screen.is-low .quiz-speech-bubble p {
+  padding-left: 27px;
+}
+
+.quiz-result-screen.is-good .quiz-result-character,
+.quiz-result-screen.is-low .quiz-result-character {
   top: 41px;
+}
+
+.quiz-result-screen.is-low .quiz-result-character {
+  top: 47px;
 }
 
 .quiz-result-screen.is-good .quiz-result-character__image {
   width: 110px;
   max-height: 165px;
+}
+
+.quiz-result-screen.is-low .quiz-result-character__image {
+  width: 142px;
+  max-height: 152px;
 }
 
 .quiz-result-screen .quiz-result-card {

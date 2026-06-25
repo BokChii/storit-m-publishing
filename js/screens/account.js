@@ -111,6 +111,7 @@
         { label: '문의하기', desc: '불편한 점을 남겨주세요.', route: 'inquiry' },
         { label: '이용약관', desc: '서비스 이용 기준', route: 'settingsTermService' },
         { label: '개인정보 처리방침', desc: '수집 및 이용 항목', route: 'settingsTermPrivacy' },
+        { label: '앱 버전', desc: '현재 설치된 버전', value: '1.0.0' },
       ],
     },
   ];
@@ -566,7 +567,13 @@
           <strong>${C.escape(row.label)}</strong>
           <small>${C.escape(row.desc)}</small>
         </span>
-        ${row.action === 'toggle' ? `<span class="toggle ${row.on ? 'is-on' : ''}" aria-hidden="true"></span>` : `<img class="account-card-arrow" src="${assetBase}icon-setting-cards-arrow.svg" alt="" loading="lazy" />`}
+        ${
+          row.action === 'toggle'
+            ? `<span class="toggle ${row.on ? 'is-on' : ''}" aria-hidden="true"></span>`
+            : row.value
+              ? `<span class="account-settings-row__value">${C.escape(row.value)}</span>`
+              : `<img class="account-card-arrow" src="${assetBase}icon-setting-cards-arrow.svg" alt="" loading="lazy" />`
+        }
       </button>
     `;
   }

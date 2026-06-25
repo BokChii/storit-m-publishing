@@ -22,6 +22,64 @@
     { label: "친구 초대", icon: "homeInvite", modal: "invite" },
     { label: "내 퀴즈", icon: "homeMyQuiz", route: "myQuiz" },
   ];
+  const HOME_DEMO_HEART_MAX = 2;
+  const HOME_DEMO_HEARTS_KEY = "storit.demo.home.hearts";
+  const HOME_DEMO_COMPLETED_KEY = "storit.demo.home.completedQuizIds";
+  const HOME_DEMO_PENDING_KEY = "storit.demo.home.pendingQuizId";
+
+  function readHomeDemoHearts() {
+    try {
+      const stored = Number(window.sessionStorage.getItem(HOME_DEMO_HEARTS_KEY));
+      return Number.isFinite(stored) ? Math.max(0, Math.min(HOME_DEMO_HEART_MAX, stored)) : HOME_DEMO_HEART_MAX;
+    } catch (error) {
+      return HOME_DEMO_HEART_MAX;
+    }
+  }
+
+  function writeHomeDemoHearts(count) {
+    try {
+      window.sessionStorage.setItem(HOME_DEMO_HEARTS_KEY, String(Math.max(0, Math.min(HOME_DEMO_HEART_MAX, count))));
+    } catch (error) {
+      // Demo-only visual state.
+    }
+  }
+
+  function readCompletedQuizIds() {
+    try {
+      const ids = JSON.parse(window.sessionStorage.getItem(HOME_DEMO_COMPLETED_KEY) || "[]");
+      return Array.isArray(ids) ? ids : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function addCompletedQuizId(quizId) {
+    if (!quizId) return;
+    const ids = readCompletedQuizIds();
+    if (!ids.includes(quizId)) ids.push(quizId);
+    try {
+      window.sessionStorage.setItem(HOME_DEMO_COMPLETED_KEY, JSON.stringify(ids));
+    } catch (error) {
+      // Demo-only visual state.
+    }
+  }
+
+  function writePendingQuizId(quizId) {
+    try {
+      if (quizId) window.sessionStorage.setItem(HOME_DEMO_PENDING_KEY, quizId);
+      else window.sessionStorage.removeItem(HOME_DEMO_PENDING_KEY);
+    } catch (error) {
+      // Demo-only visual state.
+    }
+  }
+
+  function readPendingQuizId() {
+    try {
+      return window.sessionStorage.getItem(HOME_DEMO_PENDING_KEY) || "";
+    } catch (error) {
+      return "";
+    }
+  }
 
   function iconBubble(icon, className = "") {
     return `<span class="hm-icon-bubble ${className}" aria-hidden="true">${C.icon(icon)}</span>`;
@@ -50,6 +108,12 @@
   }
 
   function profileBar() {
+    const hearts = readHomeDemoHearts();
+    const heartIcons = Array.from({ length: HOME_DEMO_HEART_MAX }, (_, index) =>
+      index < hearts ? C.icon("homeHeart") : `<span class="hm-heart-set__empty">${C.icon("homeHeart")}</span>`,
+    ).join("");
+    const timeText = hearts >= HOME_DEMO_HEART_MAX ? "하트 MAX!!" : "28:45 남음";
+
     return `
       <header class="hm-profilebar" aria-label="내 프로필">
         <div class="hm-profilebar__avatar">${C.icon("homeProfileAvatar")}</div>
@@ -61,10 +125,9 @@
           </div>
         </div>
         <div class="hm-heart-set" aria-label="하트">
-          ${C.icon("homeHeart")}
-          <span class="hm-heart-set__empty">${C.icon("homeHeart")}</span>
+          ${heartIcons}
           <button class="hm-heart-set__plus" type="button" data-action="open-heart-charge" aria-label="하트 충전">+</button>
-          <span class="hm-time-pill">28:45 남음</span>
+          <span class="hm-time-pill">${C.escape(timeText)}</span>
         </div>
         <div class="hm-profilebar__actions">
           <span class="hm-cookie-pill">${namedAsset("home-cookie-pill-cookie.svg", "hm-cookie-pill__icon")} <strong>602</strong></span>
@@ -186,6 +249,11 @@
   }
 
   function heartChargeModal() {
+    const hearts = readHomeDemoHearts();
+    const modalHearts = Array.from({ length: HOME_DEMO_HEART_MAX }, (_, index) =>
+      namedAsset(index < hearts ? "heart-modal-full-heart.svg" : "heart-modal-empty-heart.svg", "hm-heart-modal__empty-heart"),
+    ).join("");
+
     return `
       <div class="hm-heart-modal" data-heart-charge-modal hidden>
         <div class="hm-heart-modal__dim" data-action="close-heart-charge"></div>
@@ -197,8 +265,7 @@
           <h2>하트를 충전하세요!</h2>
           <div class="hm-heart-modal__status" aria-label="하트 충전 상태">
             <span class="hm-heart-modal__time">28:35 남음</span>
-            ${namedAsset("heart-modal-empty-heart.svg", "hm-heart-modal__empty-heart")}
-            ${namedAsset("heart-modal-empty-heart.svg", "hm-heart-modal__empty-heart")}
+            ${modalHearts}
             <button class="hm-heart-modal__plus" type="button" aria-label="하트 충전 추가">
               ${namedAsset("heart-modal-plus.svg", "hm-heart-modal__plus-icon")}
             </button>
@@ -210,7 +277,7 @@
           </div>
           <div class="hm-heart-modal__actions">
             <button type="button" class="hm-heart-modal__button hm-heart-modal__button--wait" data-action="close-heart-charge">기다리기</button>
-            <button type="button" class="hm-heart-modal__button hm-heart-modal__button--watch">보러가기</button>
+            <button type="button" class="hm-heart-modal__button hm-heart-modal__button--watch" data-action="watch-heart-ad">보러가기</button>
           </div>
         </section>
       </div>
@@ -273,13 +340,20 @@
   }
 
   function quizPreview() {
+    const completedIds = readCompletedQuizIds();
+    const quizItems = D.webtoons.map((item, index) => ({ ...item, quizId: `home-quiz-${index}` }));
+    const orderedItems = [
+      ...quizItems.filter((item) => !completedIds.includes(item.quizId)),
+      ...quizItems.filter((item) => completedIds.includes(item.quizId)),
+    ];
+
     return `
       <section class="hm-quiz-section" aria-label="오늘의 퀴즈">
         <div class="hm-quiz-list">
-          ${D.webtoons
+          ${orderedItems
             .map(
-              (item, index) => {
-                const isResult = index === D.webtoons.length - 1;
+              (item) => {
+                const isResult = completedIds.includes(item.quizId);
                 return `
                 <article class="hm-quiz-row">
                   ${C.asset("poster", item.thumb || "WEB")}
@@ -290,7 +364,7 @@
                       ${item.genre.map((tag) => `<span>${C.escape(tag)}</span>`).join("")}
                     </p>
                   </div>
-                  <button class="hm-quiz-row__action ${isResult ? "is-result" : ""}" type="button" data-route="${index === 1 || isResult ? "quizResultGood" : "quiz"}">
+                  <button class="hm-quiz-row__action ${isResult ? "is-result" : ""}" type="button" ${isResult ? 'data-route="quizResultGood"' : `data-action="start-home-quiz" data-home-quiz-id="${C.escape(item.quizId)}"`}>
                     ${isResult ? "결과<br />보기" : "퀴즈<br />보기"}
                   </button>
                 </article>
@@ -559,9 +633,13 @@
     return `
       <section class="hm-calendar" aria-label="출석 달력">
         <div class="hm-calendar__month">
-          <button class="icon-button" type="button" aria-label="이전 달">‹</button>
+          <button class="icon-button" type="button" aria-label="이전 달">
+            <img class="hm-calendar__month-arrow" src="${assetBase}icon-calendar-prev.svg" alt="" loading="lazy" />
+          </button>
           <strong>2025년 5월</strong>
-          <button class="icon-button" type="button" aria-label="다음 달">›</button>
+          <button class="icon-button" type="button" aria-label="다음 달">
+            <img class="hm-calendar__month-arrow" src="${assetBase}icon-calendar-next.svg" alt="" loading="lazy" />
+          </button>
         </div>
         <div class="hm-calendar__grid">
           ${["일", "월", "화", "수", "목", "금", "토"].map((day) => `<strong>${day}</strong>`).join("")}
@@ -621,6 +699,43 @@
 
   if (typeof document !== "undefined" && document.addEventListener) {
     document.addEventListener("click", (event) => {
+      const quizButton = event.target.closest?.("[data-action='start-home-quiz']");
+      if (quizButton) {
+        event.preventDefault();
+        const quizId = quizButton.dataset.homeQuizId;
+        const hearts = readHomeDemoHearts();
+
+        if (hearts <= 0) {
+          writePendingQuizId(quizId);
+          const modal = quizButton.closest(".hm-home-screen")?.querySelector("[data-heart-charge-modal]");
+          if (modal) modal.hidden = false;
+          return;
+        }
+
+        writeHomeDemoHearts(hearts - 1);
+        addCompletedQuizId(quizId);
+        window.StoritRouter?.navigate("quiz");
+        return;
+      }
+
+      const watchHeartAd = event.target.closest?.("[data-action='watch-heart-ad']");
+      if (watchHeartAd) {
+        event.preventDefault();
+        const pendingQuizId = readPendingQuizId();
+
+        watchHeartAd.closest("[data-heart-charge-modal]")?.setAttribute("hidden", "");
+        if (pendingQuizId) {
+          addCompletedQuizId(pendingQuizId);
+          writePendingQuizId("");
+          writeHomeDemoHearts(0);
+          window.StoritRouter?.navigate("quiz");
+        } else {
+          writeHomeDemoHearts(readHomeDemoHearts() + 1);
+          window.StoritRouter?.navigate("home", { push: false });
+        }
+        return;
+      }
+
       const tab = event.target.closest?.(".hm-weekday-tabs button");
       if (!tab) return;
 

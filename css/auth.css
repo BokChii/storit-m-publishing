@@ -525,7 +525,7 @@
   color: #ffd95e;
   font-family: var(--font-main);
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
   box-shadow: none;
 }
 
@@ -804,7 +804,7 @@
 
 .auth-onboarding--cookie .auth-onboarding__character {
   right: 28px;
-  bottom: 90px;
+  bottom: 95px;
   width: 150px;
   height: auto;
   max-height: none;
