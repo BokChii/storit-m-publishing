@@ -2190,7 +2190,7 @@
 
 .auth-calendar-x {
   top: 14px;
-  right: 27px;
+  right: 46px;
   width: 36px;
   height: 36px;
   border: 0;
@@ -2200,13 +2200,21 @@
 
 .auth-calendar-title {
   display: none;
+  left: 45px;
+  top: 84px;
+  width: 270px;
+  height: 34px;
+  place-items: center;
+  background: #fff;
+  color: #3d2000;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .auth-calendar-week,
 .auth-calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 29.45px);
-  column-gap: 10.64px;
   left: 45px;
   width: 270px;
 }
@@ -2216,11 +2224,30 @@
 }
 
 .auth-calendar-grid {
-  top: 152.86px;
-  grid-auto-rows: 29.45px;
-  row-gap: 3.68px;
-  height: 162px;
+  top: 104px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-content: start;
+  height: 211px;
+  overflow-y: auto;
   background: #fff;
+  scrollbar-width: none;
+}
+
+.auth-calendar-sheet::before {
+  content: "";
+  position: absolute;
+  left: 45px;
+  top: 78px;
+  z-index: 1;
+  width: 270px;
+  height: 30px;
+  background: #fff;
+  pointer-events: none;
+}
+
+.auth-calendar-grid::-webkit-scrollbar {
+  display: none;
 }
 
 .auth-calendar-day {
@@ -2248,6 +2275,27 @@
 }
 
 .auth-calendar-day.is-selected {
+  border-color: transparent;
+  background: #ef9f27;
+  color: #fff;
+}
+
+.auth-calendar-year {
+  min-width: 0;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #f0dfc7;
+  border-radius: 8px;
+  background: #fffdfa;
+  color: #3d2000;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.auth-calendar-year.is-selected {
   border-color: transparent;
   background: #ef9f27;
   color: #fff;

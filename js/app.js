@@ -162,17 +162,14 @@
     return true;
   }
 
-  let calendarDate = new Date(2026, 5, 12);
+  let calendarDate = new Date(2000, 0, 1);
 
   function formatDate(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return String(date.getFullYear());
   }
 
   function formatCalendarChoice(date) {
-    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 선택`;
+    return `${date.getFullYear()}년 선택`;
   }
 
   function renderCalendar(modal) {
@@ -180,23 +177,18 @@
     const grid = modal.querySelector("[data-calendar-grid]");
     const confirm = modal.querySelector("[data-calendar-confirm]");
     if (!title || !grid) return;
-    const year = calendarDate.getFullYear();
-    const month = calendarDate.getMonth();
-    title.textContent = `${year}년 ${month + 1}월`;
+    const selectedYear = calendarDate.getFullYear();
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 79;
+    title.textContent = "출생연도";
     if (confirm) confirm.textContent = formatCalendarChoice(calendarDate);
-    const firstDay = new Date(year, month, 1).getDay();
-    const days = new Date(year, month + 1, 0).getDate();
     const cells = [];
-    const previousMonthDays = new Date(year, month, 0).getDate();
-    for (let index = 0; index < firstDay; index += 1) {
-      const day = previousMonthDays - firstDay + index + 1;
-      cells.push(`<span class="auth-calendar-day is-muted">${day}</span>`);
-    }
-    for (let day = 1; day <= days; day += 1) {
-      const selected = day === calendarDate.getDate();
-      cells.push(`<button class="auth-calendar-day ${selected ? "is-selected" : ""}" type="button" data-action="select-calendar-day" data-day="${day}">${day}</button>`);
+    for (let year = currentYear; year >= startYear; year -= 1) {
+      const selected = year === selectedYear;
+      cells.push(`<button class="auth-calendar-year ${selected ? "is-selected" : ""}" type="button" data-action="select-calendar-day" data-year="${year}">${year}</button>`);
     }
     grid.innerHTML = cells.join("");
+    grid.querySelector(".auth-calendar-year.is-selected")?.scrollIntoView({ block: "center" });
   }
 
   function openCalendar(trigger) {
@@ -213,9 +205,9 @@
 
   function selectCalendarDay(target) {
     const modal = target.closest("[data-calendar-modal]");
-    const day = Number(target.dataset.day);
-    if (!Number.isFinite(day)) return;
-    calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), day);
+    const year = Number(target.dataset.year || target.dataset.day);
+    if (!Number.isFinite(year)) return;
+    calendarDate = new Date(year, 0, 1);
     if (modal) renderCalendar(modal);
   }
 
