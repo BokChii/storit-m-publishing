@@ -491,6 +491,26 @@
     closeExpModal(target.closest("[data-exp-modal], [data-mission-exp-modal]"));
   }
 
+  const ATTENDANCE_BASE_EXP = 15;
+  const ATTENDANCE_STREAK_BONUS_EXP = {
+    3: 35,
+    7: 65,
+    14: 115,
+    21: 165,
+    28: 265,
+  };
+
+  function attendanceExpText(streak) {
+    const bonusExp = ATTENDANCE_STREAK_BONUS_EXP[streak];
+    return bonusExp ? `${streak}일 연속 보너스 + ${bonusExp} EXP` : `+ ${ATTENDANCE_BASE_EXP} EXP`;
+  }
+
+  function attendanceStreak(screen) {
+    const configuredStreak = Number(screen?.dataset.attendanceStreak);
+    if (Number.isFinite(configuredStreak) && configuredStreak > 0) return configuredStreak;
+    return screen?.querySelectorAll(".hm-calendar__day.is-stamped").length || 0;
+  }
+
   function completeAttendance(target) {
     const screen = target.closest(".hm-attendance-screen");
     if (!screen) return;
@@ -513,7 +533,7 @@
 
     const modal = screen.querySelector("[data-mission-exp-modal]");
     const amount = modal?.querySelector("[data-exp-amount]");
-    if (amount) amount.textContent = "+ 15 EXP";
+    if (amount) amount.textContent = attendanceExpText(attendanceStreak(screen));
     openExpModal(modal);
   }
 
