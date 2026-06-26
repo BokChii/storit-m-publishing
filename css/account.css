@@ -4053,6 +4053,7 @@ body:has(.account-settings-screen) .modal p {
 /* Withdrawal QA alignment. */
 .account-withdraw-screen .screen-content {
   padding-top: 12px;
+  padding-bottom: 150px;
   gap: 14px;
 }
 
@@ -4683,4 +4684,32 @@ body:has(.account-settings-screen) .modal p {
   font-size: 42px;
   font-weight: 700;
   line-height: 1;
+}
+
+/* Fixed top masks: prevent scrolled content from showing between headers and pinned controls. */
+.account-notification-screen::before {
+  content: "";
+  position: fixed;
+  left: 50%;
+  z-index: var(--z-header);
+  width: min(100vw, var(--app-width));
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
+.account-notification-screen::before {
+  top: 76px;
+  height: 64px;
+}
+
+.account-cookie-history-screen .account-cookie-ledger,
+.account-cookie-history-screen .account-cookie-tabs {
+  z-index: calc(var(--z-header) + 2);
+}
+
+.account-cookie-history-screen .account-cookie-ledger {
+  box-shadow:
+    0 2px 8px rgba(61, 32, 0, 0.03),
+    0 18px 0 var(--color-bg);
 }

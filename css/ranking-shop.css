@@ -5517,7 +5517,8 @@
 }
 
 .vault-screen .rs-tabs {
-  width: 320px;
+  width: calc(min(100vw, var(--app-width)) - 40px);
+  max-width: calc(var(--app-width) - 40px);
   height: 27px;
   position: fixed;
   left: 50%;
@@ -5849,7 +5850,22 @@
   align-items: end;
 }
 
+.vault-screen .rs-tabs::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -24px;
+  z-index: -1;
+  width: min(100vw, var(--app-width));
+  height: 51px;
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
 .vault-screen .rs-tab {
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   padding: 0;
@@ -5917,4 +5933,27 @@
 
 .reward-detail-screen .rs-sticky-action .btn {
   border-radius: 16px;
+}
+
+/* Fixed top masks: prevent scrolled content from showing between headers and pinned controls. */
+.ranking-daily-screen::before,
+.ranking-season-screen::before {
+  content: "";
+  position: fixed;
+  left: 50%;
+  z-index: var(--z-header);
+  width: min(100vw, var(--app-width));
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
+.ranking-daily-screen::before {
+  top: 76px;
+  height: 96px;
+}
+
+.ranking-season-screen::before {
+  top: 76px;
+  height: 44px;
 }
