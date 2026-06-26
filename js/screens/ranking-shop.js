@@ -371,7 +371,7 @@
               ${rankingAsset("트로피.svg", "트로피")}
               <span><b>1등까지</b><small>+ 256점</small></span>
             </div>
-            <button type="button" data-route="quiz">점수 올리러 가기</button>
+            <button type="button" data-route="home">점수 올리러 가기</button>
           </div>
 
           <div class="rs-ranking-benefit-card rs-ranking-benefit-card--daily">
