@@ -3940,8 +3940,8 @@ body:has(.account-settings-screen) .modal p {
 .account-legal-card {
   display: grid;
   gap: 18px;
-  max-height: calc(var(--app-min-height) - 244px);
-  padding: 22px 20px 96px;
+  max-height: min(calc(var(--app-min-height) - 244px), calc(100dvh - 276px));
+  padding: 22px 20px 120px;
   overflow-y: auto;
   border-radius: 8px;
   background: #fff;
