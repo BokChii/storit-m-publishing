@@ -3222,14 +3222,14 @@
   display: block;
   margin-top: 2px;
   color: #3d2000;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.1;
   white-space: nowrap;
 }
 
 .rs-ranking-me-block small em {
-  color: #fff;
+  color: #000000;
   font-style: normal;
 }
 
